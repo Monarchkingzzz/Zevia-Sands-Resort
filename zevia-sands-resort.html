@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zevia Sands Resort — Luxury Beach Sanctuary</title>
+<meta name="description" content="Zevia Sands Resort is a sun-drenched beach sanctuary in Kalmara Bay. Experience overwater villas with private infinity plunge pools, pristine white sand beaches, fresh coastal dining, and ocean adventures.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand-bg: #FAF8F5;
+    --card-bg: #FFFFFF;
+    --navy: #0F2027;
+    --navy-soft: #2C3E50;
+    --text-muted: #607274;
+    --ocean-blue: #0077B6;
+    --turquoise: #0096C7;
+    --turquoise-light: #E8F7F9;
+    --sun-gold: #E5A93C;
+    --coral: #E76F51;
+    --line: rgba(15, 32, 39, 0.08);
+    --line-light: rgba(255, 255, 255, 0.2);
+    
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-full: 9999px;
+    
+    --shadow-soft: 0 10px 30px -10px rgba(15, 32, 39, 0.06);
+    --shadow-card: 0 15px 35px -10px rgba(15, 32, 39, 0.1);
+    --shadow-hover: 0 20px 45px -10px rgba(0, 119, 182, 0.2);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--navy);
+    background: var(--sand-bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  img { display: block; max-width: 100%; height: auto; object-fit: cover; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* Typography */
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.15;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-blue);
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .tag-light {
+    color: var(--sun-gold);
+  }
+
+  .section { padding: 100px 0; }
+  .section-tight { padding: 70px 0; }
+  @media (max-width: 768px) {
+    .section { padding: 65px 0; }
+    .section-tight { padding: 45px 0; }
+    .container { padding: 0 20px; }
+  }
+
+  .lede {
+    font-size: 17.5px;
+    line-height: 1.7;
+    color: var(--navy-soft);
+    font-weight: 400;
+  }
+
+  .section-header {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 50px;
+  }
+  .section-header h2 {
+    font-size: clamp(32px, 4vw, 46px);
+    margin-bottom: 12px;
+  }
+
+  /* Buttons */
+  .btn {
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius-full);
+    padding: 13px 28px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-primary {
+    background: var(--navy);
+    color: #FFF;
+  }
+  .btn-primary:hover {
+    background: var(--ocean-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 119, 182, 0.3);
+  }
+  .btn-gold {
+    background: var(--sun-gold);
+    color: #FFF;
+  }
+  .btn-gold:hover {
+    background: #D4982E;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(229, 169, 60, 0.4);
+  }
+  .btn-white {
+    background: #FFF;
+    color: var(--navy);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+  .btn-white:hover {
+    background: var(--sand-bg);
+    transform: translateY(-2px);
+  }
+  .btn-outline-white {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    color: #FFF;
+    backdrop-filter: blur(8px);
+  }
+  .btn-outline-white:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #FFF;
+  }
+  .btn-small { padding: 9px 20px; font-size: 12.5px; }
+
+  /* -------------------------------------------------------------
+     CLEAN NAVBAR
+  ------------------------------------------------------------- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 48px;
+    transition: all 0.35s ease;
+  }
+  @media (max-width: 860px) { .nav { padding: 16px 24px; } }
+  .nav.scrolled {
+    padding: 14px 48px;
+    background: rgba(250, 248, 245, 0.94);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 4px 20px rgba(15, 32, 39, 0.06);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-brand {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #FFF;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+  .nav.scrolled .nav-brand { color: var(--navy); }
+
+  .nav-menu {
+    display: flex; gap: 32px; list-style: none;
+  }
+  .nav-menu a {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.9);
+    position: relative;
+    padding: 4px 0;
+    transition: color 0.2s ease;
+  }
+  .nav-menu a:hover { color: #FFF; }
+  .nav.scrolled .nav-menu a { color: var(--navy-soft); }
+  .nav.scrolled .nav-menu a:hover { color: var(--ocean-blue); }
+
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px;
+  }
+  .hamburger span {
+    width: 24px; height: 2px; background: #FFF; border-radius: 2px; transition: all 0.3s ease;
+  }
+  .nav.scrolled .hamburger span { background: var(--navy); }
+  @media (max-width: 900px) {
+    .nav-menu { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  /* Mobile Drawer */
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(15, 32, 39, 0.98);
+    backdrop-filter: blur(20px);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    gap: 24px; opacity: 0; pointer-events: none; transition: all 0.3s ease;
+  }
+  .mobile-menu.open { opacity: 1; pointer-events: all; }
+  .mobile-menu a {
+    font-family: var(--font-serif); font-size: 26px; color: #FFF; text-transform: uppercase;
+  }
+  .mobile-menu a:hover { color: var(--sun-gold); }
+  .mobile-close { position: absolute; top: 24px; right: 28px; font-size: 32px; color: #FFF; }
+
+  /* -------------------------------------------------------------
+     REAL SUN-DRENCHED HERO
+  ------------------------------------------------------------- */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 640px;
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85') center 40% / cover no-repeat;
+  }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(15,32,39,0.3) 0%, rgba(15,32,39,0.15) 50%, rgba(15,32,39,0.65) 100%);
+  }
+
+  .hero-content {
+    position: relative; z-index: 10;
+    max-width: 720px;
+  }
+  .hero h1 {
+    font-size: clamp(44px, 6.5vw, 76px);
+    color: #FFF;
+    line-height: 1.08;
+    margin-bottom: 18px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: #FFF8E7;
+  }
+  .hero p {
+    font-size: 18px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 34px;
+    max-width: 54ch;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+  }
+  .hero-buttons {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+
+  /* -------------------------------------------------------------
+     CLEAN BOOKING BAR
+  ------------------------------------------------------------- */
+  .booking-bar-wrapper {
+    margin-top: -55px;
+    position: relative;
+    z-index: 30;
+  }
+  .booking-bar {
+    background: #FFF;
+    border-radius: var(--radius-md);
+    box-shadow: 0 20px 45px rgba(15, 32, 39, 0.08);
+    border: 1px solid var(--line);
+    padding: 22px 30px;
+    display: grid;
+    grid-template-columns: 1.2fr 1.2fr 1.4fr 1fr auto;
+    gap: 20px;
+    align-items: flex-end;
+  }
+  @media (max-width: 960px) {
+    .booking-bar { grid-template-columns: 1fr 1fr; margin-top: 20px; }
+  }
+  @media (max-width: 580px) {
+    .booking-bar { grid-template-columns: 1fr; padding: 20px; }
+  }
+  .b-field label {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+  .b-field input, .b-field select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    color: var(--navy);
+    font-weight: 500;
+    outline: none;
+    background: var(--sand-bg);
+  }
+
+  /* -------------------------------------------------------------
+     VILLAS SECTION (Clean 3 Cards)
+  ------------------------------------------------------------- */
+  .villas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+  @media (max-width: 960px) { .villas-grid { grid-template-columns: 1fr; } }
+
+  .villa-card {
+    background: #FFF;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--line);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex; flex-direction: column;
+  }
+  .villa-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-card);
+  }
+  .villa-photo {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+  }
+  .villa-photo img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .villa-card:hover .villa-photo img { transform: scale(1.05); }
+  .villa-price {
+    position: absolute; bottom: 14px; right: 14px;
+    background: #FFF; color: var(--navy);
+    font-size: 13px; font-weight: 700;
+    padding: 5px 12px; border-radius: var(--radius-full);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .villa-body {
+    padding: 26px;
+    display: flex; flex-direction: column; flex: 1;
+  }
+  .villa-body h3 { font-size: 22px; margin-bottom: 8px; }
+  .villa-body p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px; }
+
+  .villa-features {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;
+  }
+  .feat-tag {
+    font-size: 12px; font-weight: 500; color: var(--navy-soft);
+    background: var(--sand-bg); padding: 4px 10px; border-radius: 6px;
+  }
+
+  /* -------------------------------------------------------------
+     THE BEACH & INFINITY POOL (Two-Column Feature)
+  ------------------------------------------------------------- */
+  .experience-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+  @media (max-width: 860px) { .experience-split { grid-template-columns: 1fr; } }
+
+  .exp-box {
+    background: #FFF;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+  }
+  .exp-media { height: 280px; }
+  .exp-media img { width: 100%; height: 100%; object-fit: cover; }
+  .exp-desc { padding: 30px; }
+  .exp-desc h3 { font-size: 24px; margin-bottom: 8px; }
+  .exp-desc p { font-size: 14.5px; color: var(--text-muted); line-height: 1.65; }
+
+  /* -------------------------------------------------------------
+     BEACHFRONT DINING (Clean 3 Highlights)
+  ------------------------------------------------------------- */
+  .dining-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  @media (max-width: 860px) { .dining-grid { grid-template-columns: 1fr; } }
+
+  .dining-item {
+    background: #FFF;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+  }
+  .dining-media { height: 220px; }
+  .dining-media img { width: 100%; height: 100%; object-fit: cover; }
+  .dining-info { padding: 24px; }
+  .dining-info h3 { font-size: 20px; margin-bottom: 6px; }
+  .dining-info p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
+
+  /* -------------------------------------------------------------
+     OCEAN ADVENTURES (Clean 4-Card Grid)
+  ------------------------------------------------------------- */
+  .adventures-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 960px) { .adventures-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .adventures-grid { grid-template-columns: 1fr; } }
+
+  .adv-card {
+    background: #FFF;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+  }
+  .adv-img { height: 170px; }
+  .adv-img img { width: 100%; height: 100%; object-fit: cover; }
+  .adv-body { padding: 18px; }
+  .adv-body h4 { font-size: 17px; margin-bottom: 4px; }
+  .adv-body p { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+
+  /* -------------------------------------------------------------
+     GALLERY SECTION (Clean Minimalist Grid)
+  ------------------------------------------------------------- */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 230px;
+    gap: 16px;
+  }
+  @media (max-width: 960px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 200px; } }
+
+  .gallery-item {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+  }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .gallery-item:hover img { transform: scale(1.05); }
+  .gallery-item.wide { grid-column: span 2; }
+  @media (max-width: 540px) { .gallery-item.wide { grid-column: span 1; } }
+
+  /* -------------------------------------------------------------
+     RESERVATION SECTION & CONFIRMATION
+  ------------------------------------------------------------- */
+  .booking-section {
+    background: var(--navy);
+    color: #FFF;
+    border-radius: var(--radius-lg);
+    padding: 60px;
+    margin: 40px 0;
+  }
+  @media (max-width: 768px) { .booking-section { padding: 30px 20px; } }
+
+  .booking-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 50px;
+    align-items: center;
+  }
+  @media (max-width: 900px) { .booking-layout { grid-template-columns: 1fr; gap: 30px; } }
+
+  .booking-form-clean {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: var(--radius-md);
+    padding: 30px;
+  }
+  .form-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;
+  }
+  @media (max-width: 500px) { .form-row { grid-template-columns: 1fr; } }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group label {
+    font-size: 11px; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--sun-gold);
+  }
+  .form-group input, .form-group select {
+    background: #FFF; border: none; border-radius: var(--radius-sm);
+    padding: 12px; font-family: var(--font-sans); font-size: 13.5px;
+    color: var(--navy); font-weight: 500; outline: none;
+  }
+
+  .calc-summary {
+    background: rgba(0,0,0,0.2);
+    border-radius: var(--radius-sm);
+    padding: 16px; margin-top: 18px;
+    font-size: 13px;
+  }
+  .calc-row {
+    display: flex; justify-content: space-between; padding: 4px 0; color: rgba(255, 255, 255, 0.85);
+  }
+  .calc-row.total {
+    font-size: 16px; font-weight: 700; color: var(--sun-gold);
+    border-top: 1px solid rgba(255,255,255,0.15); margin-top: 8px; padding-top: 8px;
+  }
+
+  /* Voucher Modal */
+  .modal {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(15, 32, 39, 0.9);
+    backdrop-filter: blur(12px);
+    display: none; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal.open { display: flex; }
+  .modal-box {
+    background: #FFF; border-radius: var(--radius-md);
+    max-width: 520px; width: 100%; padding: 36px; position: relative;
+  }
+  .modal-close {
+    position: absolute; top: 18px; right: 20px; font-size: 26px; cursor: pointer; color: var(--navy);
+  }
+
+  /* -------------------------------------------------------------
+     FOOTER
+  ------------------------------------------------------------- */
+  footer {
+    background: #FFF;
+    border-top: 1px solid var(--line);
+    padding: 60px 0 30px;
+    color: var(--navy-soft);
+  }
+  .footer-row {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px; padding-bottom: 30px;
+    border-bottom: 1px solid var(--line);
+  }
+  .footer-links {
+    display: flex; gap: 24px; list-style: none; font-size: 13.5px;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 20px; font-size: 12px; color: var(--text-muted);
+    flex-wrap: wrap; gap: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- CLEAN STICKY NAVBAR -->
+<nav class="nav" id="navbar">
+  <a href="#top" class="nav-brand">Zevia Sands</a>
+
+  <ul class="nav-menu">
+    <li><a href="#villas">Villas</a></li>
+    <li><a href="#beach-pool">Beach & Pool</a></li>
+    <li><a href="#dining">Dining</a></li>
+    <li><a href="#adventures">Adventures</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+  </ul>
+
+  <div style="display:flex; align-items:center; gap:14px;">
+    <a href="#reserve" class="btn btn-gold btn-small">Book Stay</a>
+    <button class="hamburger" id="menuToggle" aria-label="Open Menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="menuClose">&times;</button>
+  <a href="#villas" class="m-item">Villas</a>
+  <a href="#beach-pool" class="m-item">Beach & Pool</a>
+  <a href="#dining" class="m-item">Dining</a>
+  <a href="#adventures" class="m-item">Adventures</a>
+  <a href="#gallery" class="m-item">Gallery</a>
+  <a href="#reserve" class="m-item" style="color:var(--sun-gold);">Book Stay</a>
+</div>
+
+<!-- REAL SUNLIT BEACH HERO -->
+<header class="hero" id="top">
+  <div class="container">
+    <div class="hero-content">
+      <span class="tag tag-light">Kalmara Bay · Private Beach Sanctuary</span>
+      <h1>Where sun-drenched sands meet <em>turquoise</em> tide.</h1>
+      <p>Escape to thirty-eight private pool villas nestled on a pristine two-kilometer shoreline. Unhurried days, warm ocean breezes, and crystal waters.</p>
+      
+      <div class="hero-buttons">
+        <a href="#villas" class="btn btn-white">Explore Villas</a>
+        <a href="#reserve" class="btn btn-outline-white">Check Availability</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- STREAMLINED BOOKING BAR -->
+<div class="container booking-bar-wrapper">
+  <div class="booking-bar">
+    <div class="b-field">
+      <label for="barIn">Check-In</label>
+      <input type="date" id="barIn">
+    </div>
+    <div class="b-field">
+      <label for="barOut">Check-Out</label>
+      <input type="date" id="barOut">
+    </div>
+    <div class="b-field">
+      <label for="barType">Villa Collection</label>
+      <select id="barType">
+        <option value="overwater" selected>Overwater Lagoon Villa ($680/nt)</option>
+        <option value="beachfront">Beachfront Palm Villa ($490/nt)</option>
+        <option value="horizon">Horizon Infinity Villa ($1,150/nt)</option>
+      </select>
+    </div>
+    <div class="b-field">
+      <label for="barGuests">Guests</label>
+      <select id="barGuests">
+        <option value="2">2 Adults</option>
+        <option value="3">3 Guests</option>
+        <option value="4">4 Guests</option>
+      </select>
+    </div>
+    <div>
+      <a href="#reserve" class="btn btn-primary" id="barSubmit" style="width:100%;">Check Rates</a>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- VILLAS (CLEAN 3 TIERS) -->
+  <section class="section" id="villas">
+    <div class="container">
+      <div class="section-header">
+        <span class="tag">Sanctuaries</span>
+        <h2>Private Villas & Suites</h2>
+        <p class="lede">Thoughtfully designed retreats with uninterrupted ocean views, sunlit private plunge pools, and direct access to warm waters.</p>
+      </div>
+
+      <div class="villas-grid">
+
+        <!-- Villa 1 -->
+        <article class="villa-card">
+          <div class="villa-photo">
+            <span class="villa-price">$680 / night</span>
+            <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=85" alt="Overwater Lagoon Villa" loading="lazy">
+          </div>
+          <div class="villa-body">
+            <h3>Overwater Lagoon Villa</h3>
+            <p>Set directly above the shallow turquoise reef with an ocean plunge pool, sundeck loungers, and private stairs to the water.</p>
+            <div class="villa-features">
+              <span class="feat-tag">King Bed</span>
+              <span class="feat-tag">Private Plunge Pool</span>
+              <span class="feat-tag">Direct Ocean Ladder</span>
+            </div>
+            <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:12px; color:var(--text-muted);">Breakfast for two included</span>
+              <a href="#reserve" class="btn btn-primary btn-small" data-select="overwater">Reserve</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Villa 2 -->
+        <article class="villa-card">
+          <div class="villa-photo">
+            <span class="villa-price">$490 / night</span>
+            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=85" alt="Beachfront Palm Villa" loading="lazy">
+          </div>
+          <div class="villa-body">
+            <h3>Beachfront Palm Villa</h3>
+            <p>Tucked beneath swaying coconut palms just steps from the powdery white beach. Features a private outdoor stone bath and daybed.</p>
+            <div class="villa-features">
+              <span class="feat-tag">King Bed</span>
+              <span class="feat-tag">Stone Soaking Tub</span>
+              <span class="feat-tag">Direct Beach Walkout</span>
+            </div>
+            <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:12px; color:var(--text-muted);">Breakfast for two included</span>
+              <a href="#reserve" class="btn btn-primary btn-small" data-select="beachfront">Reserve</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Villa 3 -->
+        <article class="villa-card">
+          <div class="villa-photo">
+            <span class="villa-price">$1,150 / night</span>
+            <img src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=85" alt="Horizon Infinity Villa" loading="lazy">
+          </div>
+          <div class="villa-body">
+            <h3>Horizon Infinity Villa</h3>
+            <p>Cantilevered above the shoreline with an expansive infinity pool, private sunset pavilion, and dedicated 24-hour butler service.</p>
+            <div class="villa-features">
+              <span class="feat-tag">Master Suite + Den</span>
+              <span class="feat-tag">Infinity Pool</span>
+              <span class="feat-tag">Dedicated Butler</span>
+            </div>
+            <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
+              <span style="font-size:12px; color:var(--text-muted);">Champagne on arrival</span>
+              <a href="#reserve" class="btn btn-primary btn-small" data-select="horizon">Reserve</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- THE BEACH & INFINITY POOL (REAL BEACH SPACES) -->
+  <section class="section" id="beach-pool" style="background:#FFF;">
+    <div class="container">
+      <div class="section-header">
+        <span class="tag">The Setting</span>
+        <h2>Sun, Palms & Shimmering Waters</h2>
+        <p class="lede">Spend sun-filled afternoons between our freshwater infinity lagoon and a secluded two-kilometer private white sand beach.</p>
+      </div>
+
+      <div class="experience-split">
+        <div class="exp-box">
+          <div class="exp-media">
+            <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=800&q=85" alt="Horizon Infinity Pool" loading="lazy">
+          </div>
+          <div class="exp-desc">
+            <h3>The 40m Lagoon Infinity Pool</h3>
+            <p>Submerged stone sun loungers, heated crystal-clear water, and shaded palm cabanas with all-day fruit and chilled cocktail service.</p>
+          </div>
+        </div>
+
+        <div class="exp-box">
+          <div class="exp-media">
+            <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=85" alt="Private White Sand Beach" loading="lazy">
+          </div>
+          <div class="exp-desc">
+            <h3>Private 2km White Sand Coast</h3>
+            <p>Powdery soft sand protected by an outer coral reef barrier, ensuring calm, warm, turquoise waters ideal for all-day swimming.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DINING & SUNSET BARS -->
+  <section class="section" id="dining">
+    <div class="container">
+      <div class="section-header">
+        <span class="tag">Gastronomy</span>
+        <h2>Fresh Coastal Dining & Drinks</h2>
+        <p class="lede">From floating tropical breakfasts in your private pool to barefoot catch-of-the-day lobster barbecues on the sand.</p>
+      </div>
+
+      <div class="dining-grid">
+
+        <div class="dining-item">
+          <div class="dining-media">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=85" alt="Floating Pool Breakfast" loading="lazy">
+          </div>
+          <div class="dining-info">
+            <h3>Floating Villa Breakfast</h3>
+            <p>Fresh tropical dragonfruit, mango croissants, artisanal coffee, and chilled Prosecco served directly in your pool.</p>
+          </div>
+        </div>
+
+        <div class="dining-item">
+          <div class="dining-media">
+            <img src="https://images.unsplash.com/photo-1544124499-58912cbddaad?auto=format&fit=crop&w=600&q=85" alt="Reef Lobster Grill" loading="lazy">
+          </div>
+          <div class="dining-info">
+            <h3>The Reef Lobster Grill</h3>
+            <p>Barefoot dining on the sand. Fresh spiny lobster, wild prawns, and catch of the day grilled over open coconut coals.</p>
+          </div>
+        </div>
+
+        <div class="dining-item">
+          <div class="dining-media">
+            <img src="https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&w=600&q=85" alt="Swim-Up Cocktail Bar" loading="lazy">
+          </div>
+          <div class="dining-info">
+            <h3>Lagoon Swim-Up Bar</h3>
+            <p>In-water barstools serving freshly tapped coconuts, passionfruit caipirinhas, and crisp Mediterranean rosés.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- OCEAN ADVENTURES -->
+  <section class="section" id="adventures" style="background:#FFF;">
+    <div class="container">
+      <div class="section-header">
+        <span class="tag">Activities</span>
+        <h2>Ocean Adventures & Leisure</h2>
+        <p class="lede">Explore the vibrant coral reef, sail into the sunset, or unwind with a beachside coconut massage.</p>
+      </div>
+
+      <div class="adventures-grid">
+
+        <div class="adv-card">
+          <div class="adv-img">
+            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=500&q=85" alt="Clear Kayaking" loading="lazy">
+          </div>
+          <div class="adv-body">
+            <h4>Clear Glass Kayaking</h4>
+            <p>Glide over turquoise waters in 100% transparent kayaks to observe coral gardens.</p>
+          </div>
+        </div>
+
+        <div class="adv-card">
+          <div class="adv-img">
+            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=500&q=85" alt="Turtle Snorkeling" loading="lazy">
+          </div>
+          <div class="adv-body">
+            <h4>Turtle Reef Snorkel</h4>
+            <p>Guided boat excursion to the outer reef to snorkel alongside gentle sea turtles.</p>
+          </div>
+        </div>
+
+        <div class="adv-card">
+          <div class="adv-img">
+            <img src="https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?auto=format&fit=crop&w=500&q=85" alt="Sunset Catamaran" loading="lazy">
+          </div>
+          <div class="adv-body">
+            <h4>Sunset Catamaran</h4>
+            <p>50ft luxury catamaran cruise with chilled drinks, light tapas, and golden views.</p>
+          </div>
+        </div>
+
+        <div class="adv-card">
+          <div class="adv-img">
+            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=500&q=85" alt="Beach Palm Massage" loading="lazy">
+          </div>
+          <div class="adv-body">
+            <h4>Beachside Palm Massage</h4>
+            <p>Relaxing full-body warm coconut oil massage in a private shaded beach cabana.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PHOTO GALLERY -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <span class="tag">Visuals</span>
+        <h2>Moments at Zevia Sands</h2>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item wide">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85" alt="Sunny Beach and Ocean" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=85" alt="Overwater Villa" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=85" alt="Pool Breakfast" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=600&q=85" alt="Beachfront Villa" loading="lazy">
+        </div>
+        <div class="gallery-item wide">
+          <img src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=900&q=85" alt="Infinity Pool Horizon" loading="lazy">
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1544124499-58912cbddaad?auto=format&fit=crop&w=600&q=85" alt="Seafood on the Beach" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSTANT RESERVATION SECTION -->
+  <section class="container" id="reserve">
+    <div class="booking-section">
+      <div class="booking-layout">
+        <div>
+          <span class="tag tag-light">Reservations</span>
+          <h2 style="color:#FFF; font-size:clamp(30px, 3.8vw, 42px); margin-bottom:14px;">Plan Your Beach Escape</h2>
+          <p style="color:rgba(255,255,255,0.85); font-size:15px; margin-bottom:24px; line-height:1.65;">Daily gourmet breakfast for two, clear kayak rentals, and evening sunset shuttle are included with all stays. Complimentary private boat airport transfer on stays of 3 nights or more.</p>
+          
+          <div style="font-size:13.5px; color:var(--sun-gold);">
+            Direct Concierge: <b>+1 (800) 555-ZEVIA</b> · <a href="mailto:reservations@zeviasands.com" style="color:#FFF; text-decoration:underline;">reservations@zeviasands.com</a>
+          </div>
+        </div>
+
+        <div class="booking-form-clean">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fIn">Check-In</label>
+              <input type="date" id="fIn">
+            </div>
+            <div class="form-group">
+              <label for="fOut">Check-Out</label>
+              <input type="date" id="fOut">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fType">Villa Type</label>
+              <select id="fType">
+                <option value="overwater" data-price="680" selected>Overwater Lagoon Villa ($680/nt)</option>
+                <option value="beachfront" data-price="490">Beachfront Palm Villa ($490/nt)</option>
+                <option value="horizon" data-price="1150">Horizon Infinity Villa ($1,150/nt)</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="fGuests">Guests</label>
+              <select id="fGuests">
+                <option value="2">2 Adults</option>
+                <option value="3">3 Guests</option>
+                <option value="4">4 Guests</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="calc-summary">
+            <div class="calc-row">
+              <span id="cName">Overwater Lagoon Villa</span>
+              <span id="cNights">3 Nights</span>
+            </div>
+            <div class="calc-row">
+              <span>Villa Total</span>
+              <span id="cSub">$2,040</span>
+            </div>
+            <div class="calc-row">
+              <span>Taxes & Service (10%)</span>
+              <span id="cTax">$204</span>
+            </div>
+            <div class="calc-row total">
+              <span>Estimated Total</span>
+              <span id="cTotal">$2,244</span>
+            </div>
+          </div>
+
+          <button class="btn btn-gold" id="btnBookNow" style="width:100%; margin-top:18px; justify-content:center; padding:15px;">
+            Confirm Reservation Request
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- RESERVATION CONFIRMATION MODAL -->
+<div class="modal" id="voucherModal">
+  <div class="modal-box">
+    <span class="modal-close" id="modalClose">&times;</span>
+    <div style="text-align:center; margin-bottom:20px;">
+      <h3 style="font-size:26px; color:var(--navy); margin-bottom:6px;">Reservation Request Received</h3>
+      <p style="font-size:13.5px; color:var(--text-muted);">Our concierge will send your confirmation voucher by email shortly.</p>
+    </div>
+
+    <div style="background:var(--sand-bg); border-radius:var(--radius-sm); padding:20px; border:1px dashed var(--sun-gold); font-size:13.5px; margin-bottom:20px;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+        <span style="color:var(--text-muted);">Villa:</span>
+        <b id="vName">Overwater Lagoon Villa</b>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+        <span style="color:var(--text-muted);">Dates:</span>
+        <span id="vDates">3 Nights</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+        <span style="color:var(--text-muted);">Guests:</span>
+        <span id="vGuests">2 Adults</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:10px; margin-top:10px;">
+        <b>Total:</b>
+        <b id="vPrice" style="color:var(--ocean-blue); font-size:16px;">$2,244</b>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" id="modalOkBtn" style="width:100%; justify-content:center;">Done</button>
+  </div>
+</div>
+
+<!-- CLEAN MINIMAL FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-row">
+      <div>
+        <div class="nav-brand" style="color:var(--navy); font-size:22px; margin-bottom:4px;">Zevia Sands</div>
+        <p style="font-size:13px; color:var(--text-muted);">Kalmara Bay Peninsula, Route 1 · reservations@zeviasands.com</p>
+      </div>
+
+      <ul class="footer-links">
+        <li><a href="#villas">Villas</a></li>
+        <li><a href="#beach-pool">Beach & Pool</a></li>
+        <li><a href="#dining">Dining</a></li>
+        <li><a href="#adventures">Adventures</a></li>
+        <li><a href="#reserve">Reservations</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Zevia Sands Resort. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Stay</span>
+    </div>
+  </div>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+(function() {
+  'use strict';
+
+  /* Navbar Scroll */
+  var nav = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  /* Mobile Drawer */
+  var menuToggle = document.getElementById('menuToggle');
+  var mobileMenu = document.getElementById('mobileMenu');
+  var menuClose = document.getElementById('menuClose');
+
+  menuToggle.addEventListener('click', function() { mobileMenu.classList.add('open'); });
+  menuClose.addEventListener('click', function() { mobileMenu.classList.remove('open'); });
+  document.querySelectorAll('.m-item').forEach(function(item) {
+    item.addEventListener('click', function() { mobileMenu.classList.remove('open'); });
+  });
+
+  /* Booking Logic */
+  var fIn = document.getElementById('fIn');
+  var fOut = document.getElementById('fOut');
+  var fType = document.getElementById('fType');
+  var fGuests = document.getElementById('fGuests');
+
+  var cName = document.getElementById('cName');
+  var cNights = document.getElementById('cNights');
+  var cSub = document.getElementById('cSub');
+  var cTax = document.getElementById('cTax');
+  var cTotal = document.getElementById('cTotal');
+
+  // Default dates: tomorrow to in 3 days
+  var now = new Date();
+  var tomorrow = new Date(now.getTime() + 86400000);
+  var in3Days = new Date(now.getTime() + 86400000 * 3);
+
+  fIn.value = tomorrow.toISOString().split('T')[0];
+  fIn.min = now.toISOString().split('T')[0];
+  fOut.value = in3Days.toISOString().split('T')[0];
+  fOut.min = tomorrow.toISOString().split('T')[0];
+
+  // Sync with top bar
+  var barIn = document.getElementById('barIn');
+  var barOut = document.getElementById('barOut');
+  var barType = document.getElementById('barType');
+  var barGuests = document.getElementById('barGuests');
+
+  barIn.value = fIn.value;
+  barOut.value = fOut.value;
+
+  barIn.addEventListener('change', function() { fIn.value = barIn.value; updateCalculation(); });
+  barOut.addEventListener('change', function() { fOut.value = barOut.value; updateCalculation(); });
+  barType.addEventListener('change', function() { fType.value = barType.value; updateCalculation(); });
+  barGuests.addEventListener('change', function() { fGuests.value = barGuests.value; updateCalculation(); });
+
+  function updateCalculation() {
+    var inDate = new Date(fIn.value);
+    var outDate = new Date(fOut.value);
+    var nights = Math.max(1, Math.round((outDate - inDate) / 86400000));
+
+    var opt = fType.options[fType.selectedIndex];
+    var price = parseInt(opt.getAttribute('data-price'), 10) || 680;
+    var name = opt.textContent.split(' (')[0];
+
+    var subtotal = price * nights;
+    var tax = Math.round(subtotal * 0.10);
+    var grand = subtotal + tax;
+
+    cName.textContent = name;
+    cNights.textContent = nights + (nights === 1 ? ' Night' : ' Nights');
+    cSub.textContent = '$' + subtotal.toLocaleString();
+    cTax.textContent = '$' + tax.toLocaleString();
+    cTotal.textContent = '$' + grand.toLocaleString();
+
+    return { name: name, nights: nights, grand: grand };
+  }
+
+  fIn.addEventListener('change', function() {
+    var d = new Date(fIn.value);
+    var next = new Date(d.getTime() + 86400000);
+    fOut.min = next.toISOString().split('T')[0];
+    if (new Date(fOut.value) <= d) fOut.value = next.toISOString().split('T')[0];
+    updateCalculation();
+  });
+  fOut.addEventListener('change', updateCalculation);
+  fType.addEventListener('change', updateCalculation);
+  fGuests.addEventListener('change', updateCalculation);
+  updateCalculation();
+
+  // Villa card button triggers
+  document.querySelectorAll('[data-select]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var sel = btn.getAttribute('data-select');
+      fType.value = sel;
+      barType.value = sel;
+      updateCalculation();
+    });
+  });
+
+  // Modal
+  var voucherModal = document.getElementById('voucherModal');
+  var btnBookNow = document.getElementById('btnBookNow');
+  var modalClose = document.getElementById('modalClose');
+  var modalOkBtn = document.getElementById('modalOkBtn');
+
+  btnBookNow.addEventListener('click', function() {
+    var data = updateCalculation();
+    document.getElementById('vName').textContent = data.name;
+    document.getElementById('vDates').textContent = fIn.value + ' to ' + fOut.value + ' (' + data.nights + ' Nights)';
+    document.getElementById('vGuests').textContent = fGuests.options[fGuests.selectedIndex].textContent;
+    document.getElementById('vPrice').textContent = '$' + data.grand.toLocaleString();
+    voucherModal.classList.add('open');
+  });
+
+  modalClose.addEventListener('click', function() { voucherModal.classList.remove('open'); });
+  modalOkBtn.addEventListener('click', function() { voucherModal.classList.remove('open'); });
+  voucherModal.addEventListener('click', function(e) {
+    if (e.target === voucherModal) voucherModal.classList.remove('open');
+  });
+
+})();
+</script>
+</body>
+</html>
