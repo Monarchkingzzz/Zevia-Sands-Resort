@@ -36,9 +36,7 @@
     --shadow-soft: 0 10px 30px -10px rgba(15, 32, 39, 0.06);
     --shadow-card: 0 15px 35px -10px rgba(15, 32, 39, 0.1);
     --shadow-hover: 0 20px 45px -10px rgba(0, 119, 182, 0.2);
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  }  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
@@ -410,20 +408,18 @@
     color: #FFF;
     background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85') center 40% / cover no-repeat;
   }
-  .hero::after {
-    content: "";
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(15,32,39,0.3) 0%, rgba(15,32,39,0.55) 75%, rgba(15,32,39,0.85) 100%);
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(15,32,39,0.3) 0%, rgba(15,32,39,0.15) 50%, rgba(15,32,39,0.65) 100%);
   }
+
   .hero-content {
-    position: relative;
-    z-index: 2;
+    position: relative; z-index: 10;
     max-width: 720px;
   }
   .hero h1 {
-    font-size: clamp(38px, 6vw, 68px);
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-size: clamp(44px, 6.5vw, 76px);
+    color: #FFF;
     line-height: 1.08;
     margin-bottom: 18px;
     text-shadow: 0 2px 20px rgba(0,0,0,0.3);
@@ -451,7 +447,6 @@
     margin-top: -55px;
     position: relative;
     z-index: 30;
-    width: 100%;
   }
   .booking-bar {
     background: #FFF;
@@ -463,8 +458,6 @@
     grid-template-columns: 1.2fr 1.2fr 1.4fr 1fr auto;
     gap: 20px;
     align-items: flex-end;
-    width: 100%;
-    box-sizing: border-box;
   }
   @media (max-width: 960px) {
     .booking-bar { grid-template-columns: 1fr 1fr; margin-top: 20px; }
@@ -872,10 +865,12 @@
 
   <ul class="nav-menu">
     <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
     <li><a href="accommodation.html">Accommodation</a></li>
     <li><a href="beach-pool.html">Beach & Pool</a></li>
-    <li><a href="dining.html">Dining</a></li>
+    <li><a href="dining.html">Food & Dining</a></li>
     <li><a href="adventures.html">Adventures</a></li>
+    <li><a href="events.html">Events & Weddings</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
@@ -912,10 +907,12 @@
 
   <div class="mobile-menu-links">
     <a href="index.html" class="m-item active">Home</a>
+    <a href="about.html" class="m-item">About Us</a>
     <a href="accommodation.html" class="m-item">Accommodation</a>
     <a href="beach-pool.html" class="m-item">Beach & Pool</a>
-    <a href="dining.html" class="m-item">Dining</a>
+    <a href="dining.html" class="m-item">Food & Dining</a>
     <a href="adventures.html" class="m-item">Adventures</a>
+    <a href="events.html" class="m-item">Events & Weddings</a>
     <a href="gallery.html" class="m-item">Gallery</a>
     <a href="contact.html" class="m-item">Contact</a>
   </div>
@@ -938,69 +935,58 @@
   <a href="#reserve" class="btn btn-gold btn-small" style="padding: 10px 20px; font-size: 13px;">Book Stay</a>
 </div>
 
-<!-- REAL SUNLIT BEACH HERO -->
+<!-- FULLSCREEN WOW HERO -->
 <header class="hero" id="top">
   <div class="container">
     <div class="hero-content">
       <span class="tag tag-light">Kalmara Bay · Private Beach Sanctuary</span>
       <h1>Where sun-drenched sands meet <em>turquoise</em> tide.</h1>
-      <p>Escape to thirty-eight private pool villas nestled on a pristine two-kilometer shoreline. Unhurried days, warm ocean breezes, and crystal waters.</p>
+      <div class="hero-tagline" style="font-family:var(--font-serif); font-size:clamp(22px, 3.5vw, 32px); color:var(--sun-gold); font-style:italic; margin-bottom:18px;">Your escape. Your experience.</div>
+      <p>Escape to thirty-eight private pool villas nestled on a pristine two-kilometer shoreline on the Kenyan coast. Unhurried days, warm ocean breezes, and crystal waters.</p>
       
       <div class="hero-buttons">
         <a href="#villas" class="btn btn-white">Explore Villas</a>
-        <a href="#reserve" class="btn btn-outline-white">Check Availability</a>
+        <a href="#reserve" class="btn btn-gold">Enquire Now</a>
       </div>
     </div>
   </div>
 </header>
 
-<!-- STREAMLINED BOOKING BAR -->
-<div class="container booking-bar-wrapper">
-  <div class="booking-bar">
-    <div class="b-field">
-      <label for="barIn">Check-In</label>
-      <input type="date" id="barIn">
-    </div>
-    <div class="b-field">
-      <label for="barOut">Check-Out</label>
-      <input type="date" id="barOut">
-    </div>
-    <div class="b-field">
-      <label for="barType">Villa Collection</label>
-      <select id="barType">
-        <option value="overwater" selected>Overwater Lagoon Villa ($680/nt)</option>
-        <option value="beachfront">Beachfront Palm Villa ($490/nt)</option>
-        <option value="horizon">Horizon Infinity Villa ($1,150/nt)</option>
-      </select>
-    </div>
-    <div class="b-field">
-      <label for="barGuests">Guests</label>
-      <select id="barGuests">
-        <option value="2">2 Adults</option>
-        <option value="3">3 Guests</option>
-        <option value="4">4 Guests</option>
-      </select>
-    </div>
-    <div>
-      <a href="#reserve" class="btn btn-primary" id="barSubmit" style="width:100%;">Check Rates</a>
-    </div>
-  </div>
-</div>
-
 <main>
 
-  <!-- VILLAS (CLEAN 3 TIERS) -->
-  <section class="section" id="villas">
+  <!-- 1. THE EXPERIENCE -->
+  <section class="section" id="experience">
+    <div class="container">
+      <div class="experience-intro" style="background:#FFF; border-radius:var(--radius-md); padding:50px 40px; box-shadow:var(--shadow-soft); border:1px solid var(--line); display:grid; grid-template-columns:1.1fr 1fr; gap:40px; align-items:center;">
+        <div>
+          <span class="tag">The Experience</span>
+          <h2 style="font-size:clamp(28px, 4vw, 40px); margin-bottom:14px;">Barefoot Luxury on a Protected Coral Cove</h2>
+          <p class="lede" style="margin-bottom:18px;">Conceived as an antidote to crowded resort complexes, Zevia Sands is an intimate sanctuary where low-impact architecture meets pure indulgence.</p>
+          <p style="font-size:14.5px; color:var(--text-muted); line-height:1.75; margin-bottom:24px;">Wake to the gentle sound of the Indian Ocean, plunge into your private infinity pool, and stroll two kilometers of powder-fine white sand protected by an outer coral reef barrier.</p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="about.html" class="btn btn-primary btn-small">Read Our Story →</a>
+            <a href="https://wa.me/254712345678" target="_blank" class="btn btn-gold btn-small">💬 Chat on WhatsApp</a>
+          </div>
+        </div>
+        <div class="exp-intro-media" style="height:320px; border-radius:var(--radius-sm); overflow:hidden;">
+          <img src="images/infinity-pool.jpg" alt="40m Lagoon Infinity Pool overlooking Kalmara Bay" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. STAY WITH US (FEATURED ACCOMMODATION) -->
+  <section class="section" id="villas" style="background:#FFF;">
     <div class="container">
       <div class="section-header">
-        <span class="tag">Sanctuaries</span>
-        <h2>Private Villas & Suites</h2>
-        <p class="lede">Thoughtfully designed retreats with uninterrupted ocean views, sunlit private plunge pools, and direct access to warm waters.</p>
+        <span class="tag">Stay With Us</span>
+        <h2>Sanctuaries Designed for Rest</h2>
+        <p class="lede">Every villa and suite is an individual private retreat with private pools, uninterrupted views, and 24/7 dedicated butler service.</p>
       </div>
 
       <div class="villas-grid">
 
-        <!-- Villa 1 -->
+        <!-- Villa 1: Overwater Lagoon Villa -->
         <article class="villa-card">
           <div class="villa-photo">
             <span class="villa-price" data-base-price="680">$680 / night</span>
@@ -1008,20 +994,21 @@
           </div>
           <div class="villa-body">
             <h3>Overwater Lagoon Villa</h3>
-            <p>Set directly above the shallow turquoise reef with an ocean plunge pool, sundeck loungers, and private stairs to the water.</p>
+            <div style="font-size:12.5px; color:var(--ocean-blue); font-weight:600; margin-bottom:10px;">Sleeps: 2 · Bed: King · View: Turquoise Lagoon</div>
+            <p>Set directly above the shallow turquoise reef with private infinity plunge pool, sundeck loungers, and private stairs leading down to the water.</p>
             <div class="villa-features">
               <span class="feat-tag">King Bed</span>
               <span class="feat-tag">Private Plunge Pool</span>
               <span class="feat-tag">Direct Ocean Ladder</span>
+              <span class="feat-tag">Artisan Breakfast</span>
             </div>
             <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-size:12px; color:var(--text-muted);">Breakfast for two included</span>
-              <a href="#reserve" class="btn btn-primary btn-small" data-select="overwater">Reserve</a>
+              <a href="#reserve" class="btn btn-primary btn-small" data-select="overwater" style="width:100%; justify-content:center;">Enquire Now</a>
             </div>
           </div>
         </article>
 
-        <!-- Villa 2 -->
+        <!-- Villa 2: Beachfront Palm Villa -->
         <article class="villa-card">
           <div class="villa-photo">
             <span class="villa-price" data-base-price="490">$490 / night</span>
@@ -1029,20 +1016,21 @@
           </div>
           <div class="villa-body">
             <h3>Beachfront Palm Villa</h3>
-            <p>Tucked beneath swaying coconut palms just steps from the powdery white beach. Features a private outdoor stone bath and daybed.</p>
+            <div style="font-size:12.5px; color:var(--ocean-blue); font-weight:600; margin-bottom:10px;">Sleeps: 2 · Bed: King · View: Beach & Palms</div>
+            <p>Tucked beneath swaying coconut palms just steps from the white sand. Features a private outdoor stone bath, daybed, and direct shoreline walkout.</p>
             <div class="villa-features">
               <span class="feat-tag">King Bed</span>
               <span class="feat-tag">Stone Soaking Tub</span>
               <span class="feat-tag">Direct Beach Walkout</span>
+              <span class="feat-tag">Artisan Breakfast</span>
             </div>
             <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-size:12px; color:var(--text-muted);">Breakfast for two included</span>
-              <a href="#reserve" class="btn btn-primary btn-small" data-select="beachfront">Reserve</a>
+              <a href="#reserve" class="btn btn-primary btn-small" data-select="beachfront" style="width:100%; justify-content:center;">Enquire Now</a>
             </div>
           </div>
         </article>
 
-        <!-- Villa 3 -->
+        <!-- Villa 3: Horizon Infinity Villa -->
         <article class="villa-card">
           <div class="villa-photo">
             <span class="villa-price" data-base-price="1150">$1,150 / night</span>
@@ -1050,149 +1038,84 @@
           </div>
           <div class="villa-body">
             <h3>Horizon Infinity Villa</h3>
+            <div style="font-size:12.5px; color:var(--ocean-blue); font-weight:600; margin-bottom:10px;">Sleeps: 4 · Bed: 2 King Suites · View: Sunset Ocean</div>
             <p>Cantilevered above the shoreline with an expansive infinity pool, private sunset pavilion, and dedicated 24-hour butler service.</p>
             <div class="villa-features">
-              <span class="feat-tag">Master Suite + Den</span>
+              <span class="feat-tag">2 King Suites</span>
               <span class="feat-tag">Infinity Pool</span>
               <span class="feat-tag">Dedicated Butler</span>
+              <span class="feat-tag">Champagne Arrival</span>
             </div>
             <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
-              <span style="font-size:12px; color:var(--text-muted);">Champagne on arrival</span>
-              <a href="#reserve" class="btn btn-primary btn-small" data-select="horizon">Reserve</a>
+              <a href="#reserve" class="btn btn-primary btn-small" data-select="horizon" style="width:100%; justify-content:center;">Enquire Now</a>
             </div>
           </div>
         </article>
 
       </div>
-    </div>
-  </section>
 
-  <!-- THE BEACH & INFINITY POOL (REAL BEACH SPACES) -->
-  <section class="section" id="beach-pool" style="background:#FFF;">
-    <div class="container">
-      <div class="section-header">
-        <span class="tag">The Setting</span>
-        <h2>Sun, Palms & Shimmering Waters</h2>
-        <p class="lede">Spend sun-filled afternoons between our freshwater infinity lagoon and a secluded two-kilometer private white sand beach.</p>
-      </div>
-
-      <div class="experience-split">
-        <div class="exp-box">
-          <div class="exp-media">
-            <img src="images/infinity-pool.jpg" alt="Horizon Infinity Pool" loading="lazy">
-          </div>
-          <div class="exp-desc">
-            <h3>The 40m Lagoon Infinity Pool</h3>
-            <p>Submerged stone sun loungers, heated crystal-clear water, and shaded palm cabanas with all-day fruit and chilled cocktail service.</p>
-          </div>
-        </div>
-
-        <div class="exp-box">
-          <div class="exp-media">
-            <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?auto=format&fit=crop&w=800&q=85" alt="Private White Sand Beach" loading="lazy">
-          </div>
-          <div class="exp-desc">
-            <h3>Private 2km White Sand Coast</h3>
-            <p>Powdery soft sand protected by an outer coral reef barrier, ensuring calm, warm, turquoise waters ideal for all-day swimming.</p>
-          </div>
-        </div>
+      <div style="text-align:center; margin-top:36px;">
+        <a href="accommodation.html" class="btn btn-primary">View Full Villa Brochure & Floor Plans →</a>
       </div>
     </div>
   </section>
 
-  <!-- DINING & SUNSET BARS -->
-  <section class="section" id="dining">
+  <!-- 3. DISCOVER (RESORT EXPERIENCES) -->
+  <section class="section" id="discover">
     <div class="container">
       <div class="section-header">
-        <span class="tag">Food & Dining</span>
-        <h2>Fresh Coastal Dining & Drinks</h2>
-        <p class="lede">From floating tropical breakfasts in your private pool to barefoot catch-of-the-day lobster barbecues on the sand.</p>
+        <span class="tag">Discover</span>
+        <h2>Curated Coastal Experiences</h2>
+        <p class="lede">From submerged pool loungers to fresh seafood grills and marine wildlife excursions.</p>
       </div>
 
-      <div class="dining-grid">
-
-        <div class="dining-item">
-          <div class="dining-media">
-            <img src="images/floating-breakfast.jpg" alt="Floating Pool Breakfast" loading="lazy">
-          </div>
-          <div class="dining-info">
-            <h3>Floating Villa Breakfast</h3>
-            <p>Fresh tropical dragonfruit, mango croissants, artisanal coffee, and chilled Prosecco served directly in your pool.</p>
-          </div>
-        </div>
-
-        <div class="dining-item">
-          <div class="dining-media">
-            <img src="images/lobster-grill.jpg" alt="Reef Lobster Grill" loading="lazy">
-          </div>
-          <div class="dining-info">
-            <h3>The Reef Lobster Grill</h3>
-            <p>Barefoot dining on the sand. Fresh spiny lobster, wild prawns, and catch of the day grilled over open coconut coals.</p>
-          </div>
-        </div>
-
-        <div class="dining-item">
-          <div class="dining-media">
-            <img src="images/swim-up-bar.jpg" alt="Swim-Up Cocktail Bar" loading="lazy">
-          </div>
-          <div class="dining-info">
-            <h3>Lagoon Swim-Up Bar</h3>
-            <p>In-water barstools serving freshly tapped coconuts, passionfruit caipirinhas, and crisp Mediterranean rosés.</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- OCEAN ADVENTURES -->
-  <section class="section" id="adventures" style="background:#FFF;">
-    <div class="container">
-      <div class="section-header">
-        <span class="tag">Activities</span>
-        <h2>Ocean Adventures & Leisure</h2>
-        <p class="lede">Explore the vibrant coral reef, sail into the sunset, or unwind with a beachside coconut massage.</p>
-      </div>
-
-      <div class="adventures-grid">
-
+      <div class="adventures-grid" style="display:grid; grid-template-columns:repeat(4, 1fr); gap:20px;">
+        
         <div class="adv-card">
-          <div class="adv-img">
-            <img src="images/clear-kayak.jpg" alt="Clear Glass Kayaking" loading="lazy">
+          <div class="adv-img" style="height:190px;">
+            <img src="images/swim-up-bar.jpg" alt="40m Lagoon Infinity Pool & Swim-Up Bar" loading="lazy">
           </div>
           <div class="adv-body">
-            <h4>Clear Glass Kayaking</h4>
-            <p>Glide over turquoise waters in 100% transparent kayaks to observe coral gardens.</p>
+            <span class="tag" style="margin-bottom:6px;">🏊 Pool</span>
+            <h4>Lagoon & Swim-Up Bar</h4>
+            <p>Submerged stone loungers, heated fresh water, and coconut cocktails served at in-water barstools.</p>
+            <a href="beach-pool.html" style="font-size:12.5px; font-weight:700; color:var(--ocean-blue); margin-top:8px; display:inline-block;">Explore Pool →</a>
           </div>
         </div>
 
         <div class="adv-card">
-          <div class="adv-img">
-            <img src="images/turtle-snorkeling.jpg" alt="Turtle Reef Snorkel" loading="lazy">
+          <div class="adv-img" style="height:190px;">
+            <img src="images/lobster-grill.jpg" alt="Fresh Coastal Food and Seafood Grill" loading="lazy">
           </div>
           <div class="adv-body">
-            <h4>Turtle Reef Snorkel</h4>
-            <p>Guided boat excursion to the outer reef to snorkel alongside gentle sea turtles.</p>
+            <span class="tag" style="margin-bottom:6px;">🍽️ Food & Dining</span>
+            <h4>Reef Lobster Grill</h4>
+            <p>Barefoot dining on the sand. Wild spiny lobsters and in-villa floating tropical breakfasts.</p>
+            <a href="dining.html" style="font-size:12.5px; font-weight:700; color:var(--ocean-blue); margin-top:8px; display:inline-block;">Explore Food →</a>
           </div>
         </div>
 
         <div class="adv-card">
-          <div class="adv-img">
-            <img src="images/sunset-catamaran.jpg" alt="Sunset Catamaran" loading="lazy">
+          <div class="adv-img" style="height:190px;">
+            <img src="images/turtle-snorkeling.jpg" alt="Turtle Reef Snorkeling & Marine Conservation" loading="lazy">
           </div>
           <div class="adv-body">
-            <h4>Sunset Catamaran</h4>
-            <p>50ft luxury catamaran cruise with chilled drinks, light tapas, and golden views.</p>
+            <span class="tag" style="margin-bottom:6px;">🌿 Nature</span>
+            <h4>Turtle Reef Snorkeling</h4>
+            <p>Guided boat excursions along the protected reef to swim with sea turtles in crystal waters.</p>
+            <a href="adventures.html" style="font-size:12.5px; font-weight:700; color:var(--ocean-blue); margin-top:8px; display:inline-block;">Explore Adventures →</a>
           </div>
         </div>
 
         <div class="adv-card">
-          <div class="adv-img">
-            <img src="images/beach-massage.jpg" alt="Beachside Palm Massage" loading="lazy">
+          <div class="adv-img" style="height:190px;">
+            <img src="images/beach-massage.jpg" alt="Oceanfront Spa & Sunset Catamaran" loading="lazy">
           </div>
           <div class="adv-body">
-            <h4>Beachside Palm Massage</h4>
-            <p>Relaxing full-body warm coconut oil massage in a private shaded beach cabana.</p>
+            <span class="tag" style="margin-bottom:6px;">💆 Wellness</span>
+            <h4>Beachside Spa & Cruise</h4>
+            <p>Warm coconut oil massages in private cabanas and luxury catamaran champagne sunset cruises.</p>
+            <a href="adventures.html" style="font-size:12.5px; font-weight:700; color:var(--ocean-blue); margin-top:8px; display:inline-block;">Explore Wellness →</a>
           </div>
         </div>
 
@@ -1200,48 +1123,146 @@
     </div>
   </section>
 
-  <!-- PHOTO GALLERY -->
-  <section class="section" id="gallery">
+  <!-- 4. EXPERIENCE PARADISE (LARGE VISUAL HERO) -->
+  <section class="container">
+    <div class="paradise-banner" style="border-radius:var(--radius-lg); overflow:hidden; position:relative; min-height:400px; display:flex; align-items:center; justify-content:center; text-align:center; color:#FFF; padding:60px 24px; background:linear-gradient(180deg, rgba(15,32,39,0.3) 0%, rgba(15,32,39,0.75) 100%), url('images/infinity-pool.jpg') center/cover no-repeat; box-shadow:var(--shadow-card); margin:30px auto; width:100%; box-sizing:border-box;">
+      <div style="max-width:700px;">
+        <span class="tag tag-light">Pure Serenity</span>
+        <h2 style="font-size:clamp(32px, 5.5vw, 54px); color:#FFF; margin-bottom:14px;">Experience Paradise Like Never Before</h2>
+        <p style="font-size:16px; line-height:1.7; color:rgba(255,255,255,0.9); margin-bottom:24px;">A secluded stretch of Kenya's most beautiful coast, where personalized service meets effortless coastal luxury.</p>
+        <div style="display:flex; justify-content:center; gap:14px; flex-wrap:wrap;">
+          <a href="gallery.html" class="btn btn-white">Open Photo Gallery</a>
+          <a href="events.html" class="btn btn-gold">Weddings & Private Events</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. WHAT OUR GUESTS SAY (TESTIMONIALS) -->
+  <section class="section" id="testimonials">
     <div class="container">
       <div class="section-header">
-        <span class="tag">Visuals</span>
-        <h2>Moments at Zevia Sands</h2>
+        <span class="tag">Guest Reviews</span>
+        <h2>What Our Guests Say</h2>
+        <p class="lede">Real stories from travelers who experienced the calm and beauty of Zevia Sands.</p>
       </div>
 
-      <div class="gallery-grid">
-        <div class="gallery-item wide">
-          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=85" alt="Sunny Beach and Ocean" loading="lazy">
+      <div class="villas-grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:26px;">
+        
+        <div style="background:#FFF; border-radius:var(--radius-md); padding:30px; border:1px solid var(--line); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="color:var(--sun-gold); font-size:16px; margin-bottom:12px;">★★★★★</div>
+            <div style="font-family:var(--font-serif); font-size:18px; font-style:italic; line-height:1.6; color:var(--navy); margin-bottom:18px;">"One of the most beautiful stays we've ever had in our lives. The overwater villa with its private plunge pool was pure heaven."</div>
+          </div>
+          <div>
+            <div style="font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--navy-soft);">— Elena & Marcus Vance</div>
+            <div style="font-size:12px; color:var(--text-muted);">London, United Kingdom · Stayed Nov 2025</div>
+          </div>
         </div>
-        <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=600&q=85" alt="Overwater Villa" loading="lazy">
+
+        <div style="background:#FFF; border-radius:var(--radius-md); padding:30px; border:1px solid var(--line); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="color:var(--sun-gold); font-size:16px; margin-bottom:12px;">★★★★★</div>
+            <div style="font-family:var(--font-serif); font-size:18px; font-style:italic; line-height:1.6; color:var(--navy); margin-bottom:18px;">"The seafood at the Lobster Grill and the floating pool breakfast were unforgettable. Impeccable butler service from start to finish."</div>
+          </div>
+          <div>
+            <div style="font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--navy-soft);">— David K. Mbugua</div>
+            <div style="font-size:12px; color:var(--text-muted);">Nairobi, Kenya · Stayed Jan 2026</div>
+          </div>
         </div>
-        <div class="gallery-item">
-          <img src="images/floating-breakfast.jpg" alt="Pool Breakfast" loading="lazy">
+
+        <div style="background:#FFF; border-radius:var(--radius-md); padding:30px; border:1px solid var(--line); box-shadow:var(--shadow-soft); display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="color:var(--sun-gold); font-size:16px; margin-bottom:12px;">★★★★★</div>
+            <div style="font-family:var(--font-serif); font-size:18px; font-style:italic; line-height:1.6; color:var(--navy); margin-bottom:18px;">"We hosted our intimate 40-guest beach wedding here. The team executed every detail with effortless grace. Magical sunset!"</div>
+          </div>
+          <div>
+            <div style="font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--navy-soft);">— Sarah & Christian Meier</div>
+            <div style="font-size:12px; color:var(--text-muted);">Zurich, Switzerland · Stayed Feb 2026</div>
+          </div>
         </div>
-        <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=600&q=85" alt="Beachfront Villa" loading="lazy">
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. FIND US (MAP & LOCATION) -->
+  <section class="section" id="location" style="background:#FFF;">
+    <div class="container">
+      <div class="section-header">
+        <span class="tag">Location</span>
+        <h2>Finding Your Way to Paradise</h2>
+        <p class="lede">Nestled on Kalmara Bay on the south coast of Kenya, easily accessible by air, train, or private transfer.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1.2fr; gap:36px; align-items:center; background:var(--sand-bg); border-radius:var(--radius-md); padding:36px; border:1px solid var(--line);">
+        <div>
+          <h3 style="font-size:24px; margin-bottom:14px;">📍 Diani Beach Road, South Coast, Kenya</h3>
+          <p style="font-size:14.5px; color:var(--text-muted); line-height:1.7; margin-bottom:20px;">Zevia Sands Resort sits on a protected 2km coastal cove in Kalmara Bay. Direct private helicopter landing pad and chauffeured VIP airport transfers available upon request.</p>
+          
+          <div style="background:#FFF; padding:18px; border-radius:var(--radius-sm); font-size:13.5px; margin-bottom:20px; border:1px solid var(--line);">
+            <div style="margin-bottom:8px;">✈️ <b>Ukunda Airstrip (UKA):</b> 15 minutes by private car</div>
+            <div style="margin-bottom:8px;">🛫 <b>Moi International Airport (MBA):</b> 90 mins / 10 mins helicopter</div>
+            <div>🚆 <b>SGR Train Terminal:</b> 60 minutes chauffeured transfer</div>
+          </div>
+
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="contact.html" class="btn btn-primary btn-small">Get Full Directions</a>
+            <a href="https://wa.me/254712345678" target="_blank" class="btn btn-gold btn-small">💬 Concierge Transfer</a>
+          </div>
         </div>
-        <div class="gallery-item wide">
-          <img src="images/infinity-pool.jpg" alt="Infinity Pool Horizon" loading="lazy">
-        </div>
-        <div class="gallery-item">
-          <img src="images/lobster-grill.jpg" alt="Seafood on the Beach" loading="lazy">
+
+        <div style="height:320px; border-radius:var(--radius-sm); overflow:hidden; border:1px solid var(--line);">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127357.73456708764!2d39.5218768!3d-4.3015488!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x184045f27660269f%3A0xc3bcfad3e77f0a99!2sDiani%20Beach!5e0!3m2!1sen!2ske!4v1700000000000!5m2!1sen!2ske" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Zevia Sands Resort Location Map"
+            style="width:100%; height:100%; border:0;">
+          </iframe>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- INSTANT RESERVATION SECTION -->
+  <!-- 7. INSTAGRAM SHOWCASE -->
+  <section class="section-tight" style="text-align:center;">
+    <div class="container">
+      <span class="tag">Social Community</span>
+      <h2 style="font-size:clamp(24px, 3.5vw, 36px); margin-bottom:6px;">Follow Our Coastal Days</h2>
+      <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">Tag <b>#ZeviaSands</b> or follow <a href="https://instagram.com" target="_blank" style="color:var(--ocean-blue); font-weight:700;">@zeviasandsresort</a></p>
+
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:14px;">
+        <a href="gallery.html" style="height:180px; border-radius:var(--radius-sm); overflow:hidden; display:block;">
+          <img src="images/floating-breakfast.jpg" alt="Floating breakfast at Zevia Sands" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+        </a>
+        <a href="gallery.html" style="height:180px; border-radius:var(--radius-sm); overflow:hidden; display:block;">
+          <img src="images/lobster-grill.jpg" alt="Seafood grill on the beach" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+        </a>
+        <a href="gallery.html" style="height:180px; border-radius:var(--radius-sm); overflow:hidden; display:block;">
+          <img src="images/clear-kayak.jpg" alt="Clear kayaking in turquoise bay" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+        </a>
+        <a href="gallery.html" style="height:180px; border-radius:var(--radius-sm); overflow:hidden; display:block;">
+          <img src="images/sunset-catamaran.jpg" alt="Sunset catamaran in Diani" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. YOUR ESCAPE AWAITS (RATES & ENQUIRY) -->
   <section class="container" id="reserve">
     <div class="booking-section">
       <div class="booking-layout">
         <div>
-          <span class="tag tag-light">Reservations</span>
-          <h2 style="color:#FFF; font-size:clamp(30px, 3.8vw, 42px); margin-bottom:14px;">Plan Your Beach Escape</h2>
-          <p style="color:rgba(255,255,255,0.85); font-size:15px; margin-bottom:24px; line-height:1.65;">Daily gourmet breakfast for two, clear kayak rentals, and evening sunset shuttle are included with all stays. Complimentary private boat airport transfer on stays of 3 nights or more.</p>
+          <span class="tag tag-light">Your Escape Awaits</span>
+          <h2 style="color:#FFF; font-size:clamp(28px, 3.8vw, 42px); margin-bottom:14px;">Plan Your Beach Escape</h2>
+          <p style="color:rgba(255,255,255,0.85); font-size:15px; margin-bottom:20px; line-height:1.65;">Daily gourmet breakfast for two, clear kayak rentals, and evening sunset shuttle are included with all stays. Complimentary private airport transfer on stays of 3 nights or more.</p>
           
-          <div style="font-size:13.5px; color:var(--sun-gold);">
-            Direct Concierge: <b>+1 (800) 555-ZEVIA</b> · <a href="mailto:reservations@zeviasands.com" style="color:#FFF; text-decoration:underline;">reservations@zeviasands.com</a>
+          <div style="background:rgba(255,255,255,0.08); padding:18px; border-radius:var(--radius-sm); font-size:13px; line-height:1.7;">
+            <div>📞 <b>Concierge:</b> <a href="tel:+254700892341" style="color:var(--sun-gold);">+254 700 892 341</a></div>
+            <div>💬 <b>Instant WhatsApp:</b> <a href="https://wa.me/254712345678" target="_blank" style="color:var(--turquoise-light);">+254 712 345 678</a></div>
+            <div>✉️ <b>Email:</b> <a href="mailto:reservations@zeviasands.com" style="color:#FFF; text-decoration:underline;">reservations@zeviasands.com</a></div>
           </div>
         </div>
 
@@ -1261,9 +1282,9 @@
             <div class="form-group">
               <label for="fType">Villa Type</label>
               <select id="fType">
-                <option value="overwater" data-price="680" selected>Overwater Lagoon Villa ($680/nt)</option>
-                <option value="beachfront" data-price="490">Beachfront Palm Villa ($490/nt)</option>
-                <option value="horizon" data-price="1150">Horizon Infinity Villa ($1,150/nt)</option>
+                <option value="overwater" data-price="680" selected>Overwater Lagoon Villa</option>
+                <option value="beachfront" data-price="490">Beachfront Palm Villa</option>
+                <option value="horizon" data-price="1150">Horizon Infinity Villa</option>
               </select>
             </div>
             <div class="form-group">
@@ -1283,19 +1304,19 @@
             </div>
             <div class="calc-row">
               <span>Villa Total</span>
-              <span id="cSub">$2,040</span>
+              <span id="cSub">KSh 265,200</span>
             </div>
             <div class="calc-row">
               <span>Taxes & Service (10%)</span>
-              <span id="cTax">$204</span>
+              <span id="cTax">KSh 26,520</span>
             </div>
             <div class="calc-row total">
               <span>Estimated Total</span>
-              <span id="cTotal">$2,244</span>
+              <span id="cTotal">KSh 291,720</span>
             </div>
           </div>
 
-          <button class="btn btn-gold" id="btnBookNow" style="width:100%; margin-top:18px; justify-content:center; padding:15px;">
+          <button class="btn btn-gold" id="btnBookNow" style="width:100%; margin-top:16px; justify-content:center; padding:14px;">
             Confirm Reservation Request
           </button>
         </div>
@@ -1310,26 +1331,26 @@
   <div class="modal-box">
     <span class="modal-close" id="modalClose">&times;</span>
     <div style="text-align:center; margin-bottom:20px;">
-      <h3 style="font-size:26px; color:var(--navy); margin-bottom:6px;">Reservation Request Received</h3>
-      <p style="font-size:13.5px; color:var(--text-muted);">Our concierge will send your confirmation voucher by email shortly.</p>
+      <h3 style="font-size:24px; color:var(--navy); margin-bottom:6px;">Reservation Request Received</h3>
+      <p style="font-size:13.5px; color:var(--text-muted);">Our concierge will send your confirmation voucher by email and WhatsApp shortly.</p>
     </div>
 
-    <div style="background:var(--sand-bg); border-radius:var(--radius-sm); padding:20px; border:1px dashed var(--sun-gold); font-size:13.5px; margin-bottom:20px;">
-      <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+    <div style="background:var(--sand-bg); border-radius:var(--radius-sm); padding:18px; border:1px dashed var(--sun-gold); font-size:13px; margin-bottom:18px;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
         <span style="color:var(--text-muted);">Villa:</span>
         <b id="vName">Overwater Lagoon Villa</b>
       </div>
-      <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
         <span style="color:var(--text-muted);">Dates:</span>
         <span id="vDates">3 Nights</span>
       </div>
-      <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
         <span style="color:var(--text-muted);">Guests:</span>
         <span id="vGuests">2 Adults</span>
       </div>
-      <div style="display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:10px; margin-top:10px;">
+      <div style="display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:8px; margin-top:8px;">
         <b>Total:</b>
-        <b id="vPrice" style="color:var(--ocean-blue); font-size:16px;">$2,244</b>
+        <b id="vPrice" style="color:var(--ocean-blue); font-size:16px;">KSh 291,720</b>
       </div>
     </div>
 
@@ -1343,7 +1364,7 @@
     <div class="footer-grid">
       <div>
         <div class="nav-brand" style="font-size:22px; margin-bottom:12px;">Zevia Sands</div>
-        <p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:16px;">An ultra-luxury beach sanctuary in Kalmara Bay with overwater pool villas, pristine white sands, and unforgettable coastal food.</p>
+        <p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:16px;">An ultra-luxury beach sanctuary in Kalmara Bay on the Kenyan coast with overwater pool villas, pristine white sands, and unforgettable coastal food.</p>
         <div class="social-icons">
           <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
             <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -1361,38 +1382,49 @@
       </div>
 
       <div>
-        <h4 style="font-size:15px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Navigation</h4>
+        <h4 style="font-size:16px; margin-bottom:16px;">Quick Links</h4>
         <ul class="footer-links">
           <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
           <li><a href="accommodation.html">Accommodation</a></li>
-          <li><a href="beach-pool.html">Beach & Infinity Pool</a></li>
-          <li><a href="dining.html">Dining & Bars</a></li>
+          <li><a href="beach-pool.html">Beach & Pool</a></li>
+          <li><a href="dining.html">Food & Dining</a></li>
           <li><a href="adventures.html">Ocean Adventures</a></li>
+          <li><a href="events.html">Events & Weddings</a></li>
           <li><a href="gallery.html">Photo Gallery</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 style="font-size:15px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Contacts</h4>
+        <h4 style="font-size:16px; margin-bottom:16px;">Experiences</h4>
         <ul class="footer-links">
-          <li>📞 <a href="tel:+254700892341">+254 (0) 700 892 341</a></li>
-          <li>💬 <a href="https://wa.me/254712345678" target="_blank">WhatsApp: +254 712 345 678</a></li>
-          <li>✉️ <a href="mailto:reservations@zeviasands.com">reservations@zeviasands.com</a></li>
-          <li>📍 Coral Ridge Way, Kalmara Bay, Kenya</li>
-          <li>🕒 24/7 Guest Concierge</li>
+          <li><a href="adventures.html">Clear Glass Kayaking</a></li>
+          <li><a href="adventures.html">Turtle Reef Snorkeling</a></li>
+          <li><a href="dining.html">Floating Breakfast</a></li>
+          <li><a href="adventures.html">Sunset Catamaran</a></li>
+          <li><a href="dining.html">Reef Lobster Grill</a></li>
+          <li><a href="adventures.html">Beachside Palm Massage</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 style="font-size:15px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Sanctuary Inquiries</h4>
-        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Contact our concierge desk for tailored helicopter charters, private wedding bookings, and custom island itineraries.</p>
-        <a href="contact.html" class="btn btn-primary btn-small">Contact Concierge</a>
+        <h4 style="font-size:16px; margin-bottom:16px;">Contact & Location</h4>
+        <div style="font-size:13.5px; line-height:1.8; color:var(--navy-soft);">
+          <div>📍 Diani Beach Road, South Coast, Kenya</div>
+          <div>📞 <a href="tel:+254700892341" style="color:inherit;">+254 700 892 341</a></div>
+          <div>💬 <a href="https://wa.me/254712345678" target="_blank" style="color:var(--ocean-blue); font-weight:600;">Chat on WhatsApp</a></div>
+          <div>✉️ <a href="mailto:reservations@zeviasands.com" style="color:inherit;">reservations@zeviasands.com</a></div>
+        </div>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <span>© 2026 Zevia Sands Resort. All rights reserved.</span>
-      <span>Privacy Policy · Terms of Stay · Environmental Pledge</span>
+      <div>&copy; 2026 Zevia Sands Resort · All rights reserved.</div>
+      <div style="display:flex; gap:18px;">
+        <a href="privacy.html" style="color:inherit;">Privacy Policy</a>
+        <a href="terms.html" style="color:inherit;">Terms of Stay</a>
+        <a href="sitemap.xml" style="color:inherit;">Sitemap</a>
+      </div>
     </div>
   </div>
 </footer>

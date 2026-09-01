@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Page Not Found — Zevia Sands Resort</title>
+<meta name="description" content="The page you are looking for does not exist. Return to Zevia Sands Resort luxury beach sanctuary.">
+<meta name="theme-color" content="#0F2027">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand-bg: #FAF8F5;
+    --card-bg: #FFFFFF;
+    --navy: #0F2027;
+    --navy-soft: #2C3E50;
+    --text-muted: #607274;
+    --ocean-blue: #0077B6;
+    --turquoise: #0096C7;
+    --turquoise-light: #E8F7F9;
+    --sun-gold: #E5A93C;
+    --line: rgba(15, 32, 39, 0.08);
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-full: 9999px;
+    --shadow-soft: 0 10px 30px -10px rgba(15, 32, 39, 0.06);
+    --shadow-card: 0 15px 35px -10px rgba(15, 32, 39, 0.1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; max-width: 100vw; }
+  body {
+    font-family: var(--font-sans); color: var(--navy); background: var(--sand-bg);
+    line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    width: 100%; max-width: 100vw; position: relative;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; width: 100%; }
+  @media (max-width: 768px) { .container { padding: 0 16px; } }
+
+  h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 500; color: var(--navy); }
+
+  .btn {
+    font-family: var(--font-sans); font-size: 13.5px; font-weight: 600;
+    letter-spacing: 0.04em; border-radius: var(--radius-full); padding: 13px 28px;
+    cursor: pointer; transition: all 0.25s ease; display: inline-flex;
+    align-items: center; justify-content: center; gap: 8px; text-decoration: none; white-space: nowrap;
+  }
+  .btn-primary { background: var(--navy); color: #FFF; box-shadow: 0 4px 15px rgba(15, 32, 39, 0.2); }
+  .btn-primary:hover { background: var(--ocean-blue); transform: translateY(-2px); }
+  .btn-gold { background: var(--sun-gold); color: #FFF; }
+  .btn-gold:hover { background: #D4982E; transform: translateY(-2px); }
+  .btn-small { padding: 9px 18px; font-size: 12.5px; }
+
+  /* Navbar */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 48px; width: 100%; box-sizing: border-box;
+    background: rgba(250, 248, 245, 0.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 4px 20px rgba(15, 32, 39, 0.06); border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 860px) { .nav { padding: 14px 20px; } }
+  .nav-brand {
+    font-family: var(--font-serif); font-size: 24px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--navy); font-weight: 600; white-space: nowrap;
+  }
+  .nav-menu { display: flex; gap: 24px; list-style: none; }
+  .nav-menu a {
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--navy-soft); padding: 4px 0; transition: color 0.2s ease;
+  }
+  .nav-menu a:hover { color: var(--ocean-blue); }
+
+  .nav-actions { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  @media (max-width: 768px) {
+    .nav { padding: 10px 14px; }
+    .nav-brand { font-size: 18px; letter-spacing: 0.06em; }
+    .nav-actions { gap: 6px; }
+    .nav-actions .btn-gold { display: none; }
+  }
+  @media (max-width: 360px) {
+    .nav { padding: 8px 10px; }
+    .nav-brand { font-size: 16px; letter-spacing: 0.04em; }
+  }
+
+  .currency-picker {
+    display: inline-flex; align-items: center; gap: 4px; background: #FFF;
+    border: 1px solid var(--line); border-radius: var(--radius-full);
+    padding: 5px 10px; color: var(--navy); font-size: 11.5px; font-weight: 600;
+  }
+  @media (max-width: 768px) { .currency-picker { padding: 4px 8px; font-size: 11px; max-width: 105px; } }
+  @media (max-width: 360px) { .currency-picker { padding: 3px 6px; font-size: 10px; max-width: 92px; } }
+  .currency-select { background: transparent; border: none; color: inherit; font-family: var(--font-sans); font-size: 11.5px; font-weight: 600; outline: none; cursor: pointer; }
+  @media (max-width: 768px) { .currency-select { font-size: 11px; } }
+
+  .hamburger {
+    display: none; flex-direction: column; justify-content: center; gap: 4.5px; cursor: pointer;
+    width: 38px; height: 38px; border-radius: 50%; padding: 6px; flex-shrink: 0;
+  }
+  .hamburger span { width: 20px; height: 2px; background: var(--navy); border-radius: 2px; }
+  @media (max-width: 960px) { .nav-menu { display: none; } .hamburger { display: flex; } }
+
+  /* Mobile Menu */
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(15, 32, 39, 0.98); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+    opacity: 0; pointer-events: none; transition: opacity 0.35s ease, transform 0.35s ease;
+    transform: translateY(-8px); width: 100%; max-width: 100vw; box-sizing: border-box;
+  }
+  .mobile-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+  .mobile-menu-links { display: flex; flex-direction: column; gap: 12px; margin: auto 0; text-align: center; }
+  .mobile-menu-links a {
+    font-family: var(--font-serif); font-size: 24px; color: rgba(255, 255, 255, 0.88);
+    letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.2s ease;
+    display: inline-block; padding: 3px 0;
+  }
+  .mobile-menu-links a:hover { color: var(--sun-gold); }
+  .mobile-close {
+    width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center;
+    justify-content: center; font-size: 24px; color: #FFF; cursor: pointer; flex-shrink: 0;
+  }
+
+  /* 404 Hero Container */
+  .error-section {
+    padding: 160px 0 100px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+  .error-card {
+    background: #FFF;
+    border-radius: var(--radius-md);
+    padding: 60px 40px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-card);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  @media (max-width: 600px) { .error-card { padding: 40px 20px; } }
+  .error-code {
+    font-family: var(--font-serif);
+    font-size: clamp(64px, 12vw, 100px);
+    line-height: 1;
+    color: var(--sun-gold);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .error-card h1 { font-size: clamp(24px, 5vw, 36px); margin-bottom: 14px; }
+  .error-card p { font-size: 15px; color: var(--text-muted); margin-bottom: 30px; line-height: 1.7; }
+  .error-buttons { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+
+  /* Footer */
+  footer {
+    background: #FFF; border-top: 1px solid var(--line);
+    padding: 40px 0 25px; color: var(--navy-soft); width: 100%;
+  }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12.5px; color: var(--text-muted); flex-wrap: wrap; gap: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAVBAR -->
+<nav class="nav" id="navbar">
+  <a href="index.html" class="nav-brand">Zevia Sands</a>
+
+  <ul class="nav-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="accommodation.html">Accommodation</a></li>
+    <li><a href="beach-pool.html">Beach & Pool</a></li>
+    <li><a href="dining.html">Dining</a></li>
+    <li><a href="adventures.html">Adventures</a></li>
+    <li><a href="events.html">Events & Weddings</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <div class="currency-picker">
+      <span style="font-size:12px;">🌐</span>
+      <select class="currency-select" id="currencySelect" aria-label="Select Currency">
+        <option value="KES" selected>KES (KSh)</option>
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+      </select>
+    </div>
+    <a href="index.html#reserve" class="btn btn-gold btn-small">Book Stay</a>
+    <button class="hamburger" id="menuToggle" aria-label="Open Menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- LUXURY FULLSCREEN MOBILE DRAWER -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <div class="currency-picker" style="background: rgba(255,255,255,0.12); padding: 8px 16px; color:#FFF;">
+      <span style="font-size:13px;">🌐</span>
+      <select class="currency-select" id="mobileCurrencySelect" aria-label="Select Currency" style="font-size:13px; color:#FFF;">
+        <option value="KES" selected>KES (KSh)</option>
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+      </select>
+    </div>
+    <button class="mobile-close" id="menuClose" aria-label="Close Menu">&times;</button>
+  </div>
+
+  <div class="mobile-menu-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="accommodation.html">Accommodation</a>
+    <a href="beach-pool.html">Beach & Pool</a>
+    <a href="dining.html">Dining</a>
+    <a href="adventures.html">Adventures</a>
+    <a href="events.html">Events & Weddings</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:12px; align-items:center; width:100%;">
+    <a href="index.html#reserve" class="btn btn-gold" style="width:100%; padding:14px; font-size:14px;">Reserve Your Stay</a>
+    <div style="font-size:12px; color:rgba(255,255,255,0.6); display:flex; gap:16px;">
+      <a href="tel:+254700892341">📞 Concierge</a>
+      <a href="https://wa.me/254712345678" target="_blank">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<main class="error-section">
+  <div class="container">
+    <div class="error-card">
+      <div class="error-code">404</div>
+      <h1>Lost on the Shore?</h1>
+      <p>The tide seems to have swept away this page. Allow us to guide you back to our private beach sanctuary in Kalmara Bay.</p>
+      <div class="error-buttons">
+        <a href="index.html" class="btn btn-primary">Return Home</a>
+        <a href="https://wa.me/254712345678" target="_blank" rel="noopener" class="btn btn-gold">💬 Contact Concierge</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-bottom">
+      <div>&copy; 2026 Zevia Sands Resort · All rights reserved.</div>
+      <div>Diani Beach Road, South Coast, Kenya</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const menuToggle = document.getElementById('menuToggle');
+  const menuClose = document.getElementById('menuClose');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if(menuToggle && mobileMenu){
+    menuToggle.addEventListener('click', () => mobileMenu.classList.add('open'));
+    menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  }
+</script>
+</body>
+</html>

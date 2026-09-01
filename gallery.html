@@ -442,10 +442,12 @@
 
   <ul class="nav-menu">
     <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
     <li><a href="accommodation.html">Accommodation</a></li>
     <li><a href="beach-pool.html">Beach & Pool</a></li>
-    <li><a href="dining.html">Dining</a></li>
+    <li><a href="dining.html">Food & Dining</a></li>
     <li><a href="adventures.html">Adventures</a></li>
+    <li><a href="events.html">Events & Weddings</a></li>
     <li><a href="gallery.html" class="active">Gallery</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
@@ -482,10 +484,12 @@
 
   <div class="mobile-menu-links">
     <a href="index.html" class="m-item">Home</a>
+    <a href="about.html" class="m-item">About Us</a>
     <a href="accommodation.html" class="m-item">Accommodation</a>
     <a href="beach-pool.html" class="m-item">Beach & Pool</a>
-    <a href="dining.html" class="m-item">Dining</a>
+    <a href="dining.html" class="m-item">Food & Dining</a>
     <a href="adventures.html" class="m-item">Adventures</a>
+    <a href="events.html" class="m-item">Events & Weddings</a>
     <a href="gallery.html" class="m-item active">Gallery</a>
     <a href="contact.html" class="m-item">Contact</a>
   </div>
@@ -503,7 +507,7 @@
 <div class="mobile-sticky-bar">
   <div class="ms-info">
     <span class="ms-title">Zevia Sands</span>
-    <span class="ms-price" id="mobileStickyPrice">from KSh 63,700 / nt</span>
+    <span class="ms-price" id="mobileStickyPrice">from KSh 52,000 / nt</span>
   </div>
   <a href="index.html#reserve" class="btn btn-gold btn-small" style="padding: 10px 20px; font-size: 13px;">Book Stay</a>
 </div>
@@ -513,83 +517,115 @@
   <div class="container">
     <span class="tag">Visual Moments</span>
     <h1>Moments at Zevia Sands</h1>
-    <p class="lede" style="max-width:650px; margin:0 auto;">Explore the authentic beauty of Kalmara Bay — from panoramic ocean horizon pools and overwater suites to gourmet catch-of-the-day dinners.</p>
+    <p class="lede" style="max-width:650px; margin:0 auto;">Explore the authentic beauty of Kalmara Bay — from panoramic ocean horizon pools and overwater suites to gourmet seafood dinners and beachfront celebrations.</p>
   </div>
 </header>
 
 <main class="section">
   <div class="container">
 
-    <!-- Category Filter Tabs -->
-    <div class="filter-tabs">
-      <button class="filter-tab active" data-filter="all">All Photos</button>
-      <button class="filter-tab" data-filter="villas">Villas & Suites</button>
-      <button class="filter-tab" data-filter="beach">Beach & Pool</button>
-      <button class="filter-tab" data-filter="dining">Food & Dining</button>
-      <button class="filter-tab" data-filter="adventures">Adventures</button>
+    <!-- Category Filter Tabs (Blueprint: ALL, ROOMS, DINING, POOL, GROUNDS, ACTIVITIES, EVENTS) -->
+    <div class="filter-tabs" style="display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:36px;">
+      <button class="filter-tab active" data-filter="all">ALL</button>
+      <button class="filter-tab" data-filter="rooms">ROOMS</button>
+      <button class="filter-tab" data-filter="dining">DINING</button>
+      <button class="filter-tab" data-filter="pool">POOL</button>
+      <button class="filter-tab" data-filter="grounds">GROUNDS</button>
+      <button class="filter-tab" data-filter="activities">ACTIVITIES</button>
+      <button class="filter-tab" data-filter="events">EVENTS</button>
     </div>
 
     <!-- Gallery Grid -->
     <div class="full-gallery-grid" id="galleryGrid">
 
-      <div class="gallery-card wide" data-cat="beach">
+      <!-- Pool -->
+      <div class="gallery-card wide" data-cat="pool">
         <img src="images/infinity-pool.jpg" alt="Lagoon Infinity Pool">
         <div class="gallery-overlay"><h4>40m Lagoon Infinity Pool</h4></div>
       </div>
 
-      <div class="gallery-card" data-cat="villas">
+      <!-- Rooms -->
+      <div class="gallery-card" data-cat="rooms">
         <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=85" alt="Overwater Villa">
         <div class="gallery-overlay"><h4>Overwater Lagoon Villa</h4></div>
       </div>
 
+      <!-- Dining -->
       <div class="gallery-card" data-cat="dining">
         <img src="images/floating-breakfast.jpg" alt="Floating Pool Breakfast">
         <div class="gallery-overlay"><h4>Floating Villa Breakfast</h4></div>
       </div>
 
-      <div class="gallery-card" data-cat="adventures">
+      <!-- Activities -->
+      <div class="gallery-card" data-cat="activities">
         <img src="images/clear-kayak.jpg" alt="Clear Glass Kayaking">
         <div class="gallery-overlay"><h4>100% Clear Glass Kayaks</h4></div>
       </div>
 
-      <div class="gallery-card" data-cat="villas">
+      <!-- Rooms -->
+      <div class="gallery-card" data-cat="rooms">
         <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=85" alt="Beachfront Palm Villa">
         <div class="gallery-overlay"><h4>Beachfront Palm Villa</h4></div>
       </div>
 
-      <div class="gallery-card wide" data-cat="adventures">
+      <!-- Activities -->
+      <div class="gallery-card wide" data-cat="activities">
         <img src="images/sunset-catamaran.jpg" alt="Sunset Catamaran Cruise">
         <div class="gallery-overlay"><h4>Sunset Champagne Catamaran Cruise</h4></div>
       </div>
 
+      <!-- Dining -->
       <div class="gallery-card" data-cat="dining">
         <img src="images/lobster-grill.jpg" alt="The Reef Lobster Grill">
         <div class="gallery-overlay"><h4>Reef Lobster & Fire Grill</h4></div>
       </div>
 
-      <div class="gallery-card" data-cat="dining">
+      <!-- Pool -->
+      <div class="gallery-card" data-cat="pool">
         <img src="images/swim-up-bar.jpg" alt="Lagoon Swim-Up Cocktail Bar">
         <div class="gallery-overlay"><h4>Lagoon Swim-Up Cocktail Bar</h4></div>
       </div>
 
-      <div class="gallery-card" data-cat="adventures">
+      <!-- Activities -->
+      <div class="gallery-card" data-cat="activities">
         <img src="images/turtle-snorkeling.jpg" alt="Sea Turtle Snorkel">
         <div class="gallery-overlay"><h4>Sea Turtle Reef Snorkel</h4></div>
       </div>
 
-      <div class="gallery-card" data-cat="adventures">
+      <!-- Activities -->
+      <div class="gallery-card" data-cat="activities">
         <img src="images/beach-massage.jpg" alt="Beachside Palm Massage">
         <div class="gallery-overlay"><h4>Beachside Palm Coconut Massage</h4></div>
       </div>
 
-      <div class="gallery-card wide" data-cat="beach">
-        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85" alt="Pristine Turquoise Shore">
+      <!-- Grounds -->
+      <div class="gallery-card wide" data-cat="grounds">
+        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=85" alt="Pristine Coast Grounds">
         <div class="gallery-overlay"><h4>2km Private White Sand Coast</h4></div>
       </div>
 
-      <div class="gallery-card" data-cat="villas">
+      <!-- Rooms -->
+      <div class="gallery-card" data-cat="rooms">
         <img src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=1200&q=85" alt="Horizon Infinity Villa">
         <div class="gallery-overlay"><h4>Horizon Infinity Villa Pool</h4></div>
+      </div>
+
+      <!-- Events -->
+      <div class="gallery-card wide" data-cat="events">
+        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85" alt="Beachfront Wedding Setup">
+        <div class="gallery-overlay"><h4>Sunset Beach Wedding Ceremony</h4></div>
+      </div>
+
+      <!-- Grounds -->
+      <div class="gallery-card" data-cat="grounds">
+        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=1200&q=85" alt="Tropical Palm Gardens">
+        <div class="gallery-overlay"><h4>Tropical Palm Gardens & Paths</h4></div>
+      </div>
+
+      <!-- Events -->
+      <div class="gallery-card" data-cat="events">
+        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=85" alt="Lantern Banquet Evening">
+        <div class="gallery-overlay"><h4>Lantern Beach Banquet</h4></div>
       </div>
 
     </div>
@@ -609,7 +645,7 @@
     <div class="footer-grid">
       <div>
         <div class="nav-brand" style="font-size:22px; margin-bottom:12px;">Zevia Sands</div>
-        <p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:16px;">An ultra-luxury beach sanctuary in Kalmara Bay with overwater pool villas, pristine white sands, and unforgettable coastal food.</p>
+        <p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:16px;">An ultra-luxury beach sanctuary in Kalmara Bay on the Kenyan coast with overwater pool villas, pristine white sands, and unforgettable coastal food.</p>
         <div class="social-icons">
           <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
             <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
@@ -627,38 +663,48 @@
       </div>
 
       <div>
-        <h4 style="font-size:15px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Navigation</h4>
+        <h4 style="font-size:16px; margin-bottom:16px;">Quick Links</h4>
         <ul class="footer-links">
           <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
           <li><a href="accommodation.html">Accommodation</a></li>
-          <li><a href="beach-pool.html">Beach & Infinity Pool</a></li>
-          <li><a href="dining.html">Dining & Bars</a></li>
+          <li><a href="beach-pool.html">Beach & Pool</a></li>
+          <li><a href="dining.html">Food & Dining</a></li>
           <li><a href="adventures.html">Ocean Adventures</a></li>
+          <li><a href="events.html">Events & Weddings</a></li>
           <li><a href="gallery.html">Photo Gallery</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 style="font-size:15px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Contacts</h4>
+        <h4 style="font-size:16px; margin-bottom:16px;">Gallery Collections</h4>
         <ul class="footer-links">
-          <li>📞 <a href="tel:+254700892341">+254 (0) 700 892 341</a></li>
-          <li>💬 <a href="https://wa.me/254712345678" target="_blank">WhatsApp: +254 712 345 678</a></li>
-          <li>✉️ <a href="mailto:reservations@zeviasands.com">reservations@zeviasands.com</a></li>
-          <li>📍 Coral Ridge Way, Kalmara Bay, Kenya</li>
-          <li>🕒 24/7 Guest Concierge</li>
+          <li><a href="gallery.html">Overwater Lagoon Villas</a></li>
+          <li><a href="gallery.html">40m Lagoon Infinity Pool</a></li>
+          <li><a href="gallery.html">Lobster Beach Grills</a></li>
+          <li><a href="gallery.html">Glass Kayaking</a></li>
+          <li><a href="gallery.html">Beach Weddings</a></li>
         </ul>
       </div>
 
       <div>
-        <h4 style="font-size:15px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Sanctuary Inquiries</h4>
-        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Contact our concierge desk for tailored helicopter charters, private wedding bookings, and custom island itineraries.</p>
-        <a href="contact.html" class="btn btn-primary btn-small">Contact Concierge</a>
+        <h4 style="font-size:16px; margin-bottom:16px;">Contact & Location</h4>
+        <div style="font-size:13.5px; line-height:1.8; color:var(--navy-soft);">
+          <div>📍 Diani Beach Road, South Coast, Kenya</div>
+          <div>📞 <a href="tel:+254700892341" style="color:inherit;">+254 700 892 341</a></div>
+          <div>💬 <a href="https://wa.me/254712345678" target="_blank" style="color:var(--ocean-blue); font-weight:600;">Chat on WhatsApp</a></div>
+          <div>✉️ <a href="mailto:reservations@zeviasands.com" style="color:inherit;">reservations@zeviasands.com</a></div>
+        </div>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <span>© 2026 Zevia Sands Resort. All rights reserved.</span>
-      <span>Privacy Policy · Terms of Stay · Environmental Pledge</span>
+      <div>&copy; 2026 Zevia Sands Resort · All rights reserved.</div>
+      <div style="display:flex; gap:18px;">
+        <a href="privacy.html" style="color:inherit;">Privacy Policy</a>
+        <a href="terms.html" style="color:inherit;">Terms of Stay</a>
+        <a href="sitemap.xml" style="color:inherit;">Sitemap</a>
+      </div>
     </div>
   </div>
 </footer>
