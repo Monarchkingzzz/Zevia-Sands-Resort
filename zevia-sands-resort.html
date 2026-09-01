@@ -624,8 +624,8 @@
     <div class="currency-picker">
       <span style="font-size:12px;">🌐</span>
       <select class="currency-select" id="currencySelect" aria-label="Select Currency">
-        <option value="USD" selected>USD ($)</option>
-        <option value="KES">KES (KSh)</option>
+        <option value="KES" selected>KES (KSh)</option>
+        <option value="USD">USD ($)</option>
         <option value="EUR">EUR (€)</option>
       </select>
     </div>
@@ -643,8 +643,8 @@
     <div class="currency-picker" style="background: rgba(255,255,255,0.12); padding: 8px 18px;">
       <span style="font-size:14px;">🌐</span>
       <select class="currency-select" id="mobileCurrencySelect" aria-label="Select Currency" style="font-size:14px;">
-        <option value="USD" selected>USD ($)</option>
-        <option value="KES">KES (KSh)</option>
+        <option value="KES" selected>KES (KSh)</option>
+        <option value="USD">USD ($)</option>
         <option value="EUR">EUR (€)</option>
       </select>
     </div>
@@ -1141,11 +1141,11 @@
 
   /* Currency Configuration */
   var currencies = {
-    USD: { symbol: '$', rate: 1, name: 'US Dollars' },
     KES: { symbol: 'KSh ', rate: 130, name: 'Kenyan Shillings' },
+    USD: { symbol: '$', rate: 1, name: 'US Dollars' },
     EUR: { symbol: '€', rate: 0.92, name: 'Euros' }
   };
-  var currentCurrency = 'USD';
+  var currentCurrency = 'KES';
 
   var currencySelect = document.getElementById('currencySelect');
   var mobileCurrencySelect = document.getElementById('mobileCurrencySelect');
@@ -1235,15 +1235,19 @@
   fType.addEventListener('change', updateCalculation);
   fGuests.addEventListener('change', updateCalculation);
 
-  // Restore saved currency if any
+  // Restore saved currency if any, defaulting to KES
   try {
     var saved = localStorage.getItem('zevia_currency');
     if (saved && currencies[saved]) {
       currentCurrency = saved;
-      if (currencySelect) currencySelect.value = saved;
-      if (mobileCurrencySelect) mobileCurrencySelect.value = saved;
+    } else {
+      currentCurrency = 'KES';
     }
-  } catch(e) {}
+    if (currencySelect) currencySelect.value = currentCurrency;
+    if (mobileCurrencySelect) mobileCurrencySelect.value = currentCurrency;
+  } catch(e) {
+    currentCurrency = 'KES';
+  }
 
   updateCurrencyUI();
 
