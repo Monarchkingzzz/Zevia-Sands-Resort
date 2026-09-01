@@ -182,23 +182,27 @@
   .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 200;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 20px 48px;
+    padding: 16px 36px;
     width: 100%;
     box-sizing: border-box;
     transition: all 0.35s ease;
   }
-  @media (max-width: 860px) { .nav { padding: 14px 20px; } }
+  @media (max-width: 1300px) { .nav { padding: 14px 24px; } }
+  @media (max-width: 860px) { .nav { padding: 12px 18px; } }
   .nav.scrolled {
-    padding: 14px 48px;
+    padding: 12px 36px;
     background: rgba(250, 248, 245, 0.96);
     backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     box-shadow: 0 4px 20px rgba(15, 32, 39, 0.06);
     border-bottom: 1px solid var(--line);
   }
+  @media (max-width: 1300px) { .nav.scrolled { padding: 12px 24px; } }
+  @media (max-width: 860px) { .nav.scrolled { padding: 10px 18px; } }
+
   .nav-brand {
     font-family: var(--font-serif);
-    font-size: 24px;
-    letter-spacing: 0.12em;
+    font-size: 22px;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: #FFF;
     font-weight: 600;
@@ -209,17 +213,18 @@
   .nav.scrolled .nav-brand { color: var(--navy); }
 
   .nav-menu {
-    display: flex; gap: 32px; list-style: none;
+    display: flex; gap: clamp(8px, 1.1vw, 18px); list-style: none; align-items: center;
   }
   .nav-menu a {
-    font-size: 13px;
-    font-weight: 500;
+    font-size: 11.5px;
+    font-weight: 600;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.9);
     position: relative;
-    padding: 4px 0;
+    padding: 6px 3px;
     transition: color 0.2s ease;
+    white-space: nowrap;
   }
   .nav-menu a:hover { color: #FFF; }
   .nav.scrolled .nav-menu a { color: var(--navy-soft); }
@@ -228,17 +233,19 @@
   .nav-actions {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-shrink: 0;
   }
 
+  @media (max-width: 1180px) {
+    .nav-menu { display: none; }
+    .hamburger { display: flex; }
+  }
+  @media (min-width: 1181px) {
+    .hamburger { display: none; }
+  }
+
   @media (max-width: 768px) {
-    .nav {
-      padding: 10px 14px;
-    }
-    .nav.scrolled {
-      padding: 10px 14px;
-    }
     .nav-brand {
       font-size: 18px;
       letter-spacing: 0.06em;
@@ -262,7 +269,7 @@
   }
 
   .hamburger {
-    display: none; flex-direction: column; justify-content: center; gap: 4.5px; cursor: pointer;
+    flex-direction: column; justify-content: center; gap: 4.5px; cursor: pointer;
     width: 38px; height: 38px; border-radius: 50%; padding: 6px; flex-shrink: 0;
     transition: background 0.2s ease;
   }
@@ -273,10 +280,6 @@
     width: 20px; height: 2px; background: #FFF; border-radius: 2px; transition: all 0.3s ease;
   }
   .nav.scrolled .hamburger span { background: var(--navy); }
-  @media (max-width: 900px) {
-    .nav-menu { display: none; }
-    .hamburger { display: flex; }
-  }
 
   .currency-picker {
     display: inline-flex;
@@ -401,27 +404,31 @@
   ------------------------------------------------------------- */
   .hero {
     position: relative;
-    height: 100vh;
-    min-height: 640px;
+    min-height: 100vh;
+    padding: 130px 0 80px;
     display: flex;
     align-items: center;
     color: #FFF;
     background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=85') center 40% / cover no-repeat;
+    box-sizing: border-box;
+  }
+  @media (max-width: 768px) {
+    .hero { min-height: auto; padding: 100px 0 50px; }
   }
   .hero::before {
     content: ""; position: absolute; inset: 0;
-    background: linear-gradient(180deg, rgba(15,32,39,0.3) 0%, rgba(15,32,39,0.15) 50%, rgba(15,32,39,0.65) 100%);
+    background: linear-gradient(180deg, rgba(15,32,39,0.4) 0%, rgba(15,32,39,0.18) 50%, rgba(15,32,39,0.72) 100%);
   }
 
   .hero-content {
     position: relative; z-index: 10;
-    max-width: 720px;
+    max-width: 740px;
   }
   .hero h1 {
-    font-size: clamp(44px, 6.5vw, 76px);
+    font-size: clamp(36px, 5.2vw, 68px);
     color: #FFF;
-    line-height: 1.08;
-    margin-bottom: 18px;
+    line-height: 1.12;
+    margin-bottom: 16px;
     text-shadow: 0 2px 20px rgba(0,0,0,0.3);
   }
   .hero h1 em {
@@ -429,15 +436,15 @@
     color: #FFF8E7;
   }
   .hero p {
-    font-size: 18px;
+    font-size: clamp(15px, 1.3vw, 18px);
     line-height: 1.65;
     color: rgba(255, 255, 255, 0.95);
-    margin-bottom: 34px;
+    margin-bottom: 30px;
     max-width: 54ch;
     text-shadow: 0 1px 8px rgba(0,0,0,0.3);
   }
   .hero-buttons {
-    display: flex; gap: 16px; flex-wrap: wrap;
+    display: flex; gap: 14px; flex-wrap: wrap;
   }
 
   /* -------------------------------------------------------------
@@ -865,12 +872,12 @@
 
   <ul class="nav-menu">
     <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="about.html">About Us</a></li>
-    <li><a href="accommodation.html">Accommodation</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="accommodation.html">Villas</a></li>
     <li><a href="beach-pool.html">Beach & Pool</a></li>
-    <li><a href="dining.html">Food & Dining</a></li>
+    <li><a href="dining.html">Dining</a></li>
     <li><a href="adventures.html">Adventures</a></li>
-    <li><a href="events.html">Events & Weddings</a></li>
+    <li><a href="events.html">Events</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
