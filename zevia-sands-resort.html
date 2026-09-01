@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Zevia Sands Resort — Luxury Beach Sanctuary</title>
 <meta name="description" content="Zevia Sands Resort is a sun-drenched beach sanctuary in Kalmara Bay. Experience overwater villas with private infinity plunge pools, pristine white sand beaches, fresh coastal dining, and ocean adventures.">
+<meta name="theme-color" content="#0F2027">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +38,7 @@
     --shadow-hover: 0 20px 45px -10px rgba(0, 119, 182, 0.2);
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html { scroll-behavior: smooth; }
 
   body {
@@ -46,7 +47,9 @@
     background: var(--sand-bg);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    touch-action: manipulation;
   }
 
   img { display: block; max-width: 100%; height: auto; object-fit: cover; }
@@ -205,11 +208,32 @@
   .nav.scrolled .nav-menu a { color: var(--navy-soft); }
   .nav.scrolled .nav-menu a:hover { color: var(--ocean-blue); }
 
+  @media (max-width: 768px) {
+    .nav {
+      padding: 12px 18px;
+    }
+    .nav.scrolled {
+      padding: 10px 18px;
+    }
+    .nav-brand {
+      font-size: 20px;
+      letter-spacing: 0.08em;
+    }
+    .nav .btn-gold {
+      display: none;
+    }
+  }
+
   .hamburger {
-    display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px;
+    display: none; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer;
+    width: 42px; height: 42px; border-radius: 50%; padding: 8px;
+    transition: background 0.2s ease;
+  }
+  .hamburger:active {
+    background: rgba(255, 255, 255, 0.15);
   }
   .hamburger span {
-    width: 24px; height: 2px; background: #FFF; border-radius: 2px; transition: all 0.3s ease;
+    width: 22px; height: 2px; background: #FFF; border-radius: 2px; transition: all 0.3s ease;
   }
   .nav.scrolled .hamburger span { background: var(--navy); }
   @media (max-width: 900px) {
@@ -224,7 +248,7 @@
     background: rgba(255, 255, 255, 0.15);
     border: 1px solid rgba(255, 255, 255, 0.35);
     border-radius: var(--radius-full);
-    padding: 5px 12px;
+    padding: 6px 12px;
     color: #FFF;
     font-size: 12px;
     font-weight: 600;
@@ -253,20 +277,60 @@
     font-weight: 600;
   }
 
-  /* Mobile Drawer */
+  /* Luxury Fullscreen Mobile Drawer */
   .mobile-menu {
-    position: fixed; inset: 0; z-index: 300;
-    background: rgba(15, 32, 39, 0.98);
-    backdrop-filter: blur(20px);
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    gap: 24px; opacity: 0; pointer-events: none; transition: all 0.3s ease;
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(15, 32, 39, 0.97);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 24px 24px calc(24px + env(safe-area-inset-bottom));
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(-8px);
   }
-  .mobile-menu.open { opacity: 1; pointer-events: all; }
-  .mobile-menu a {
-    font-family: var(--font-serif); font-size: 26px; color: #FFF; text-transform: uppercase;
+  .mobile-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .mobile-menu-header {
+    display: flex; justify-content: space-between; align-items: center; width: 100%;
   }
-  .mobile-menu a:hover { color: var(--sun-gold); }
-  .mobile-close { position: absolute; top: 24px; right: 28px; font-size: 32px; color: #FFF; }
+  .mobile-menu-links {
+    display: flex; flex-direction: column; gap: 14px; margin: auto 0; text-align: center;
+  }
+  .mobile-menu-links a {
+    font-family: var(--font-serif); font-size: 26px; color: rgba(255, 255, 255, 0.88);
+    letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.2s ease;
+    display: inline-block; padding: 4px 0;
+  }
+  .mobile-menu-links a.active, .mobile-menu-links a:hover {
+    color: var(--sun-gold); transform: scale(1.05);
+  }
+  .mobile-menu-footer {
+    display: flex; flex-direction: column; gap: 12px; align-items: center; width: 100%;
+  }
+  .mobile-close {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; color: #FFF; cursor: pointer;
+  }
+
+  /* Mobile Floating Bottom Bar */
+  .mobile-sticky-bar {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(15, 32, 39, 0.08);
+    box-shadow: 0 -8px 25px rgba(0,0,0,0.06);
+    padding: 10px 18px calc(10px + env(safe-area-inset-bottom));
+    align-items: center; justify-content: space-between;
+  }
+  @media (max-width: 768px) {
+    .mobile-sticky-bar { display: flex; }
+    body { padding-bottom: 74px; }
+  }
+  .ms-info { display: flex; flex-direction: column; }
+  .ms-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--navy-soft); }
+  .ms-price { font-size: 13px; font-weight: 700; color: var(--ocean-blue); }
 
   /* -------------------------------------------------------------
      REAL SUN-DRENCHED HERO
@@ -657,27 +721,46 @@
   </div>
 </nav>
 
-<!-- MOBILE MENU -->
+<!-- LUXURY FULLSCREEN MOBILE DRAWER -->
 <div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" id="menuClose">&times;</button>
-  <div style="margin-bottom: 12px;">
-    <div class="currency-picker" style="background: rgba(255,255,255,0.12); padding: 8px 18px; color:#FFF;">
-      <span style="font-size:14px;">🌐</span>
-      <select class="currency-select" id="mobileCurrencySelect" aria-label="Select Currency" style="font-size:14px; color:#FFF;">
+  <div class="mobile-menu-header">
+    <div class="currency-picker" style="background: rgba(255,255,255,0.12); padding: 8px 16px; color:#FFF;">
+      <span style="font-size:13px;">🌐</span>
+      <select class="currency-select" id="mobileCurrencySelect" aria-label="Select Currency" style="font-size:13px; color:#FFF;">
         <option value="KES" selected>KES (KSh)</option>
         <option value="USD">USD ($)</option>
         <option value="EUR">EUR (€)</option>
       </select>
     </div>
+    <button class="mobile-close" id="menuClose" aria-label="Close Menu">&times;</button>
   </div>
-  <a href="index.html" class="m-item active" style="color:var(--sun-gold);">Home</a>
-  <a href="accommodation.html" class="m-item">Accommodation</a>
-  <a href="beach-pool.html" class="m-item">Beach & Pool</a>
-  <a href="dining.html" class="m-item">Dining</a>
-  <a href="adventures.html" class="m-item">Adventures</a>
-  <a href="gallery.html" class="m-item">Gallery</a>
-  <a href="contact.html" class="m-item">Contact</a>
-  <a href="#reserve" class="m-item" style="color:var(--sun-gold); margin-top:10px;">Book Stay</a>
+
+  <div class="mobile-menu-links">
+    <a href="index.html" class="m-item active">Home</a>
+    <a href="accommodation.html" class="m-item">Accommodation</a>
+    <a href="beach-pool.html" class="m-item">Beach & Pool</a>
+    <a href="dining.html" class="m-item">Dining</a>
+    <a href="adventures.html" class="m-item">Adventures</a>
+    <a href="gallery.html" class="m-item">Gallery</a>
+    <a href="contact.html" class="m-item">Contact</a>
+  </div>
+
+  <div class="mobile-menu-footer">
+    <a href="#reserve" class="btn btn-gold m-item" style="width:100%; padding:14px; font-size:14px;">Reserve Your Stay</a>
+    <div style="font-size:12px; color:rgba(255,255,255,0.6); display:flex; gap:16px;">
+      <a href="tel:+254700892341">📞 Concierge</a>
+      <a href="https://wa.me/254712345678" target="_blank">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE FLOATING STICKY BOOKING BAR -->
+<div class="mobile-sticky-bar">
+  <div class="ms-info">
+    <span class="ms-title">Zevia Sands</span>
+    <span class="ms-price" id="mobileStickyPrice">from KSh 63,700 / nt</span>
+  </div>
+  <a href="#reserve" class="btn btn-gold btn-small" style="padding: 10px 20px; font-size: 13px;">Book Stay</a>
 </div>
 
 <!-- REAL SUNLIT BEACH HERO -->
@@ -1237,6 +1320,11 @@
         }
       });
     });
+
+    var mobSticky = document.getElementById('mobileStickyPrice');
+    if (mobSticky) {
+      mobSticky.textContent = 'from ' + formatMoney(490) + ' / nt';
+    }
 
     updateCalculation();
   }

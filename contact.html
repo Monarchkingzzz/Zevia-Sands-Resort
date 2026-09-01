@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Contact & Concierge — Zevia Sands Resort</title>
 <meta name="description" content="Contact Zevia Sands Resort in Kalmara Bay. Reach our 24/7 reservations desk, island concierge, WhatsApp helpline, and find arrival transfer details.">
+<meta name="theme-color" content="#0F2027">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,7 +38,7 @@
     --shadow-hover: 0 20px 45px -10px rgba(0, 119, 182, 0.2);
   }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
   html { scroll-behavior: smooth; }
 
   body {
@@ -46,7 +47,9 @@
     background: var(--sand-bg);
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    touch-action: manipulation;
   }
 
   img { display: block; max-width: 100%; height: auto; object-fit: cover; }
@@ -58,6 +61,7 @@
     margin: 0 auto;
     padding: 0 32px;
   }
+  @media (max-width: 768px) { .container { padding: 0 18px; } }
 
   h1, h2, h3, h4 {
     font-family: var(--font-serif);
@@ -78,8 +82,7 @@
 
   .section { padding: 90px 0; }
   @media (max-width: 768px) {
-    .section { padding: 60px 0; }
-    .container { padding: 0 20px; }
+    .section { padding: 55px 0; }
   }
 
   .lede {
@@ -88,6 +91,7 @@
     color: var(--navy-soft);
     font-weight: 400;
   }
+  @media (max-width: 768px) { .lede { font-size: 15.5px; } }
 
   .btn {
     font-family: var(--font-sans);
@@ -113,13 +117,17 @@
   .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 200;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 22px 48px;
+    padding: 18px 48px;
     background: rgba(250, 248, 245, 0.94);
-    backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
     box-shadow: 0 4px 20px rgba(15, 32, 39, 0.06);
     border-bottom: 1px solid var(--line);
   }
-  @media (max-width: 860px) { .nav { padding: 16px 24px; } }
+  @media (max-width: 768px) {
+    .nav { padding: 12px 18px; }
+    .nav .btn-gold { display: none; }
+    .nav-brand { font-size: 20px; letter-spacing: 0.08em; }
+  }
   .nav-brand {
     font-family: var(--font-serif);
     font-size: 24px;
@@ -149,7 +157,7 @@
     background: #FFF;
     border: 1px solid var(--line);
     border-radius: var(--radius-full);
-    padding: 5px 12px;
+    padding: 6px 12px;
     color: var(--navy);
     font-size: 12px;
     font-weight: 600;
@@ -166,39 +174,83 @@
   }
 
   .hamburger {
-    display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px;
+    display: none; flex-direction: column; justify-content: center; gap: 5px; cursor: pointer;
+    width: 42px; height: 42px; border-radius: 50%; padding: 8px;
   }
   .hamburger span {
-    width: 24px; height: 2px; background: var(--navy); border-radius: 2px;
+    width: 22px; height: 2px; background: var(--navy); border-radius: 2px;
   }
-  @media (max-width: 980px) {
+  @media (max-width: 900px) {
     .nav-menu { display: none; }
     .hamburger { display: flex; }
   }
 
-  /* Mobile Drawer */
+  /* Luxury Fullscreen Mobile Drawer */
   .mobile-menu {
-    position: fixed; inset: 0; z-index: 300;
-    background: rgba(15, 32, 39, 0.98);
-    backdrop-filter: blur(20px);
-    display: flex; flex-direction: column; justify-content: center; align-items: center;
-    gap: 20px; opacity: 0; pointer-events: none; transition: all 0.3s ease;
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(15, 32, 39, 0.97);
+    backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 24px 24px calc(24px + env(safe-area-inset-bottom));
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateY(-8px);
   }
-  .mobile-menu.open { opacity: 1; pointer-events: all; }
-  .mobile-menu a {
-    font-family: var(--font-serif); font-size: 24px; color: #FFF; text-transform: uppercase;
+  .mobile-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .mobile-menu-header {
+    display: flex; justify-content: space-between; align-items: center; width: 100%;
   }
-  .mobile-menu a:hover, .mobile-menu a.active { color: var(--sun-gold); }
-  .mobile-close { position: absolute; top: 24px; right: 28px; font-size: 32px; color: #FFF; }
+  .mobile-menu-links {
+    display: flex; flex-direction: column; gap: 14px; margin: auto 0; text-align: center;
+  }
+  .mobile-menu-links a {
+    font-family: var(--font-serif); font-size: 26px; color: rgba(255, 255, 255, 0.88);
+    letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.2s ease;
+    display: inline-block; padding: 4px 0;
+  }
+  .mobile-menu-links a.active, .mobile-menu-links a:hover {
+    color: var(--sun-gold); transform: scale(1.05);
+  }
+  .mobile-menu-footer {
+    display: flex; flex-direction: column; gap: 12px; align-items: center; width: 100%;
+  }
+  .mobile-close {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; color: #FFF; cursor: pointer;
+  }
+
+  /* Mobile Floating Bottom Bar */
+  .mobile-sticky-bar {
+    display: none;
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-top: 1px solid rgba(15, 32, 39, 0.08);
+    box-shadow: 0 -8px 25px rgba(0,0,0,0.06);
+    padding: 10px 18px calc(10px + env(safe-area-inset-bottom));
+    align-items: center; justify-content: space-between;
+  }
+  @media (max-width: 768px) {
+    .mobile-sticky-bar { display: flex; }
+    body { padding-bottom: 74px; }
+  }
+  .ms-info { display: flex; flex-direction: column; }
+  .ms-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--navy-soft); }
+  .ms-price { font-size: 13px; font-weight: 700; color: var(--ocean-blue); }
 
   /* Page Header */
   .page-hero {
-    padding: 160px 0 70px;
+    padding: 140px 0 60px;
     background: linear-gradient(180deg, #E8F7F9 0%, var(--sand-bg) 100%);
     text-align: center;
   }
+  @media (max-width: 768px) {
+    .page-hero { padding: 100px 0 45px; }
+  }
   .page-hero h1 {
-    font-size: clamp(38px, 5.5vw, 62px);
+    font-size: clamp(32px, 6vw, 62px);
     margin-bottom: 14px;
   }
 
@@ -206,22 +258,22 @@
   .contact-layout {
     display: grid;
     grid-template-columns: 1fr 1.2fr;
-    gap: 50px;
-    margin-bottom: 70px;
+    gap: 40px;
+    margin-bottom: 60px;
   }
-  @media (max-width: 900px) { .contact-layout { grid-template-columns: 1fr; gap: 35px; } }
+  @media (max-width: 900px) { .contact-layout { grid-template-columns: 1fr; gap: 30px; } }
 
   .contact-card {
     background: #FFF;
     border-radius: var(--radius-md);
-    padding: 40px;
+    padding: 36px;
     box-shadow: var(--shadow-card);
     border: 1px solid var(--line);
   }
-  @media (max-width: 600px) { .contact-card { padding: 25px; } }
+  @media (max-width: 600px) { .contact-card { padding: 22px; } }
 
   .contact-item {
-    display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start;
+    display: flex; gap: 16px; margin-bottom: 22px; align-items: flex-start;
   }
   .contact-icon-box {
     width: 44px; height: 44px; border-radius: 50%;
@@ -230,7 +282,7 @@
   }
 
   .form-group {
-    display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px;
+    display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px;
   }
   .form-group label {
     font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted);
@@ -238,20 +290,26 @@
   .form-group input, .form-group select, .form-group textarea {
     width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm);
     font-family: var(--font-sans); font-size: 14px; outline: none; background: var(--sand-bg);
+    transition: all 0.2s ease;
   }
-  .form-group input:focus, .form-group textarea:focus {
+  @media (max-width: 768px) {
+    .form-group input, .form-group select, .form-group textarea {
+      font-size: 16px; /* Prevents auto-zoom on iOS */
+    }
+  }
+  .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
     border-color: var(--ocean-blue); background: #FFF;
   }
 
   /* FAQs */
   .faq-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
   }
-  @media (max-width: 800px) { .faq-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 800px) { .faq-grid { grid-template-columns: 1fr; gap: 14px; } }
   .faq-box {
-    background: #FFF; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 24px;
+    background: #FFF; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 22px;
   }
-  .faq-box h4 { font-size: 18px; margin-bottom: 8px; }
+  .faq-box h4 { font-size: 17px; margin-bottom: 8px; }
   .faq-box p { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; }
 
   /* Footer */
@@ -326,26 +384,46 @@
   </div>
 </nav>
 
-<!-- MOBILE MENU -->
+<!-- LUXURY FULLSCREEN MOBILE DRAWER -->
 <div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" id="menuClose">&times;</button>
-  <div style="margin-bottom: 12px;">
-    <div class="currency-picker" style="background: rgba(255,255,255,0.12); padding: 8px 18px; color:#FFF;">
-      <span style="font-size:14px;">🌐</span>
-      <select class="currency-select" id="mobileCurrencySelect" aria-label="Select Currency" style="font-size:14px; color:#FFF;">
+  <div class="mobile-menu-header">
+    <div class="currency-picker" style="background: rgba(255,255,255,0.12); padding: 8px 16px; color:#FFF;">
+      <span style="font-size:13px;">🌐</span>
+      <select class="currency-select" id="mobileCurrencySelect" aria-label="Select Currency" style="font-size:13px; color:#FFF;">
         <option value="KES" selected>KES (KSh)</option>
         <option value="USD">USD ($)</option>
         <option value="EUR">EUR (€)</option>
       </select>
     </div>
+    <button class="mobile-close" id="menuClose" aria-label="Close Menu">&times;</button>
   </div>
-  <a href="index.html" class="m-item">Home</a>
-  <a href="accommodation.html" class="m-item">Accommodation</a>
-  <a href="beach-pool.html" class="m-item">Beach & Pool</a>
-  <a href="dining.html" class="m-item">Dining</a>
-  <a href="adventures.html" class="m-item">Adventures</a>
-  <a href="gallery.html" class="m-item">Gallery</a>
-  <a href="contact.html" class="m-item active" style="color:var(--sun-gold);">Contact</a>
+
+  <div class="mobile-menu-links">
+    <a href="index.html" class="m-item">Home</a>
+    <a href="accommodation.html" class="m-item">Accommodation</a>
+    <a href="beach-pool.html" class="m-item">Beach & Pool</a>
+    <a href="dining.html" class="m-item">Dining</a>
+    <a href="adventures.html" class="m-item">Adventures</a>
+    <a href="gallery.html" class="m-item">Gallery</a>
+    <a href="contact.html" class="m-item active">Contact</a>
+  </div>
+
+  <div class="mobile-menu-footer">
+    <a href="index.html#reserve" class="btn btn-gold m-item" style="width:100%; padding:14px; font-size:14px;">Reserve Your Stay</a>
+    <div style="font-size:12px; color:rgba(255,255,255,0.6); display:flex; gap:16px;">
+      <a href="tel:+254700892341">📞 Concierge</a>
+      <a href="https://wa.me/254712345678" target="_blank">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE FLOATING STICKY BOOKING BAR -->
+<div class="mobile-sticky-bar">
+  <div class="ms-info">
+    <span class="ms-title">Zevia Sands</span>
+    <span class="ms-price" id="mobileStickyPrice">from KSh 63,700 / nt</span>
+  </div>
+  <a href="index.html#reserve" class="btn btn-gold btn-small" style="padding: 10px 20px; font-size: 13px;">Book Stay</a>
 </div>
 
 <!-- PAGE HERO -->
@@ -548,10 +626,33 @@
   var currencySelect = document.getElementById('currencySelect');
   var mobileCurrencySelect = document.getElementById('mobileCurrencySelect');
 
+  var currencies = {
+    KES: { symbol: 'KSh ', rate: 130 },
+    USD: { symbol: '$', rate: 1 },
+    EUR: { symbol: '€', rate: 0.92 }
+  };
+  var currentCurrency = 'KES';
+
+  function formatMoney(amountInUSD) {
+    var conf = currencies[currentCurrency] || currencies.KES;
+    var converted = Math.round(amountInUSD * conf.rate);
+    return conf.symbol + converted.toLocaleString();
+  }
+
+  function updateCurrencyUI() {
+    var mobSticky = document.getElementById('mobileStickyPrice');
+    if (mobSticky) {
+      mobSticky.textContent = 'from ' + formatMoney(490) + ' / nt';
+    }
+  }
+
   function setCurrency(code) {
+    if (!currencies[code]) return;
+    currentCurrency = code;
     if (currencySelect) currencySelect.value = code;
     if (mobileCurrencySelect) mobileCurrencySelect.value = code;
     try { localStorage.setItem('zevia_currency', code); } catch(e) {}
+    updateCurrencyUI();
   }
 
   if (currencySelect) currencySelect.addEventListener('change', function() { setCurrency(this.value); });
@@ -559,14 +660,14 @@
 
   try {
     var saved = localStorage.getItem('zevia_currency');
-    if (saved) {
-      if (currencySelect) currencySelect.value = saved;
-      if (mobileCurrencySelect) mobileCurrencySelect.value = saved;
-    } else {
-      if (currencySelect) currencySelect.value = 'KES';
-      if (mobileCurrencySelect) mobileCurrencySelect.value = 'KES';
-    }
-  } catch(e) {}
+    if (saved && currencies[saved]) currentCurrency = saved;
+    else currentCurrency = 'KES';
+    if (currencySelect) currencySelect.value = currentCurrency;
+    if (mobileCurrencySelect) mobileCurrencySelect.value = currentCurrency;
+  } catch(e) {
+    currentCurrency = 'KES';
+  }
+  updateCurrencyUI();
 
   var menuToggle = document.getElementById('menuToggle');
   var mobileMenu = document.getElementById('mobileMenu');
