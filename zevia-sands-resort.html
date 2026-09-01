@@ -216,6 +216,42 @@
     .hamburger { display: flex; }
   }
 
+  .currency-picker {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: var(--radius-full);
+    padding: 5px 12px;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+    transition: all 0.25s ease;
+  }
+  .nav.scrolled .currency-picker {
+    background: #FFF;
+    border-color: var(--line);
+    color: var(--navy);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .currency-select {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+  }
+  .currency-select option {
+    background: #FFF;
+    color: var(--navy);
+    font-weight: 600;
+  }
+
   /* Mobile Drawer */
   .mobile-menu {
     position: fixed; inset: 0; z-index: 300;
@@ -584,7 +620,15 @@
     <li><a href="#gallery">Gallery</a></li>
   </ul>
 
-  <div style="display:flex; align-items:center; gap:14px;">
+  <div style="display:flex; align-items:center; gap:12px;">
+    <div class="currency-picker">
+      <span style="font-size:12px;">🌐</span>
+      <select class="currency-select" id="currencySelect" aria-label="Select Currency">
+        <option value="USD" selected>USD ($)</option>
+        <option value="KES">KES (KSh)</option>
+        <option value="EUR">EUR (€)</option>
+      </select>
+    </div>
     <a href="#reserve" class="btn btn-gold btn-small">Book Stay</a>
     <button class="hamburger" id="menuToggle" aria-label="Open Menu">
       <span></span><span></span>
@@ -595,6 +639,16 @@
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" id="menuClose">&times;</button>
+  <div style="margin-bottom: 12px;">
+    <div class="currency-picker" style="background: rgba(255,255,255,0.12); padding: 8px 18px;">
+      <span style="font-size:14px;">🌐</span>
+      <select class="currency-select" id="mobileCurrencySelect" aria-label="Select Currency" style="font-size:14px;">
+        <option value="USD" selected>USD ($)</option>
+        <option value="KES">KES (KSh)</option>
+        <option value="EUR">EUR (€)</option>
+      </select>
+    </div>
+  </div>
   <a href="#villas" class="m-item">Villas</a>
   <a href="#beach-pool" class="m-item">Beach & Pool</a>
   <a href="#dining" class="m-item">Dining</a>
@@ -668,7 +722,7 @@
         <!-- Villa 1 -->
         <article class="villa-card">
           <div class="villa-photo">
-            <span class="villa-price">$680 / night</span>
+            <span class="villa-price" data-base-price="680">$680 / night</span>
             <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=85" alt="Overwater Lagoon Villa" loading="lazy">
           </div>
           <div class="villa-body">
@@ -689,7 +743,7 @@
         <!-- Villa 2 -->
         <article class="villa-card">
           <div class="villa-photo">
-            <span class="villa-price">$490 / night</span>
+            <span class="villa-price" data-base-price="490">$490 / night</span>
             <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=85" alt="Beachfront Palm Villa" loading="lazy">
           </div>
           <div class="villa-body">
@@ -710,7 +764,7 @@
         <!-- Villa 3 -->
         <article class="villa-card">
           <div class="villa-photo">
-            <span class="villa-price">$1,150 / night</span>
+            <span class="villa-price" data-base-price="1150">$1,150 / night</span>
             <img src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=85" alt="Horizon Infinity Villa" loading="lazy">
           </div>
           <div class="villa-body">
@@ -1085,26 +1139,89 @@
   barType.addEventListener('change', function() { fType.value = barType.value; updateCalculation(); });
   barGuests.addEventListener('change', function() { fGuests.value = barGuests.value; updateCalculation(); });
 
+  /* Currency Configuration */
+  var currencies = {
+    USD: { symbol: '$', rate: 1, name: 'US Dollars' },
+    KES: { symbol: 'KSh ', rate: 130, name: 'Kenyan Shillings' },
+    EUR: { symbol: '€', rate: 0.92, name: 'Euros' }
+  };
+  var currentCurrency = 'USD';
+
+  var currencySelect = document.getElementById('currencySelect');
+  var mobileCurrencySelect = document.getElementById('mobileCurrencySelect');
+
+  function formatMoney(amountInUSD) {
+    var conf = currencies[currentCurrency] || currencies.USD;
+    var converted = Math.round(amountInUSD * conf.rate);
+    return conf.symbol + converted.toLocaleString();
+  }
+
+  function updateCurrencyUI() {
+    // Update villa card price badges
+    document.querySelectorAll('.villa-price[data-base-price]').forEach(function(el) {
+      var base = parseFloat(el.getAttribute('data-base-price'));
+      el.textContent = formatMoney(base) + ' / night';
+    });
+
+    // Update select dropdown option texts
+    var villaMap = {
+      overwater: { name: 'Overwater Lagoon Villa', base: 680 },
+      beachfront: { name: 'Beachfront Palm Villa', base: 490 },
+      horizon: { name: 'Horizon Infinity Villa', base: 1150 }
+    };
+
+    [barType, fType].forEach(function(sel) {
+      if (!sel) return;
+      Array.from(sel.options).forEach(function(opt) {
+        var info = villaMap[opt.value];
+        if (info) {
+          opt.textContent = info.name + ' (' + formatMoney(info.base) + '/nt)';
+        }
+      });
+    });
+
+    updateCalculation();
+  }
+
+  function setCurrency(code) {
+    if (!currencies[code]) return;
+    currentCurrency = code;
+    if (currencySelect) currencySelect.value = code;
+    if (mobileCurrencySelect) mobileCurrencySelect.value = code;
+    try { localStorage.setItem('zevia_currency', code); } catch(e) {}
+    updateCurrencyUI();
+  }
+
+  if (currencySelect) {
+    currencySelect.addEventListener('change', function() { setCurrency(this.value); });
+  }
+  if (mobileCurrencySelect) {
+    mobileCurrencySelect.addEventListener('change', function() { setCurrency(this.value); });
+  }
+
   function updateCalculation() {
     var inDate = new Date(fIn.value);
     var outDate = new Date(fOut.value);
     var nights = Math.max(1, Math.round((outDate - inDate) / 86400000));
 
-    var opt = fType.options[fType.selectedIndex];
-    var price = parseInt(opt.getAttribute('data-price'), 10) || 680;
-    var name = opt.textContent.split(' (')[0];
+    var basePrices = { overwater: 680, beachfront: 490, horizon: 1150 };
+    var names = { overwater: 'Overwater Lagoon Villa', beachfront: 'Beachfront Palm Villa', horizon: 'Horizon Infinity Villa' };
 
-    var subtotal = price * nights;
-    var tax = Math.round(subtotal * 0.10);
+    var optVal = fType.value;
+    var basePrice = basePrices[optVal] || 680;
+    var name = names[optVal] || 'Overwater Lagoon Villa';
+
+    var subtotal = basePrice * nights;
+    var tax = subtotal * 0.10;
     var grand = subtotal + tax;
 
     cName.textContent = name;
     cNights.textContent = nights + (nights === 1 ? ' Night' : ' Nights');
-    cSub.textContent = '$' + subtotal.toLocaleString();
-    cTax.textContent = '$' + tax.toLocaleString();
-    cTotal.textContent = '$' + grand.toLocaleString();
+    cSub.textContent = formatMoney(subtotal);
+    cTax.textContent = formatMoney(tax);
+    cTotal.textContent = formatMoney(grand);
 
-    return { name: name, nights: nights, grand: grand };
+    return { name: name, nights: nights, grandFormatted: formatMoney(grand) };
   }
 
   fIn.addEventListener('change', function() {
@@ -1117,7 +1234,18 @@
   fOut.addEventListener('change', updateCalculation);
   fType.addEventListener('change', updateCalculation);
   fGuests.addEventListener('change', updateCalculation);
-  updateCalculation();
+
+  // Restore saved currency if any
+  try {
+    var saved = localStorage.getItem('zevia_currency');
+    if (saved && currencies[saved]) {
+      currentCurrency = saved;
+      if (currencySelect) currencySelect.value = saved;
+      if (mobileCurrencySelect) mobileCurrencySelect.value = saved;
+    }
+  } catch(e) {}
+
+  updateCurrencyUI();
 
   // Villa card button triggers
   document.querySelectorAll('[data-select]').forEach(function(btn) {
@@ -1140,7 +1268,7 @@
     document.getElementById('vName').textContent = data.name;
     document.getElementById('vDates').textContent = fIn.value + ' to ' + fOut.value + ' (' + data.nights + ' Nights)';
     document.getElementById('vGuests').textContent = fGuests.options[fGuests.selectedIndex].textContent;
-    document.getElementById('vPrice').textContent = '$' + data.grand.toLocaleString();
+    document.getElementById('vPrice').textContent = data.grandFormatted;
     voucherModal.classList.add('open');
   });
 
