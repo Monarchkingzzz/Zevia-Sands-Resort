@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFD166" />
+      <stop offset="100%" stop-color="#E5A93C" />
+    </linearGradient>
+    <linearGradient id="oceanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0077B6" />
+      <stop offset="100%" stop-color="#0F2027" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#oceanGrad)" />
+  <!-- Sun -->
+  <circle cx="32" cy="20" r="8" fill="url(#goldGrad)" />
+  <!-- Waves & Palm trunk motif -->
+  <path d="M12 48 Q 22 42, 32 48 T 52 48" stroke="#0096C7" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <path d="M16 54 Q 26 48, 36 54 T 56 54" stroke="#E8F7F9" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <!-- Palm Fronds / Z letter stylized -->
+  <path d="M22 28 C 26 22, 38 22, 42 28 C 36 32, 28 32, 22 28 Z" fill="url(#goldGrad)" />
+  <path d="M30 26 L34 44" stroke="url(#goldGrad)" stroke-width="2.5" stroke-linecap="round" />
+</svg>

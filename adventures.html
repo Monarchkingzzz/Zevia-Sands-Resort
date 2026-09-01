@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ocean Adventures & Spa Wellness — Zevia Sands Resort</title>
+<meta name="description" content="Embark on 100% transparent glass kayaking, sea turtle reef snorkeling, sunset champagne catamaran sails, and beachside coconut massages at Zevia Sands Resort.">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand-bg: #FAF8F5;
+    --card-bg: #FFFFFF;
+    --navy: #0F2027;
+    --navy-soft: #2C3E50;
+    --text-muted: #607274;
+    --ocean-blue: #0077B6;
+    --turquoise: #0096C7;
+    --turquoise-light: #E8F7F9;
+    --sun-gold: #E5A93C;
+    --coral: #E76F51;
+    --line: rgba(15, 32, 39, 0.08);
+    --line-light: rgba(255, 255, 255, 0.2);
+    
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-full: 9999px;
+    
+    --shadow-soft: 0 10px 30px -10px rgba(15, 32, 39, 0.06);
+    --shadow-card: 0 15px 35px -10px rgba(15, 32, 39, 0.1);
+    --shadow-hover: 0 20px 45px -10px rgba(0, 119, 182, 0.2);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--navy);
+    background: var(--sand-bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  img { display: block; max-width: 100%; height: auto; object-fit: cover; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.15;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-blue);
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .section { padding: 90px 0; }
+  @media (max-width: 768px) {
+    .section { padding: 60px 0; }
+    .container { padding: 0 20px; }
+  }
+
+  .lede {
+    font-size: 17.5px;
+    line-height: 1.7;
+    color: var(--navy-soft);
+    font-weight: 400;
+  }
+
+  .btn {
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius-full);
+    padding: 13px 28px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-primary { background: var(--navy); color: #FFF; }
+  .btn-primary:hover { background: var(--ocean-blue); transform: translateY(-2px); }
+  .btn-gold { background: var(--sun-gold); color: #FFF; }
+  .btn-gold:hover { background: #D4982E; transform: translateY(-2px); }
+  .btn-small { padding: 9px 20px; font-size: 12.5px; }
+
+  /* Navbar */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 48px;
+    background: rgba(250, 248, 245, 0.94);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 4px 20px rgba(15, 32, 39, 0.06);
+    border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 860px) { .nav { padding: 16px 24px; } }
+  .nav-brand {
+    font-family: var(--font-serif);
+    font-size: 24px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+  }
+  .nav-menu {
+    display: flex; gap: 26px; list-style: none;
+  }
+  .nav-menu a {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--navy-soft);
+    padding: 4px 0;
+    transition: color 0.2s ease;
+  }
+  .nav-menu a:hover, .nav-menu a.active { color: var(--ocean-blue); }
+
+  .currency-picker {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #FFF;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-full);
+    padding: 5px 12px;
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .currency-select {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .hamburger {
+    display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px;
+  }
+  .hamburger span {
+    width: 24px; height: 2px; background: var(--navy); border-radius: 2px;
+  }
+  @media (max-width: 980px) {
+    .nav-menu { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  /* Mobile Drawer */
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 300;
+    background: rgba(15, 32, 39, 0.98);
+    backdrop-filter: blur(20px);
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    gap: 20px; opacity: 0; pointer-events: none; transition: all 0.3s ease;
+  }
+  .mobile-menu.open { opacity: 1; pointer-events: all; }
+  .mobile-menu a {
+    font-family: var(--font-serif); font-size: 24px; color: #FFF; text-transform: uppercase;
+  }
+  .mobile-menu a:hover, .mobile-menu a.active { color: var(--sun-gold); }
+  .mobile-close { position: absolute; top: 24px; right: 28px; font-size: 32px; color: #FFF; }
+
+  /* Page Header */
+  .page-hero {
+    padding: 160px 0 70px;
+    background: linear-gradient(180deg, #E8F7F9 0%, var(--sand-bg) 100%);
+    text-align: center;
+  }
+  .page-hero h1 {
+    font-size: clamp(38px, 5.5vw, 62px);
+    margin-bottom: 14px;
+  }
+
+  /* 2x2 Big Adventure Cards */
+  .adventure-grid-big {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px;
+  }
+  @media (max-width: 860px) { .adventure-grid-big { grid-template-columns: 1fr; } }
+
+  .adv-full-card {
+    background: #FFF;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--line);
+    display: flex; flex-direction: column;
+  }
+  .adv-full-media { height: 320px; overflow: hidden; }
+  .adv-full-media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .adv-full-card:hover .adv-full-media img { transform: scale(1.04); }
+  .adv-full-body { padding: 32px; display: flex; flex-direction: column; flex: 1; }
+  .adv-full-body h3 { font-size: 26px; margin-bottom: 8px; }
+  .adv-full-body p { font-size: 14.5px; color: var(--text-muted); line-height: 1.65; margin-bottom: 20px; }
+
+  .adv-specs {
+    display: flex; gap: 14px; margin-top: auto; padding-top: 18px; border-top: 1px solid var(--line);
+    font-size: 12.5px; color: var(--navy-soft); font-weight: 600;
+  }
+
+  /* Footer */
+  footer {
+    background: #FFF;
+    border-top: 1px solid var(--line);
+    padding: 70px 0 30px;
+    color: var(--navy-soft);
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+    gap: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; }
+  .footer-links a:hover { color: var(--ocean-blue); }
+
+  .social-icons {
+    display: flex; gap: 12px; margin-top: 18px;
+  }
+  .social-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--sand-bg); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--navy); transition: all 0.2s ease;
+  }
+  .social-icon:hover {
+    background: var(--ocean-blue); color: #FFF; transform: translateY(-2px);
+  }
+  .social-icon svg { width: 16px; height: 16px; fill: currentColor; }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 25px; font-size: 12.5px; color: var(--text-muted);
+    flex-wrap: wrap; gap: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAVBAR -->
+<nav class="nav" id="navbar">
+  <a href="index.html" class="nav-brand">Zevia Sands</a>
+
+  <ul class="nav-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="accommodation.html">Accommodation</a></li>
+    <li><a href="beach-pool.html">Beach & Pool</a></li>
+    <li><a href="dining.html">Dining</a></li>
+    <li><a href="adventures.html" class="active">Adventures</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+
+  <div style="display:flex; align-items:center; gap:12px;">
+    <div class="currency-picker">
+      <span style="font-size:12px;">🌐</span>
+      <select class="currency-select" id="currencySelect" aria-label="Select Currency">
+        <option value="KES" selected>KES (KSh)</option>
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+      </select>
+    </div>
+    <a href="index.html#reserve" class="btn btn-gold btn-small">Book Stay</a>
+    <button class="hamburger" id="menuToggle" aria-label="Open Menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="menuClose">&times;</button>
+  <div style="margin-bottom: 12px;">
+    <div class="currency-picker" style="background: rgba(255,255,255,0.12); padding: 8px 18px; color:#FFF;">
+      <span style="font-size:14px;">🌐</span>
+      <select class="currency-select" id="mobileCurrencySelect" aria-label="Select Currency" style="font-size:14px; color:#FFF;">
+        <option value="KES" selected>KES (KSh)</option>
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+      </select>
+    </div>
+  </div>
+  <a href="index.html" class="m-item">Home</a>
+  <a href="accommodation.html" class="m-item">Accommodation</a>
+  <a href="beach-pool.html" class="m-item">Beach & Pool</a>
+  <a href="dining.html" class="m-item">Dining</a>
+  <a href="adventures.html" class="m-item active" style="color:var(--sun-gold);">Adventures</a>
+  <a href="gallery.html" class="m-item">Gallery</a>
+  <a href="contact.html" class="m-item">Contact</a>
+</div>
+
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="container">
+    <span class="tag">Expeditions & Restoration</span>
+    <h1>Ocean Adventures & Wellness</h1>
+    <p class="lede" style="max-width:650px; margin:0 auto;">Explore vibrant marine sanctuaries, glide across mirror-calm turquoise shallows, and rejuvenate with beachfront botanical wellness.</p>
+  </div>
+</header>
+
+<main class="section">
+  <div class="container">
+
+    <div class="adventure-grid-big">
+
+      <!-- Adventure 1: Clear Glass Kayaking -->
+      <article class="adv-full-card">
+        <div class="adv-full-media">
+          <img src="images/clear-kayak.jpg" alt="Clear Glass Kayaking">
+        </div>
+        <div class="adv-full-body">
+          <span class="tag">Lagoon Discovery</span>
+          <h3>100% Transparent Glass Kayaking</h3>
+          <p>Glide effortlessly across the pristine turquoise waters of Kalmara Bay in tandem kayaks made entirely from crystal-clear marine polycarbonate. Observe live coral gardens, starfish, and tropical schools beneath your feet.</p>
+          
+          <div class="adv-specs">
+            <span>⏱️ All-Day Access</span>
+            <span>🛶 Tandem & Solo</span>
+            <span>✨ Included with Stay</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Adventure 2: Turtle Reef Snorkel -->
+      <article class="adv-full-card">
+        <div class="adv-full-media">
+          <img src="images/turtle-snorkeling.jpg" alt="Turtle Reef Snorkel">
+        </div>
+        <div class="adv-full-body">
+          <span class="tag">Marine Safari</span>
+          <h3>Sea Turtle Reef Snorkel Safari</h3>
+          <p>Take a 10-minute guided dhoni boat ride to the outer marine sanctuary barrier reef. Snorkel alongside gentle green sea turtles, rays, and kaleidoscopic marine life under the supervision of our resident marine biologist.</p>
+          
+          <div class="adv-specs">
+            <span>⏱️ Daily at 09:00 & 14:00</span>
+            <span>🤿 Gear & Guide Provided</span>
+            <span>🐢 Sanctuary Protected</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Adventure 3: Sunset Catamaran Cruise -->
+      <article class="adv-full-card">
+        <div class="adv-full-media">
+          <img src="images/sunset-catamaran.jpg" alt="Sunset Catamaran Cruise">
+        </div>
+        <div class="adv-full-body">
+          <span class="tag">Evening Sail</span>
+          <h3>Sunset Champagne Catamaran Cruise</h3>
+          <p>Board our 50ft luxury sailing catamaran as the sun dips below the horizon in dazzling amber and rose. Enjoy vintage champagne, fresh oyster platters, canapés, and gentle acoustic island melodies.</p>
+          
+          <div class="adv-specs">
+            <span>⏱️ 17:00 – 19:30 Daily</span>
+            <span>🍾 Champagne & Tapas</span>
+            <span>⛵ 50ft Luxury Vessel</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Adventure 4: Beachside Palm Massage -->
+      <article class="adv-full-card">
+        <div class="adv-full-media">
+          <img src="images/beach-massage.jpg" alt="Beachside Palm Massage">
+        </div>
+        <div class="adv-full-body">
+          <span class="tag">Holistic Spa</span>
+          <h3>Beachside Palm Coconut Oil Massage</h3>
+          <p>Surrender to rhythmic ocean waves under the shade of rustling coconut fronds. Full-body massage utilizing cold-pressed island coconut oil, fragrant frangipani, and warm soothing herbal compresses.</p>
+          
+          <div class="adv-specs">
+            <span>⏱️ 60 or 90 Minutes</span>
+            <span>🥥 Organic Coconut Elixirs</span>
+            <span>🏖️ Private Beach Pavilion</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Booking Call to action -->
+    <div style="background:#FFF; border-radius:var(--radius-md); padding:45px 30px; border:1px solid var(--line); text-align:center; margin-top:60px;">
+      <h3 style="font-size:28px; margin-bottom:10px;">Reserve Your Excursions</h3>
+      <p style="font-size:14.5px; color:var(--text-muted); max-width:560px; margin:0 auto 24px;">Excursions and spa appointments can be pre-arranged with your personal island concierge prior to arrival or anytime during your stay.</p>
+      <a href="contact.html" class="btn btn-primary">Speak to Island Concierge</a>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER WITH CONTACT INFO & SOCIAL MEDIA -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="nav-brand" style="font-size:22px; margin-bottom:12px;">Zevia Sands</div>
+        <p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:16px;">An ultra-luxury beach sanctuary in Kalmara Bay with overwater pool villas, pristine white sands, and unforgettable coastal gastronomy.</p>
+        <div class="social-icons">
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener" class="social-icon" aria-label="TikTok">
+            <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+          </a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" class="social-icon" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.667 5H18V0h-3.889C10.5 0 9 1.583 9 4.667V8z"/></svg>
+          </a>
+          <a href="https://youtube.com" target="_blank" rel="noopener" class="social-icon" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="font-size:15px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Navigation</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="accommodation.html">Accommodation</a></li>
+          <li><a href="beach-pool.html">Beach & Infinity Pool</a></li>
+          <li><a href="dining.html">Dining & Bars</a></li>
+          <li><a href="adventures.html">Ocean Adventures</a></li>
+          <li><a href="gallery.html">Photo Gallery</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-size:15px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Contacts</h4>
+        <ul class="footer-links">
+          <li>📞 <a href="tel:+254700892341">+254 (0) 700 892 341</a></li>
+          <li>💬 <a href="https://wa.me/254712345678" target="_blank">WhatsApp: +254 712 345 678</a></li>
+          <li>✉️ <a href="mailto:reservations@zeviasands.com">reservations@zeviasands.com</a></li>
+          <li>📍 Coral Ridge Way, Kalmara Bay, Kenya</li>
+          <li>🕒 24/7 Guest Concierge</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-size:15px; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px;">Sanctuary Inquiries</h4>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Contact our concierge desk for tailored helicopter charters, private wedding bookings, and custom island itineraries.</p>
+        <a href="contact.html" class="btn btn-primary btn-small">Contact Concierge</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Zevia Sands Resort. All rights reserved.</span>
+      <span>Privacy Policy · Terms of Stay · Environmental Pledge</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var currencySelect = document.getElementById('currencySelect');
+  var mobileCurrencySelect = document.getElementById('mobileCurrencySelect');
+
+  function setCurrency(code) {
+    if (currencySelect) currencySelect.value = code;
+    if (mobileCurrencySelect) mobileCurrencySelect.value = code;
+    try { localStorage.setItem('zevia_currency', code); } catch(e) {}
+  }
+
+  if (currencySelect) currencySelect.addEventListener('change', function() { setCurrency(this.value); });
+  if (mobileCurrencySelect) mobileCurrencySelect.addEventListener('change', function() { setCurrency(this.value); });
+
+  try {
+    var saved = localStorage.getItem('zevia_currency');
+    if (saved) {
+      if (currencySelect) currencySelect.value = saved;
+      if (mobileCurrencySelect) mobileCurrencySelect.value = saved;
+    } else {
+      if (currencySelect) currencySelect.value = 'KES';
+      if (mobileCurrencySelect) mobileCurrencySelect.value = 'KES';
+    }
+  } catch(e) {}
+
+  var menuToggle = document.getElementById('menuToggle');
+  var mobileMenu = document.getElementById('mobileMenu');
+  var menuClose = document.getElementById('menuClose');
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', function() { mobileMenu.classList.add('open'); });
+    menuClose.addEventListener('click', function() { mobileMenu.classList.remove('open'); });
+  }
+})();
+</script>
+</body>
+</html>
