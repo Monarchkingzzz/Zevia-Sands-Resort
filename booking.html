@@ -465,6 +465,96 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+
+  /* Printable Voucher Stylesheet */
+  .voucher-print-footer {
+    display: none;
+  }
+
+  @media print {
+    @page {
+      size: A4 portrait;
+      margin: 10mm 12mm;
+    }
+    
+    /* Hide all page background elements */
+    header, nav, main, footer, .mobile-menu, #aiConciergeWidget, #ai-concierge-bubble, .navbar, .chat-widget, .voucher-close, .voucher-footer {
+      display: none !important;
+      visibility: hidden !important;
+    }
+
+    html, body {
+      background: #FFF !important;
+      color: #0F2027 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      width: 100% !important;
+      height: auto !important;
+      overflow: visible !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    .confirm-modal {
+      position: static !important;
+      inset: auto !important;
+      background: transparent !important;
+      backdrop-filter: none !important;
+      display: block !important;
+      padding: 0 !important;
+      width: 100% !important;
+      height: auto !important;
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    .voucher-box {
+      position: static !important;
+      max-width: 100% !important;
+      width: 100% !important;
+      max-height: none !important;
+      height: auto !important;
+      overflow: visible !important;
+      box-shadow: none !important;
+      border: 2px solid #0F2027 !important;
+      border-radius: 8px !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+
+    .voucher-header {
+      background: #0F2027 !important;
+      color: #FFF !important;
+      padding: 16px 20px !important;
+      border-bottom: 3px solid #E5A93C !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    .voucher-body {
+      padding: 16px 20px !important;
+      background: #FFF !important;
+      overflow: visible !important;
+      max-height: none !important;
+      height: auto !important;
+      page-break-inside: avoid !important;
+    }
+
+    .voucher-print-footer {
+      display: block !important;
+      background: #FAF8F5 !important;
+      border-top: 1px solid #E5E1DA !important;
+      padding: 12px 20px !important;
+      font-size: 11px !important;
+      color: #333 !important;
+      line-height: 1.5 !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+  }
+
   /* Live Summary Sidebar */
   .summary-card {
     background: #FFF;
@@ -1095,7 +1185,7 @@
 
     </div>
 
-    <!-- Action Buttons Footer (Pinned at bottom, 100% visible) -->
+    <!-- Action Buttons Footer (Pinned at bottom, 100% visible on screen) -->
     <div class="voucher-footer">
       <div class="voucher-actions-grid">
         <a id="btnVoucherWhatsapp" href="https://wa.me/254702713853" target="_blank" class="btn btn-gold" style="justify-content:center; padding:11px 12px; font-size:13px; font-weight:700; text-align:center;">
@@ -1112,6 +1202,28 @@
         <div style="font-size:11px; color:var(--text-muted);">
           Resort Helpline: <a href="tel:+254702713853" style="color:var(--ocean-blue); font-weight:600;">+254 702 713 853</a>
         </div>
+      </div>
+    </div>
+
+    <!-- Official Printable Verification Footer (Appears ONLY on printed document or saved PDF) -->
+    <div class="voucher-print-footer">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:8px; gap:20px;">
+        <div style="flex:1;">
+          <b style="color:#0F2027; font-size:12px;">Important Sanctuary Check-In Information:</b><br>
+          • Please present this official reservation voucher or quote Reference <b id="vRefCodePrint" style="color:#B45309; font-family:monospace;">ZS-2026-8942</b> upon arrival.<br>
+          • Zero prepayment was charged online. The total amount of <b id="vTotalAmtPrint" style="color:#0F2027;">KSh 0</b> is settled at check-in.<br>
+          • Check-In begins at 14:00. Complimentary luggage storage and private beach lounge access are available for early arrivals.
+        </div>
+        <div style="text-align:right; min-width:200px; font-size:11px;">
+          <b style="color:#0F2027;">24/7 Resort Concierge:</b><br>
+          Hotline: +254 702 713 853<br>
+          WhatsApp: 0702713853<br>
+          Email: vledoren500@gmail.com<br>
+          Web: https://zeviasands.com
+        </div>
+      </div>
+      <div style="border-top:1px solid #E5E1DA; padding-top:6px; text-align:center; font-size:10px; color:#777;">
+        Zevia Sands Resort & Sanctuary · Kalmara Bay, Diani Beach Road, South Coast, Kenya · Official Guest Reservation Voucher
       </div>
     </div>
 
@@ -1559,6 +1671,7 @@
 
     // Update modal elements safely
     var elRef = document.getElementById('vRefCode'); if (elRef) elRef.textContent = refCode;
+    var elRefPrint = document.getElementById('vRefCodePrint'); if (elRefPrint) elRefPrint.textContent = refCode;
     var elGName = document.getElementById('vGuestName'); if (elGName) elGName.textContent = name;
     var elGPhone = document.getElementById('vGuestPhone'); if (elGPhone) elGPhone.textContent = phone;
     var elGEmail = document.getElementById('vGuestEmail'); if (elGEmail) elGEmail.textContent = email;
@@ -1603,6 +1716,7 @@
     var elBillReq = document.getElementById('vBillReq'); if (elBillReq) elBillReq.textContent = data.reqFeeUSD > 0 ? data.reqFeeFormatted : 'KSh 0 (Free)';
     var elBillTax = document.getElementById('vBillTax'); if (elBillTax) elBillTax.textContent = data.taxFormatted;
     var elTotal = document.getElementById('vTotalAmt'); if (elTotal) elTotal.textContent = data.grandTotalFormatted;
+    var elTotalPrint = document.getElementById('vTotalAmtPrint'); if (elTotalPrint) elTotalPrint.textContent = data.grandTotalFormatted;
 
     // 1. Build ultra-prestigious WhatsApp message
     var reqWaList = data.selectedRequests.length > 0 
