@@ -484,7 +484,7 @@
         <option value="EUR">EUR (€)</option>
       </select>
     </div>
-    <a href="index.html#reserve" class="btn btn-gold btn-small">Book Stay</a>
+    <a href="booking.html" class="btn btn-gold btn-small">Book Stay</a>
     <button class="hamburger" id="menuToggle" aria-label="Open Menu">
       <span></span><span></span>
     </button>
@@ -532,7 +532,7 @@
     <span class="ms-title">Zevia Sands</span>
     <span class="ms-price" id="mobileStickyPrice">from KSh 63,700 / nt</span>
   </div>
-  <a href="index.html#reserve" class="btn btn-gold btn-small" style="padding: 10px 20px; font-size: 13px;">Book Stay</a>
+  <a href="booking.html" class="btn btn-gold btn-small" style="padding: 10px 20px; font-size: 13px;">Book Stay</a>
 </div>
 
 <!-- PAGE HERO -->
@@ -593,7 +593,7 @@
         </div>
 
         <div>
-          <a href="index.html#reserve" class="btn btn-primary">Enquire Deluxe Room</a>
+          <a href="booking.html?villa=garden" class="btn btn-primary">Book Deluxe Room</a>
         </div>
       </div>
     </article>
@@ -620,7 +620,7 @@
         </div>
 
         <div>
-          <a href="index.html#reserve" class="btn btn-primary">Enquire Beachfront Villa</a>
+          <a href="booking.html?villa=beachfront" class="btn btn-primary">Book Beachfront Villa</a>
         </div>
       </div>
     </article>
@@ -647,7 +647,7 @@
         </div>
 
         <div>
-          <a href="index.html#reserve" class="btn btn-primary">Enquire Coral Suite</a>
+          <a href="booking.html?villa=coral" class="btn btn-primary">Book Coral Suite</a>
         </div>
       </div>
     </article>
@@ -674,7 +674,7 @@
         </div>
 
         <div>
-          <a href="index.html#reserve" class="btn btn-primary">Enquire Overwater Villa</a>
+          <a href="booking.html?villa=overwater" class="btn btn-primary">Book Overwater Villa</a>
         </div>
       </div>
     </article>
@@ -701,12 +701,115 @@
         </div>
 
         <div>
-          <a href="index.html#reserve" class="btn btn-gold">Enquire Horizon Villa</a>
+          <a href="booking.html?villa=horizon" class="btn btn-gold">Book Horizon Villa</a>
         </div>
       </div>
     </article>
 
   </div>
+
+    <!-- ROOM PACKAGES & MEAL PLANS COMPARISON -->
+    <section class="section" id="packages" style="background:#FFF; border-radius:var(--radius-md); padding:48px 36px; border:1px solid var(--line); margin: 50px 0 30px; box-shadow:var(--shadow-soft);">
+      <div class="section-header" style="text-align:center; margin-bottom:36px;">
+        <span class="tag">Curated Meal Plans</span>
+        <h2 style="font-size:clamp(28px, 4vw, 42px); margin-bottom:12px;">Resort Room Packages</h2>
+        <p class="lede" style="max-width:640px; margin:0 auto;">All stays include daily artisan breakfast. Upgrade to Half Board, Full Board, or All-Inclusive to enjoy effortless beachfront dining throughout your stay in Kalmara Bay.</p>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:20px;">
+        
+        <!-- Package 1: Bed & Breakfast -->
+        <div style="background:var(--sand-bg); border:1px solid var(--line); border-radius:var(--radius-sm); padding:26px 20px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="font-size:28px; margin-bottom:8px;">☕</div>
+            <h3 style="font-size:20px; margin-bottom:6px;">Bed & Breakfast</h3>
+            <div style="font-size:12.5px; font-weight:700; color:var(--ocean-blue); margin-bottom:12px;">Standard Inclusion</div>
+            <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">Included in every villa booking. Daily gourmet tropical breakfast buffet, barista single-origin Kenyan coffee, and fresh cold-pressed juices.</p>
+            <ul style="font-size:12.5px; color:var(--navy-soft); line-height:1.7; padding-left:18px; margin-bottom:18px;">
+              <li>Tropical fruit platters & French pastries</li>
+              <li>Cooked-to-order eggs & Swahili dishes</li>
+              <li>Complimentary Wi-Fi & clear kayaks</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:14px; font-weight:700; color:var(--navy); margin-bottom:12px;">Included in Villa Rate</div>
+            <a href="booking.html?package=bb" class="btn btn-primary btn-small" style="width:100%; justify-content:center;">Select B&B</a>
+          </div>
+        </div>
+
+        <!-- Package 2: Half Board -->
+        <div style="background:var(--sand-bg); border:2px solid var(--ocean-blue); border-radius:var(--radius-sm); padding:26px 20px; display:flex; flex-direction:column; justify-content:space-between; position:relative; box-shadow:0 8px 24px rgba(0,119,182,0.1);">
+          <span style="position:absolute; top:-12px; right:20px; background:var(--ocean-blue); color:#FFF; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; padding:3px 10px; border-radius:var(--radius-full);">Most Popular</span>
+          <div>
+            <div style="font-size:28px; margin-bottom:8px;">🍽️</div>
+            <h3 style="font-size:20px; margin-bottom:6px;">Half Board (HB)</h3>
+            <div style="font-size:12.5px; font-weight:700; color:var(--ocean-blue); margin-bottom:12px;">Breakfast + Dinner</div>
+            <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">Ideal for guests who explore Diani during the day. Includes artisan breakfast and a sumptuous 3-course dinner nightly at The Reef Lobster & Seafood Grill.</p>
+            <ul style="font-size:12.5px; color:var(--navy-soft); line-height:1.7; padding-left:18px; margin-bottom:18px;">
+              <li>Full gourmet artisan breakfast</li>
+              <li>Nightly 3-course dinner at Reef Grill</li>
+              <li>Fresh wild lobster & grilled prawns</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:14px; font-weight:700; color:var(--navy); margin-bottom:12px;">+KSh 7,800 ($60) / guest / nt</div>
+            <a href="booking.html?package=hb" class="btn btn-gold btn-small" style="width:100%; justify-content:center;">Select Half Board</a>
+          </div>
+        </div>
+
+        <!-- Package 3: Full Board -->
+        <div style="background:var(--sand-bg); border:1px solid var(--line); border-radius:var(--radius-sm); padding:26px 20px; display:flex; flex-direction:column; justify-content:space-between;">
+          <div>
+            <div style="font-size:28px; margin-bottom:8px;">🦞</div>
+            <h3 style="font-size:20px; margin-bottom:6px;">Full Board (FB)</h3>
+            <div style="font-size:12.5px; font-weight:700; color:var(--ocean-blue); margin-bottom:12px;">Breakfast, Lunch & Dinner</div>
+            <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">Complete culinary immersion. Enjoy leisurely breakfasts, 2-course beachfront lunches, and 3-course dinners by candlelit surf with poolside refreshments.</p>
+            <ul style="font-size:12.5px; color:var(--navy-soft); line-height:1.7; padding-left:18px; margin-bottom:18px;">
+              <li>Breakfast, 2-course lunch & dinner</li>
+              <li>Poolside fresh coconut mocktails</li>
+              <li>Floating breakfast option for pool villas</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:14px; font-weight:700; color:var(--navy); margin-bottom:12px;">+KSh 14,300 ($110) / guest / nt</div>
+            <a href="booking.html?package=fb" class="btn btn-primary btn-small" style="width:100%; justify-content:center;">Select Full Board</a>
+          </div>
+        </div>
+
+        <!-- Package 4: All-Inclusive Luxury -->
+        <div style="background:linear-gradient(180deg, #FAF8F5 0%, #F5EFEB 100%); border:2px solid var(--sun-gold); border-radius:var(--radius-sm); padding:26px 20px; display:flex; flex-direction:column; justify-content:space-between; position:relative; box-shadow:0 8px 24px rgba(229,169,60,0.15);">
+          <span style="position:absolute; top:-12px; right:20px; background:var(--sun-gold); color:#FFF; font-size:10.5px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; padding:3px 10px; border-radius:var(--radius-full);">VIP Luxury</span>
+          <div>
+            <div style="font-size:28px; margin-bottom:8px;">👑</div>
+            <h3 style="font-size:20px; margin-bottom:6px;">All-Inclusive</h3>
+            <div style="font-size:12.5px; font-weight:700; color:var(--sun-gold); margin-bottom:12px;">Ultimate VIP Experience</div>
+            <p style="font-size:13px; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">Total luxury without limits. All meals, premium wines, signature swim-up cocktails, afternoon high tea, and 1 complimentary 60-min beachside massage.</p>
+            <ul style="font-size:12.5px; color:var(--navy-soft); line-height:1.7; padding-left:18px; margin-bottom:18px;">
+              <li>All gourmet meals & in-villa dining</li>
+              <li>Unlimited cocktails, rums & wines</li>
+              <li>1x 60-min Beachside Palm Massage</li>
+              <li>Complimentary airport chauffeur</li>
+            </ul>
+          </div>
+          <div>
+            <div style="font-size:14px; font-weight:700; color:var(--navy); margin-bottom:12px;">+KSh 23,400 ($180) / guest / nt</div>
+            <a href="booking.html?package=ai" class="btn btn-gold btn-small" style="width:100%; justify-content:center;">Select All-Inclusive</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Honeymoon & Special Requests Banner -->
+      <div style="margin-top:36px; background:linear-gradient(135deg, #0F2027 0%, #1A3644 100%); color:#FFF; border-radius:var(--radius-sm); padding:28px 32px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; border:1px solid rgba(229,169,60,0.3);">
+        <div style="max-width:650px;">
+          <span style="font-size:11px; text-transform:uppercase; letter-spacing:0.15em; color:var(--sun-gold); font-weight:700;">🌹 Honeymoon & Special Occasions</span>
+          <h3 style="color:#FFF; font-size:24px; margin-top:4px; margin-bottom:8px;">Celebrate in Unforgettable Luxury</h3>
+          <p style="font-size:13.5px; color:rgba(255,255,255,0.85); line-height:1.6;">Surprise your loved one with fresh rose petals on the master bed, floral soaking bath, chilled champagne on ice, or a floating private pool breakfast. Customize these requests seamlessly during online booking.</p>
+        </div>
+        <a href="booking.html" class="btn btn-gold">Book Stay & Add Special Requests →</a>
+      </div>
+    </section>
+
 </main>
 
 <!-- FOOTER WITH CONTACT INFO & SOCIAL MEDIA -->
@@ -845,5 +948,6 @@
   }
 })();
 </script>
+<script src="js/ai-concierge.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Guest Booking, Room Packages & Special Requests — Zevia Sands Resort</title>
+<meta name="description" content="Reserve your luxury villa at Zevia Sands Resort in Kalmara Bay. Select your room package (Bed & Breakfast, Half Board, Full Board, All-Inclusive), customize special requests like honeymoon rose petals, and book online.">
+<meta name="theme-color" content="#0F2027">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand-bg: #FAF8F5;
+    --card-bg: #FFFFFF;
+    --navy: #0F2027;
+    --navy-soft: #2C3E50;
+    --text-muted: #607274;
+    --ocean-blue: #0077B6;
+    --turquoise: #0096C7;
+    --turquoise-light: #E8F7F9;
+    --sun-gold: #E5A93C;
+    --coral: #E76F51;
+    --line: rgba(15, 32, 39, 0.08);
+    --line-light: rgba(255, 255, 255, 0.2);
+    
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-full: 9999px;
+    
+    --shadow-soft: 0 10px 30px -10px rgba(15, 32, 39, 0.06);
+    --shadow-card: 0 15px 35px -10px rgba(15, 32, 39, 0.1);
+    --shadow-hover: 0 20px 45px -10px rgba(0, 119, 182, 0.2);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; max-width: 100vw; }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--navy);
+    background: var(--sand-bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  img { display: block; max-width: 100%; height: auto; object-fit: cover; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; width: 100%; }
+  @media (max-width: 768px) { .container { padding: 0 16px; } }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.15;
+  }
+
+  .tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ocean-blue);
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .section { padding: 70px 0; width: 100%; }
+  @media (max-width: 768px) { .section { padding: 45px 0; } }
+
+  .btn {
+    font-family: var(--font-sans);
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius-full);
+    padding: 13px 28px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--navy); color: #FFF; box-shadow: 0 4px 15px rgba(15, 32, 39, 0.2); }
+  .btn-primary:hover { background: var(--ocean-blue); transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  .btn-gold { background: var(--sun-gold); color: #FFF; }
+  .btn-gold:hover { background: #D4982E; transform: translateY(-2px); box-shadow: 0 10px 25px rgba(229, 169, 60, 0.4); }
+  .btn-small { padding: 9px 18px; font-size: 12.5px; }
+
+  /* Navbar */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 36px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 0.35s ease;
+    background: rgba(250, 248, 245, 0.96);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 4px 20px rgba(15, 32, 39, 0.06);
+    border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 1300px) { .nav { padding: 14px 24px; } }
+  @media (max-width: 860px) { .nav { padding: 12px 18px; } }
+  @media (max-width: 768px) { .nav { padding: 10px 14px; } }
+  @media (max-width: 360px) { .nav { padding: 8px 10px; } }
+
+  .nav-brand {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    font-weight: 600;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  @media (max-width: 768px) { .nav-brand { font-size: 18px; letter-spacing: 0.06em; } }
+  @media (max-width: 360px) { .nav-brand { font-size: 16px; letter-spacing: 0.04em; } }
+
+  .nav-menu {
+    display: flex; gap: clamp(8px, 1.1vw, 18px); list-style: none; align-items: center;
+  }
+  .nav-menu a {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--navy-soft);
+    padding: 6px 3px;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+  }
+  .nav-menu a:hover, .nav-menu a.active { color: var(--ocean-blue); }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  @media (max-width: 768px) {
+    .nav-actions { gap: 6px; }
+    .nav-actions .btn-gold { display: none; }
+  }
+
+  @media (max-width: 1180px) {
+    .nav-menu { display: none; }
+    .hamburger { display: flex; }
+  }
+  @media (min-width: 1181px) {
+    .hamburger { display: none; }
+  }
+
+  .currency-picker {
+    display: inline-flex; align-items: center; gap: 4px; background: #FFF;
+    border: 1px solid var(--line); border-radius: var(--radius-full);
+    padding: 5px 10px; color: var(--navy); font-size: 11.5px; font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04); flex-shrink: 0;
+  }
+  @media (max-width: 768px) { .currency-picker { padding: 4px 8px; font-size: 11px; max-width: 105px; } }
+  @media (max-width: 360px) { .currency-picker { padding: 3px 6px; font-size: 10px; max-width: 92px; } }
+  .currency-select { background: transparent; border: none; color: inherit; font-family: var(--font-sans); font-size: 11.5px; font-weight: 600; outline: none; cursor: pointer; }
+
+  .hamburger {
+    flex-direction: column; justify-content: center; gap: 4.5px; cursor: pointer;
+    width: 38px; height: 38px; border-radius: 50%; padding: 6px; flex-shrink: 0;
+    transition: background 0.2s ease;
+  }
+  .hamburger:active { background: rgba(15, 32, 39, 0.08); }
+  .hamburger span {
+    width: 20px; height: 2px; background: var(--navy); border-radius: 2px;
+  }
+
+  /* Mobile Drawer */
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(15, 32, 39, 0.98); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 24px 20px calc(24px + env(safe-area-inset-bottom));
+    opacity: 0; pointer-events: none; transition: opacity 0.35s ease, transform 0.35s ease;
+    transform: translateY(-8px); width: 100%; max-width: 100vw; box-sizing: border-box;
+  }
+  .mobile-menu.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+  .mobile-menu-header { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+  .mobile-menu-links { display: flex; flex-direction: column; gap: 12px; margin: auto 0; text-align: center; }
+  .mobile-menu-links a {
+    font-family: var(--font-serif); font-size: 24px; color: rgba(255, 255, 255, 0.88);
+    letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.2s ease;
+    display: inline-block; padding: 3px 0;
+  }
+  .mobile-menu-links a.active, .mobile-menu-links a:hover { color: var(--sun-gold); }
+  .mobile-close {
+    width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center;
+    justify-content: center; font-size: 24px; color: #FFF; cursor: pointer; flex-shrink: 0;
+  }
+
+  /* Hero Banner */
+  .page-hero {
+    padding: 130px 0 50px;
+    background: linear-gradient(180deg, #E8F7F9 0%, var(--sand-bg) 100%);
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  @media (max-width: 768px) { .page-hero { padding: 95px 0 35px; } }
+  .page-hero h1 { font-size: clamp(32px, 5.5vw, 56px); margin-bottom: 12px; }
+  .page-hero p { font-size: 16px; color: var(--navy-soft); max-width: 650px; margin: 0 auto; }
+
+  /* Booking Layout */
+  .booking-grid {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: 36px;
+    align-items: flex-start;
+  }
+  @media (max-width: 980px) {
+    .booking-grid { grid-template-columns: 1fr; gap: 30px; }
+  }
+
+  /* Cards & Forms */
+  .form-card {
+    background: #FFF;
+    border-radius: var(--radius-md);
+    padding: 32px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 26px;
+  }
+  @media (max-width: 600px) { .form-card { padding: 20px 16px; } }
+
+  .form-card-title {
+    font-size: 22px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+  }
+  .step-badge {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--sun-gold);
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 580px) { .form-row { grid-template-columns: 1fr; } }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .form-group label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .form-control {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    color: var(--navy);
+    background: var(--sand-bg);
+    outline: none;
+    transition: border 0.2s;
+  }
+  .form-control:focus {
+    border-color: var(--ocean-blue);
+    background: #FFF;
+  }
+
+  /* Room Packages Cards */
+  .package-cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 10px;
+  }
+  @media (max-width: 640px) { .package-cards-grid { grid-template-columns: 1fr; } }
+
+  .pkg-card {
+    border: 2px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 16px 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: var(--sand-bg);
+    position: relative;
+  }
+  .pkg-card:hover {
+    border-color: var(--ocean-blue);
+    transform: translateY(-2px);
+  }
+  .pkg-card.selected {
+    border-color: var(--ocean-blue);
+    background: #E8F7F9;
+    box-shadow: 0 4px 15px rgba(0, 119, 182, 0.12);
+  }
+  .pkg-card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+  .pkg-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--navy);
+  }
+  .pkg-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: var(--radius-full);
+    background: #FFF;
+    border: 1px solid var(--line);
+    font-weight: 600;
+    color: var(--ocean-blue);
+  }
+  .pkg-desc {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.45;
+    margin-bottom: 8px;
+  }
+  .pkg-price {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+
+  /* Special Requests Pills / Checkbox Cards */
+  .requests-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  @media (max-width: 640px) { .requests-grid { grid-template-columns: 1fr; } }
+
+  .request-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--sand-bg);
+    border: 1px solid var(--line);
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .request-item:hover {
+    border-color: var(--sun-gold);
+    background: #FFFDF9;
+  }
+  .request-item input[type="checkbox"] {
+    margin-top: 3px;
+    accent-color: var(--sun-gold);
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+  }
+  .request-item-text b {
+    display: block;
+    font-size: 13px;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .request-item-text span {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    line-height: 1.35;
+    display: block;
+  }
+
+  /* Auth Tabs */
+  .auth-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+  }
+  .auth-tab {
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--line);
+    background: var(--sand-bg);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .auth-tab.active {
+    background: var(--navy);
+    color: #FFF;
+    border-color: var(--navy);
+  }
+
+  /* Live Summary Sidebar */
+  .summary-card {
+    background: #FFF;
+    border-radius: var(--radius-md);
+    padding: 28px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-card);
+    position: sticky;
+    top: 90px;
+  }
+  .summary-media {
+    height: 160px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 16px;
+    border: 1px solid var(--line);
+  }
+  .summary-media img { width: 100%; height: 100%; object-fit: cover; }
+  .summary-title { font-size: 22px; margin-bottom: 4px; }
+  .summary-dates { font-size: 13px; color: var(--text-muted); margin-bottom: 14px; }
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13.5px;
+    padding: 8px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 18px;
+    font-weight: 700;
+    padding-top: 14px;
+    margin-top: 6px;
+    color: var(--navy);
+  }
+  .summary-total-amt {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    color: var(--sun-gold);
+    font-weight: 700;
+  }
+
+  /* Confirmation Modal */
+  .confirm-modal {
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(15, 32, 39, 0.88);
+    backdrop-filter: blur(14px);
+    display: none; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .confirm-modal.open { display: flex; }
+  .voucher-box {
+    background: #FFF;
+    border-radius: var(--radius-md);
+    max-width: 580px; width: 100%;
+    padding: 36px 32px;
+    position: relative;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .voucher-close {
+    position: absolute; top: 16px; right: 20px; font-size: 28px; cursor: pointer; color: var(--navy-soft);
+  }
+
+  /* Footer */
+  footer {
+    background: #FFF; border-top: 1px solid var(--line);
+    padding: 60px 0 30px; color: var(--navy-soft); width: 100%;
+  }
+  .footer-grid {
+    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 40px;
+    padding-bottom: 35px; border-bottom: 1px solid var(--line);
+  }
+  @media (max-width: 900px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .footer-grid { grid-template-columns: 1fr; } }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 22px; font-size: 12.5px; color: var(--text-muted); flex-wrap: wrap; gap: 12px;
+  }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAVBAR -->
+<nav class="nav" id="navbar">
+  <a href="index.html" class="nav-brand">Zevia Sands</a>
+
+  <ul class="nav-menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="accommodation.html">Villas</a></li>
+    <li><a href="beach-pool.html">Beach & Pool</a></li>
+    <li><a href="dining.html">Dining</a></li>
+    <li><a href="adventures.html">Adventures</a></li>
+    <li><a href="events.html">Events</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+
+  <div class="nav-actions">
+    <div class="currency-picker">
+      <span style="font-size:12px;">🌐</span>
+      <select class="currency-select" id="currencySelect" aria-label="Select Currency">
+        <option value="KES" selected>KES (KSh)</option>
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+      </select>
+    </div>
+    <a href="booking.html" class="btn btn-gold btn-small">Book Stay</a>
+    <button class="hamburger" id="menuToggle" aria-label="Open Menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- FULLSCREEN MOBILE DRAWER -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-header">
+    <div class="currency-picker" style="background: rgba(255,255,255,0.12); padding: 8px 16px; color:#FFF;">
+      <span style="font-size:13px;">🌐</span>
+      <select class="currency-select" id="mobileCurrencySelect" aria-label="Select Currency" style="font-size:13px; color:#FFF;">
+        <option value="KES" selected>KES (KSh)</option>
+        <option value="USD">USD ($)</option>
+        <option value="EUR">EUR (€)</option>
+      </select>
+    </div>
+    <button class="mobile-close" id="menuClose" aria-label="Close Menu">&times;</button>
+  </div>
+
+  <div class="mobile-menu-links">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="accommodation.html">Accommodation</a>
+    <a href="beach-pool.html">Beach & Pool</a>
+    <a href="dining.html">Food & Dining</a>
+    <a href="adventures.html">Adventures</a>
+    <a href="events.html">Events & Weddings</a>
+    <a href="gallery.html">Gallery</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div style="display:flex; flex-direction:column; gap:12px; align-items:center; width:100%;">
+    <a href="booking.html" class="btn btn-gold" style="width:100%; padding:14px; font-size:14px;">Book Sanctuary Stay</a>
+    <div style="font-size:12px; color:rgba(255,255,255,0.6); display:flex; gap:16px;">
+      <a href="tel:+254702713853">📞 0702713853</a>
+      <a href="https://wa.me/254702713853" target="_blank">💬 WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE HERO -->
+<header class="page-hero">
+  <div class="container">
+    <span class="tag">Direct Sanctuary Reservation</span>
+    <h1>Reserve Your Luxury Escape</h1>
+    <p>Select your villa, choose your meal plan package, and add bespoke arrangements like honeymoon rose petals to tailor your arrival in Kalmara Bay.</p>
+  </div>
+</header>
+
+<main class="section">
+  <div class="container">
+
+    <div class="booking-grid">
+
+      <!-- LEFT COLUMN: BOOKING CONTROLS -->
+      <div>
+
+        <!-- STEP 1: DATES & VILLA -->
+        <div class="form-card">
+          <h3 class="form-card-title">
+            <span class="step-badge">1</span>
+            <span>Choose Your Villa & Dates</span>
+          </h3>
+
+          <div class="form-group">
+            <label for="bookVilla">Select Villa Category</label>
+            <select class="form-control" id="bookVilla">
+              <option value="garden" data-base="400" data-img="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80">Deluxe Garden Palm Room</option>
+              <option value="beachfront" data-base="490" data-img="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80" selected>Beachfront Palm Villa</option>
+              <option value="coral" data-base="580" data-img="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80">Executive Coral Suite</option>
+              <option value="overwater" data-base="680" data-img="https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80">Overwater Lagoon Villa</option>
+              <option value="horizon" data-base="1150" data-img="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=800&q=80">Horizon Infinity Villa (Private Pool)</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bookCheckIn">Check-In Date</label>
+              <input type="date" class="form-control" id="bookCheckIn">
+            </div>
+            <div class="form-group">
+              <label for="bookCheckOut">Check-Out Date</label>
+              <input type="date" class="form-control" id="bookCheckOut">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bookAdults">Adults</label>
+              <select class="form-control" id="bookAdults">
+                <option value="1">1 Adult</option>
+                <option value="2" selected>2 Adults (Ideal for couples)</option>
+                <option value="3">3 Adults</option>
+                <option value="4">4 Adults</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bookChildren">Children</label>
+              <select class="form-control" id="bookChildren">
+                <option value="0" selected>0 Children</option>
+                <option value="1">1 Child</option>
+                <option value="2">2 Children</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: ROOM PACKAGES (HALF BOARD, FULL BOARD, ETC.) -->
+        <div class="form-card">
+          <h3 class="form-card-title">
+            <span class="step-badge">2</span>
+            <span>Select Room Package & Meal Plan</span>
+          </h3>
+          <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:12px;">Choose how you wish to dine during your escape. Upgrades apply per adult guest per night.</p>
+
+          <div class="package-cards-grid" id="packageGrid">
+            <!-- Bed & Breakfast -->
+            <div class="pkg-card selected" data-pkg="bb" data-supp="0">
+              <div class="pkg-card-top">
+                <span class="pkg-name">☕ Bed & Breakfast</span>
+                <span class="pkg-badge">Standard</span>
+              </div>
+              <p class="pkg-desc">Artisan tropical breakfast buffet, barista single-origin Kenyan coffee, and fresh pressed juices.</p>
+              <div class="pkg-price">Included in Base Rate</div>
+            </div>
+
+            <!-- Half Board -->
+            <div class="pkg-card" data-pkg="hb" data-supp="60">
+              <div class="pkg-card-top">
+                <span class="pkg-name">🍽️ Half Board (HB)</span>
+                <span class="pkg-badge">+Popular</span>
+              </div>
+              <p class="pkg-desc">Daily breakfast + 3-course dinner nightly at The Reef Lobster & Seafood Grill.</p>
+              <div class="pkg-price" id="pkgPriceHb">+KSh 7,800 ($60) / guest / nt</div>
+            </div>
+
+            <!-- Full Board -->
+            <div class="pkg-card" data-pkg="fb" data-supp="110">
+              <div class="pkg-card-top">
+                <span class="pkg-name">🦞 Full Board (FB)</span>
+                <span class="pkg-badge">Complete</span>
+              </div>
+              <p class="pkg-desc">Daily breakfast, barefoot beachfront 2-course lunch, and 3-course dinner + poolside mocktails.</p>
+              <div class="pkg-price" id="pkgPriceFb">+KSh 14,300 ($110) / guest / nt</div>
+            </div>
+
+            <!-- All-Inclusive Luxury -->
+            <div class="pkg-card" data-pkg="ai" data-supp="180">
+              <div class="pkg-card-top">
+                <span class="pkg-name">👑 All-Inclusive Luxury</span>
+                <span class="pkg-badge">VIP Indulgence</span>
+              </div>
+              <p class="pkg-desc">All meals, unlimited signature cocktails & wines, afternoon tea + 1 complimentary 60-min beach massage.</p>
+              <div class="pkg-price" id="pkgPriceAi">+KSh 23,400 ($180) / guest / nt</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 3: BESPOKE SPECIAL REQUESTS (ROSE PETALS, HONEYMOON, ETC.) -->
+        <div class="form-card">
+          <h3 class="form-card-title">
+            <span class="step-badge">3</span>
+            <span>Bespoke Special Requests & Touches</span>
+          </h3>
+          <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:12px;">Celebrating a honeymoon, anniversary, or special milestone? Let us prepare custom touches in your villa prior to arrival.</p>
+
+          <div class="requests-grid">
+            <label class="request-item">
+              <input type="checkbox" id="reqRosePetals" data-fee="0">
+              <div class="request-item-text">
+                <b>🌹 Honeymoon Rose Petals on Bed</b>
+                <span>Fresh red rose and hibiscus petals artfully arranged on bed & floral bath with scented candles (Complimentary for couples).</span>
+              </div>
+            </label>
+
+            <label class="request-item">
+              <input type="checkbox" id="reqChampagne" data-fee="45">
+              <div class="request-item-text">
+                <b>🍾 Chilled Champagne on Arrival</b>
+                <span>Moët & Chandon or chilled organic Prosecco waiting on ice in your villa (+KSh 5,850 / $45).</span>
+              </div>
+            </label>
+
+            <label class="request-item">
+              <input type="checkbox" id="reqFloatingBreakfast" data-fee="35">
+              <div class="request-item-text">
+                <b>🥥 Floating Villa Pool Breakfast</b>
+                <span>Artisan morning breakfast delivered on a floating wooden tray in your private villa pool (+KSh 4,550 / $35).</span>
+              </div>
+            </label>
+
+            <label class="request-item">
+              <input type="checkbox" id="reqCake" data-fee="30">
+              <div class="request-item-text">
+                <b>🎂 Anniversary / Birthday Cake & Flowers</b>
+                <span>Handcrafted Belgian chocolate or mango passion cake with fresh tropical flower bouquet (+KSh 3,900 / $30).</span>
+              </div>
+            </label>
+
+            <label class="request-item">
+              <input type="checkbox" id="reqTransfer" data-fee="35">
+              <div class="request-item-text">
+                <b>🚤 Ukunda / Mombasa Airport Transfer</b>
+                <span>VIP chauffeured car pickup with cold towel and bottled coconut water directly from Ukunda Airstrip (+KSh 4,550 / $35).</span>
+              </div>
+            </label>
+
+            <label class="request-item">
+              <input type="checkbox" id="reqDietary" data-fee="0">
+              <div class="request-item-text">
+                <b>🍽️ Custom Dietary / Halal / Vegan</b>
+                <span>Specific culinary preparation tailored to your dietary guidelines (Complimentary).</span>
+              </div>
+            </label>
+          </div>
+
+          <div class="form-group" style="margin-top:20px;">
+            <label for="customNotes">Other Custom Wishes or Message for Concierge</label>
+            <textarea class="form-control" id="customNotes" rows="3" placeholder="Tell us if you have surprise marriage proposal arrangements, specific check-in times, pillow preferences, or an anniversary message..."></textarea>
+          </div>
+        </div>
+
+        <!-- STEP 4: GUEST INFORMATION & LOGIN -->
+        <div class="form-card">
+          <h3 class="form-card-title">
+            <span class="step-badge">4</span>
+            <span>Guest Information & Login</span>
+          </h3>
+
+          <div class="auth-tabs">
+            <button type="button" class="auth-tab active" id="tabGuest">Quick Guest Checkout</button>
+            <button type="button" class="auth-tab" id="tabLogin">Member Sign-In</button>
+          </div>
+
+          <!-- GUEST FORM -->
+          <div id="guestFormSection">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="gName">Full Name *</label>
+                <input type="text" class="form-control" id="gName" placeholder="e.g. Elena Vance" required>
+              </div>
+              <div class="form-group">
+                <label for="gPhone">Phone Number / WhatsApp *</label>
+                <input type="tel" class="form-control" id="gPhone" placeholder="0702713853 or +254..." required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="gEmail">Email Address *</label>
+                <input type="email" class="form-control" id="gEmail" placeholder="vledoren500@gmail.com" required>
+              </div>
+              <div class="form-group">
+                <label for="gCountry">Country / City of Origin</label>
+                <input type="text" class="form-control" id="gCountry" placeholder="e.g. Kenya, UK, Germany...">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="gArrival">Estimated Arrival Time</label>
+              <select class="form-control" id="gArrival">
+                <option>Early Arrival (10:00 - 12:00) · Luggage Storage</option>
+                <option selected>Standard Check-In (14:00 - 16:00)</option>
+                <option>Evening Arrival (18:00 - 21:00)</option>
+                <option>Late Night Flight (After 21:00)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- LOGIN FORM -->
+          <div id="loginFormSection" style="display:none;">
+            <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:14px;">Welcome back to Zevia Sands Club. Sign in to retrieve your profile and member benefits.</p>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="loginEmail">Email / Phone</label>
+                <input type="text" class="form-control" id="loginEmail" placeholder="Phone or Email">
+              </div>
+              <div class="form-group">
+                <label for="loginPass">Password / Security PIN</label>
+                <input type="password" class="form-control" id="loginPass" placeholder="••••••••">
+              </div>
+            </div>
+            <button type="button" class="btn btn-primary btn-small" id="btnLoginDemo" style="margin-bottom:10px;">Sign In & Auto-fill Profile</button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: LIVE BOOKING SUMMARY -->
+      <div>
+        <div class="summary-card">
+          <div class="summary-media">
+            <img id="sumImg" src="https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80" alt="Villa Preview">
+          </div>
+          <h3 class="summary-title" id="sumVillaName">Beachfront Palm Villa</h3>
+          <div class="summary-dates" id="sumDates">Check-In: Loading dates...</div>
+
+          <div class="summary-line">
+            <span style="color:var(--text-muted);">Duration:</span>
+            <b id="sumNights">3 Nights</b>
+          </div>
+
+          <div class="summary-line">
+            <span style="color:var(--text-muted);">Guests:</span>
+            <b id="sumGuests">2 Adults</b>
+          </div>
+
+          <div class="summary-line">
+            <span style="color:var(--text-muted);">Selected Package:</span>
+            <b id="sumPackage">Bed & Breakfast</b>
+          </div>
+
+          <div class="summary-line">
+            <span style="color:var(--text-muted);">Special Requests:</span>
+            <b id="sumRequestsCount">None selected</b>
+          </div>
+
+          <div style="margin-top:16px; padding-top:12px; border-top:1px solid var(--line);">
+            <div class="summary-line">
+              <span style="color:var(--text-muted);">Villa Nightly Subtotal:</span>
+              <span id="sumVillaPrice">KSh 0</span>
+            </div>
+            <div class="summary-line">
+              <span style="color:var(--text-muted);">Package Upgrades:</span>
+              <span id="sumPkgPrice">KSh 0</span>
+            </div>
+            <div class="summary-line">
+              <span style="color:var(--text-muted);">Special Requests Fee:</span>
+              <span id="sumReqFee">KSh 0</span>
+            </div>
+            <div class="summary-line">
+              <span style="color:var(--text-muted);">Service Charge & Taxes (10%):</span>
+              <span id="sumTax">KSh 0</span>
+            </div>
+
+            <div class="summary-total">
+              <span>Grand Total:</span>
+              <span class="summary-total-amt" id="sumTotal">KSh 0</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn-gold" id="btnSubmitBooking" style="width:100%; margin-top:20px; padding:15px; font-size:15px;">
+            Confirm & Book Sanctuary Stay
+          </button>
+
+          <p style="font-size:12px; color:var(--text-muted); text-align:center; margin-top:12px; line-height:1.5;">
+            🔒 Zero deposit required for instant confirmation. Free cancellation up to 14 days before arrival.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</main>
+
+<!-- CONFIRMATION & VOUCHER MODAL -->
+<div class="confirm-modal" id="confirmModal">
+  <div class="voucher-box">
+    <span class="voucher-close" id="modalCloseBtn">&times;</span>
+    <div style="text-align:center; margin-bottom:20px;">
+      <span style="font-size:42px;">🌴</span>
+      <h2 style="font-size:30px; margin-top:8px;">Booking Confirmed!</h2>
+      <p style="color:var(--text-muted); font-size:14px;">Your sanctuary reservation has been generated successfully.</p>
+    </div>
+
+    <div style="background:var(--sand-bg); border:1px solid var(--line); border-radius:var(--radius-sm); padding:18px; font-size:13.5px; line-height:1.75; margin-bottom:20px;">
+      <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--line); padding-bottom:8px; margin-bottom:8px;">
+        <span style="font-weight:700; color:var(--ocean-blue);">Booking Reference:</span>
+        <b id="vRefCode" style="font-family:monospace; font-size:16px;">ZS-2026-8942</b>
+      </div>
+      <div><b>Guest Name:</b> <span id="vGuestName">Elena Vance</span></div>
+      <div><b>Villa:</b> <span id="vVilla">Beachfront Palm Villa</span></div>
+      <div><b>Package:</b> <span id="vPackage">Half Board (HB)</span></div>
+      <div><b>Dates:</b> <span id="vDates">Dec 10 - Dec 13 (3 Nights)</span></div>
+      <div><b>Guests:</b> <span id="vGuestsCount">2 Adults</span></div>
+      <div style="margin-top:6px; color:#A0522D;"><b>Special Requests:</b> <span id="vSpecialReq">🌹 Honeymoon Rose Petals on Bed</span></div>
+      <div style="margin-top:6px; font-weight:700; font-size:15px; color:var(--navy);">
+        Total: <span id="vTotalAmt" style="color:var(--sun-gold);">KSh 228,000</span>
+      </div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <a id="btnVoucherWhatsapp" href="https://wa.me/254702713853" target="_blank" class="btn btn-gold" style="justify-content:center;">
+        💬 Send Reservation to WhatsApp (0702713853)
+      </a>
+      <a id="btnVoucherEmail" href="mailto:vledoren500@gmail.com" class="btn btn-primary" style="justify-content:center;">
+        ✉️ Email Reservation to Concierge
+      </a>
+      <button type="button" class="btn btn-small" id="btnPrintVoucher" style="color:var(--text-muted); border:1px solid var(--line); margin-top:4px;">
+        🖨️ Print / Save Booking Voucher
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="nav-brand" style="font-size:22px; margin-bottom:12px;">Zevia Sands</div>
+        <p style="font-size:13px; color:var(--text-muted); line-height:1.7; margin-bottom:16px;">An ultra-luxury beach sanctuary in Kalmara Bay on the Kenyan coast with overwater pool villas, pristine white sands, and unforgettable coastal food.</p>
+      </div>
+
+      <div>
+        <h4 style="font-size:16px; margin-bottom:16px;">Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="accommodation.html">Accommodation</a></li>
+          <li><a href="beach-pool.html">Beach & Pool</a></li>
+          <li><a href="dining.html">Food & Dining</a></li>
+          <li><a href="adventures.html">Ocean Adventures</a></li>
+          <li><a href="events.html">Events & Weddings</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-size:16px; margin-bottom:16px;">Meal Packages</h4>
+        <ul class="footer-links">
+          <li>Bed & Breakfast (Included)</li>
+          <li>Half Board (Breakfast + Dinner)</li>
+          <li>Full Board (All 3 Meals)</li>
+          <li>All-Inclusive VIP Luxury</li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 style="font-size:16px; margin-bottom:16px;">Direct Concierge</h4>
+        <div style="font-size:13.5px; line-height:1.8; color:var(--navy-soft);">
+          <div>📍 Diani Beach Road, South Coast, Kenya</div>
+          <div>📞 <a href="tel:+254702713853" style="color:inherit;">+254 702 713 853</a></div>
+          <div>💬 <a href="https://wa.me/254702713853" target="_blank" style="color:var(--ocean-blue); font-weight:600;">WhatsApp: 0702713853</a></div>
+          <div>✉️ <a href="mailto:vledoren500@gmail.com" style="color:inherit;">vledoren500@gmail.com</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 Zevia Sands Resort · All rights reserved.</div>
+      <div style="display:flex; gap:18px;">
+        <a href="privacy.html" style="color:inherit;">Privacy Policy</a>
+        <a href="terms.html" style="color:inherit;">Terms of Stay</a>
+        <a href="sitemap.xml" style="color:inherit;">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Include AI Concierge -->
+<script src="js/ai-concierge.js" defer></script>
+
+<script>
+(function() {
+  // Currencies
+  var currencies = {
+    KES: { symbol: 'KSh ', rate: 130 },
+    USD: { symbol: '$', rate: 1 },
+    EUR: { symbol: '€', rate: 0.92 }
+  };
+  var currentCurrency = 'KES';
+
+  function formatMoney(amountUSD) {
+    var c = currencies[currentCurrency] || currencies.KES;
+    return c.symbol + Math.round(amountUSD * c.rate).toLocaleString();
+  }
+
+  // Set default dates: tomorrow and +3 nights
+  var now = new Date();
+  var tomorrow = new Date(now.getTime() + 86400000);
+  var checkOut = new Date(now.getTime() + 86400000 * 4);
+
+  var fIn = document.getElementById('bookCheckIn');
+  var fOut = document.getElementById('bookCheckOut');
+  var fVilla = document.getElementById('bookVilla');
+  var fAdults = document.getElementById('bookAdults');
+  var fChildren = document.getElementById('bookChildren');
+
+  fIn.value = tomorrow.toISOString().split('T')[0];
+  fIn.min = now.toISOString().split('T')[0];
+  fOut.value = checkOut.toISOString().split('T')[0];
+  fOut.min = tomorrow.toISOString().split('T')[0];
+
+  fIn.addEventListener('change', function() {
+    var d = new Date(fIn.value);
+    var next = new Date(d.getTime() + 86400000);
+    fOut.min = next.toISOString().split('T')[0];
+    if (new Date(fOut.value) <= d) {
+      fOut.value = next.toISOString().split('T')[0];
+    }
+    recalculate();
+  });
+  fOut.addEventListener('change', recalculate);
+  fVilla.addEventListener('change', recalculate);
+  fAdults.addEventListener('change', recalculate);
+  fChildren.addEventListener('change', recalculate);
+
+  // Package Cards
+  var currentPackage = 'bb';
+  var pkgCards = document.querySelectorAll('.pkg-card');
+  pkgCards.forEach(function(card) {
+    card.addEventListener('click', function() {
+      pkgCards.forEach(function(c) { c.classList.remove('selected'); });
+      card.classList.add('selected');
+      currentPackage = card.getAttribute('data-pkg');
+      recalculate();
+    });
+  });
+
+  // Special Requests checkboxes
+  var requestBoxes = document.querySelectorAll('.request-item input[type="checkbox"]');
+  requestBoxes.forEach(function(chk) {
+    chk.addEventListener('change', recalculate);
+  });
+
+  // Calculation logic
+  function recalculate() {
+    var opt = fVilla.options[fVilla.selectedIndex];
+    var baseRateUSD = parseFloat(opt.getAttribute('data-base')) || 490;
+    var villaImg = opt.getAttribute('data-img');
+    var villaName = opt.textContent.split('(')[0].trim();
+
+    var inD = new Date(fIn.value);
+    var outD = new Date(fOut.value);
+    var nights = Math.max(1, Math.round((outD - inD) / 86400000));
+    var adults = parseInt(fAdults.value) || 2;
+
+    // Selected package supplement
+    var selectedCard = document.querySelector('.pkg-card.selected');
+    var pkgSuppUSD = selectedCard ? parseFloat(selectedCard.getAttribute('data-supp')) : 0;
+    var pkgName = selectedCard ? selectedCard.querySelector('.pkg-name').textContent.trim() : 'Bed & Breakfast';
+
+    // Special requests fee
+    var reqFeeUSD = 0;
+    var selectedRequests = [];
+    requestBoxes.forEach(function(chk) {
+      if (chk.checked) {
+        reqFeeUSD += parseFloat(chk.getAttribute('data-fee') || 0);
+        var title = chk.closest('.request-item').querySelector('b').textContent.trim();
+        selectedRequests.push(title);
+      }
+    });
+
+    // Subtotals
+    var villaTotalUSD = baseRateUSD * nights;
+    var packageTotalUSD = (pkgSuppUSD * adults) * nights;
+    var subtotalUSD = villaTotalUSD + packageTotalUSD + reqFeeUSD;
+    var taxUSD = subtotalUSD * 0.10;
+    var grandTotalUSD = subtotalUSD + taxUSD;
+
+    // Update UI Elements
+    document.getElementById('sumImg').src = villaImg;
+    document.getElementById('sumVillaName').textContent = villaName;
+    document.getElementById('sumDates').textContent = fIn.value + ' to ' + fOut.value;
+    document.getElementById('sumNights').textContent = nights + (nights === 1 ? ' Night' : ' Nights');
+    document.getElementById('sumGuests').textContent = adults + ' Adults' + (fChildren.value > 0 ? ', ' + fChildren.value + ' Children' : '');
+    document.getElementById('sumPackage').textContent = pkgName;
+    document.getElementById('sumRequestsCount').textContent = selectedRequests.length > 0 ? selectedRequests.length + ' requested' : 'None selected';
+
+    document.getElementById('sumVillaPrice').textContent = formatMoney(villaTotalUSD);
+    document.getElementById('sumPkgPrice').textContent = formatMoney(packageTotalUSD);
+    document.getElementById('sumReqFee').textContent = formatMoney(reqFeeUSD);
+    document.getElementById('sumTax').textContent = formatMoney(taxUSD);
+    document.getElementById('sumTotal').textContent = formatMoney(grandTotalUSD);
+
+    // Package card labels in current currency
+    document.getElementById('pkgPriceHb').textContent = '+' + formatMoney(60) + ' / guest / nt';
+    document.getElementById('pkgPriceFb').textContent = '+' + formatMoney(110) + ' / guest / nt';
+    document.getElementById('pkgPriceAi').textContent = '+' + formatMoney(180) + ' / guest / nt';
+
+    return {
+      villaName: villaName,
+      nights: nights,
+      dates: fIn.value + ' to ' + fOut.value,
+      adults: adults,
+      pkgName: pkgName,
+      selectedRequests: selectedRequests,
+      grandTotalFormatted: formatMoney(grandTotalUSD)
+    };
+  }
+
+  // Currency Selection
+  var currencySelect = document.getElementById('currencySelect');
+  var mobileCurrencySelect = document.getElementById('mobileCurrencySelect');
+
+  function setCurrency(code) {
+    if (!currencies[code]) return;
+    currentCurrency = code;
+    if (currencySelect) currencySelect.value = code;
+    if (mobileCurrencySelect) mobileCurrencySelect.value = code;
+    try { localStorage.setItem('zevia_currency', code); } catch(e) {}
+    recalculate();
+  }
+
+  if (currencySelect) currencySelect.addEventListener('change', function() { setCurrency(this.value); });
+  if (mobileCurrencySelect) mobileCurrencySelect.addEventListener('change', function() { setCurrency(this.value); });
+
+  try {
+    var saved = localStorage.getItem('zevia_currency');
+    if (saved && currencies[saved]) currentCurrency = saved;
+    else currentCurrency = 'KES';
+    if (currencySelect) currencySelect.value = currentCurrency;
+    if (mobileCurrencySelect) mobileCurrencySelect.value = currentCurrency;
+  } catch(e) {
+    currentCurrency = 'KES';
+  }
+
+  // Parse URL Parameters (e.g. booking.html?villa=overwater&package=hb)
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('villa')) {
+    var vVal = params.get('villa');
+    for (var i = 0; i < fVilla.options.length; i++) {
+      if (fVilla.options[i].value === vVal) {
+        fVilla.selectedIndex = i;
+        break;
+      }
+    }
+  }
+  if (params.get('package')) {
+    var pVal = params.get('package').toLowerCase();
+    pkgCards.forEach(function(card) {
+      if (card.getAttribute('data-pkg') === pVal) {
+        pkgCards.forEach(function(c) { c.classList.remove('selected'); });
+        card.classList.add('selected');
+        currentPackage = pVal;
+      }
+    });
+  }
+
+  // Auth Tabs (Guest vs Login)
+  var tabGuest = document.getElementById('tabGuest');
+  var tabLogin = document.getElementById('tabLogin');
+  var guestSection = document.getElementById('guestFormSection');
+  var loginSection = document.getElementById('loginFormSection');
+
+  tabGuest.addEventListener('click', function() {
+    tabGuest.classList.add('active');
+    tabLogin.classList.remove('active');
+    guestSection.style.display = 'block';
+    loginSection.style.display = 'none';
+  });
+
+  tabLogin.addEventListener('click', function() {
+    tabLogin.classList.add('active');
+    tabGuest.classList.remove('active');
+    guestSection.style.display = 'none';
+    loginSection.style.display = 'block';
+  });
+
+  document.getElementById('btnLoginDemo').addEventListener('click', function() {
+    document.getElementById('gName').value = 'Elena Vance';
+    document.getElementById('gPhone').value = '0702713853';
+    document.getElementById('gEmail').value = 'vledoren500@gmail.com';
+    document.getElementById('gCountry').value = 'Kenya';
+    tabGuest.click();
+    alert('Member credentials recognized! Profile auto-filled.');
+  });
+
+  // Modal and Confirmation
+  var confirmModal = document.getElementById('confirmModal');
+  var modalCloseBtn = document.getElementById('modalCloseBtn');
+  var btnSubmitBooking = document.getElementById('btnSubmitBooking');
+
+  btnSubmitBooking.addEventListener('click', function() {
+    var name = document.getElementById('gName').value.trim();
+    var phone = document.getElementById('gPhone').value.trim();
+    var email = document.getElementById('gEmail').value.trim();
+
+    if (!name || !phone || !email) {
+      alert('Please fill in your name, phone number, and email address to proceed.');
+      document.getElementById('gName').focus();
+      return;
+    }
+
+    var data = recalculate();
+    var refCode = 'ZS-2026-' + Math.floor(1000 + Math.random() * 9000);
+
+    document.getElementById('vRefCode').textContent = refCode;
+    document.getElementById('vGuestName').textContent = name;
+    document.getElementById('vVilla').textContent = data.villaName;
+    document.getElementById('vPackage').textContent = data.pkgName;
+    document.getElementById('vDates').textContent = data.dates + ' (' + data.nights + ' Nights)';
+    document.getElementById('vGuestsCount').textContent = data.adults + ' Adults';
+    
+    var reqText = data.selectedRequests.length > 0 ? data.selectedRequests.join(', ') : 'None specified';
+    var customNotes = document.getElementById('customNotes').value.trim();
+    if (customNotes) reqText += ' | Note: ' + customNotes;
+    document.getElementById('vSpecialReq').textContent = reqText;
+    document.getElementById('vTotalAmt').textContent = data.grandTotalFormatted;
+
+    // Compose WhatsApp message to 0702713853
+    var waMsg = `Hello Zevia Sands Resort! I have booked a stay via the website:%0A%0A` +
+      `📌 *Ref:* ${refCode}%0A` +
+      `👤 *Guest:* ${name}%0A` +
+      `📞 *Phone:* ${phone}%0A` +
+      `✉️ *Email:* ${email}%0A` +
+      `🏡 *Villa:* ${data.villaName}%0A` +
+      `🍽️ *Package:* ${data.pkgName}%0A` +
+      `📅 *Dates:* ${data.dates} (${data.nights} Nights)%0A` +
+      `🌹 *Special Requests:* ${encodeURIComponent(reqText)}%0A` +
+      `💰 *Total:* ${data.grandTotalFormatted}`;
+
+    document.getElementById('btnVoucherWhatsapp').href = `https://wa.me/254702713853?text=${waMsg}`;
+    
+    // Compose Email to vledoren500@gmail.com
+    var mailSubject = encodeURIComponent(`Booking Reservation ${refCode} - ${name}`);
+    var mailBody = decodeURIComponent(waMsg).replace(/%0A/g, '\n');
+    document.getElementById('btnVoucherEmail').href = `mailto:vledoren500@gmail.com?subject=${mailSubject}&body=${encodeURIComponent(mailBody)}`;
+
+    confirmModal.classList.add('open');
+  });
+
+  modalCloseBtn.addEventListener('click', function() { confirmModal.classList.remove('open'); });
+  confirmModal.addEventListener('click', function(e) {
+    if (e.target === confirmModal) confirmModal.classList.remove('open');
+  });
+
+  document.getElementById('btnPrintVoucher').addEventListener('click', function() {
+    window.print();
+  });
+
+  // Mobile menu toggle
+  var menuToggle = document.getElementById('menuToggle');
+  var mobileMenu = document.getElementById('mobileMenu');
+  var menuClose = document.getElementById('menuClose');
+  if (menuToggle && mobileMenu) {
+    menuToggle.addEventListener('click', function() { mobileMenu.classList.add('open'); });
+    menuClose.addEventListener('click', function() { mobileMenu.classList.remove('open'); });
+  }
+
+  // Initial calculation
+  recalculate();
+})();
+</script>
+</body>
+</html>

@@ -891,7 +891,7 @@
         <option value="EUR">EUR (€)</option>
       </select>
     </div>
-    <a href="#reserve" class="btn btn-gold btn-small">Book Stay</a>
+    <a href="booking.html" class="btn btn-gold btn-small">Book Stay</a>
     <button class="hamburger" id="menuToggle" aria-label="Open Menu">
       <span></span><span></span>
     </button>
@@ -925,7 +925,7 @@
   </div>
 
   <div class="mobile-menu-footer">
-    <a href="#reserve" class="btn btn-gold m-item" style="width:100%; padding:14px; font-size:14px;">Reserve Your Stay</a>
+    <a href="booking.html" class="btn btn-gold m-item" style="width:100%; padding:14px; font-size:14px;">Reserve Your Stay</a>
     <div style="font-size:12px; color:rgba(255,255,255,0.6); display:flex; gap:16px;">
       <a href="tel:+254702713853">📞 Concierge</a>
       <a href="https://wa.me/254702713853" target="_blank">💬 WhatsApp</a>
@@ -939,7 +939,7 @@
     <span class="ms-title">Zevia Sands</span>
     <span class="ms-price" id="mobileStickyPrice">from KSh 63,700 / nt</span>
   </div>
-  <a href="#reserve" class="btn btn-gold btn-small" style="padding: 10px 20px; font-size: 13px;">Book Stay</a>
+  <a href="booking.html" class="btn btn-gold btn-small" style="padding: 10px 20px; font-size: 13px;">Book Stay</a>
 </div>
 
 <!-- FULLSCREEN WOW HERO -->
@@ -953,7 +953,7 @@
       
       <div class="hero-buttons">
         <a href="#villas" class="btn btn-white">Explore Villas</a>
-        <a href="#reserve" class="btn btn-gold">Enquire Now</a>
+        <a href="booking.html" class="btn btn-gold">Book / Enquire Now</a>
       </div>
     </div>
   </div>
@@ -1010,7 +1010,7 @@
               <span class="feat-tag">Artisan Breakfast</span>
             </div>
             <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
-              <a href="#reserve" class="btn btn-primary btn-small" data-select="overwater" style="width:100%; justify-content:center;">Enquire Now</a>
+              <a href="booking.html?villa=overwater" class="btn btn-primary btn-small" style="width:100%; justify-content:center;">Book Overwater Villa</a>
             </div>
           </div>
         </article>
@@ -1032,7 +1032,7 @@
               <span class="feat-tag">Artisan Breakfast</span>
             </div>
             <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
-              <a href="#reserve" class="btn btn-primary btn-small" data-select="beachfront" style="width:100%; justify-content:center;">Enquire Now</a>
+              <a href="booking.html?villa=beachfront" class="btn btn-primary btn-small" style="width:100%; justify-content:center;">Book Beachfront Villa</a>
             </div>
           </div>
         </article>
@@ -1054,7 +1054,7 @@
               <span class="feat-tag">Champagne Arrival</span>
             </div>
             <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center;">
-              <a href="#reserve" class="btn btn-primary btn-small" data-select="horizon" style="width:100%; justify-content:center;">Enquire Now</a>
+              <a href="booking.html?villa=horizon" class="btn btn-primary btn-small" style="width:100%; justify-content:center;">Book Horizon Villa</a>
             </div>
           </div>
         </article>
@@ -1295,12 +1295,28 @@
               </select>
             </div>
             <div class="form-group">
+              <label for="fPackage">Room Package</label>
+              <select id="fPackage">
+                <option value="bb" data-supp="0" selected>☕ Bed & Breakfast (Included)</option>
+                <option value="hb" data-supp="60">🍽️ Half Board (+Dinner)</option>
+                <option value="fb" data-supp="110">🦞 Full Board (All Meals)</option>
+                <option value="ai" data-supp="180">👑 All-Inclusive Luxury</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
               <label for="fGuests">Guests</label>
               <select id="fGuests">
-                <option value="2">2 Adults</option>
+                <option value="2" selected>2 Adults</option>
+                <option value="1">1 Adult</option>
                 <option value="3">3 Guests</option>
                 <option value="4">4 Guests</option>
               </select>
+            </div>
+            <div class="form-group" style="justify-content:center;">
+              <span style="font-size:12px; color:var(--text-muted); display:block; margin-top:20px;">🌹 Honeymoon rose petals & champagne can be added at checkout</span>
             </div>
           </div>
 
@@ -1310,8 +1326,12 @@
               <span id="cNights">3 Nights</span>
             </div>
             <div class="calc-row">
-              <span>Villa Total</span>
+              <span>Villa Nightly Subtotal</span>
               <span id="cSub">KSh 265,200</span>
+            </div>
+            <div class="calc-row">
+              <span id="cPkgName">Package (Bed & Breakfast)</span>
+              <span id="cPkgSub">Included</span>
             </div>
             <div class="calc-row">
               <span>Taxes & Service (10%)</span>
@@ -1323,8 +1343,8 @@
             </div>
           </div>
 
-          <button class="btn btn-gold" id="btnBookNow" style="width:100%; margin-top:16px; justify-content:center; padding:14px;">
-            Confirm Reservation Request
+          <button class="btn btn-gold" id="btnBookNow" style="width:100%; margin-top:16px; justify-content:center; padding:14px; font-size:14.5px;">
+            Book Stay & Add Special Requests →
           </button>
         </div>
       </div>
@@ -1559,6 +1579,10 @@
     mobileCurrencySelect.addEventListener('change', function() { setCurrency(this.value); });
   }
 
+  var fPackage = document.getElementById('fPackage');
+  var cPkgName = document.getElementById('cPkgName');
+  var cPkgSub = document.getElementById('cPkgSub');
+
   function updateCalculation() {
     var inDate = new Date(fIn.value);
     var outDate = new Date(fOut.value);
@@ -1571,17 +1595,31 @@
     var basePrice = basePrices[optVal] || 680;
     var name = names[optVal] || 'Overwater Lagoon Villa';
 
-    var subtotal = basePrice * nights;
-    var tax = subtotal * 0.10;
-    var grand = subtotal + tax;
+    var pkgSupps = { bb: 0, hb: 60, fb: 110, ai: 180 };
+    var pkgLabels = { bb: 'Bed & Breakfast', hb: 'Half Board (HB)', fb: 'Full Board (FB)', ai: 'All-Inclusive Luxury' };
+
+    var pVal = fPackage ? fPackage.value : 'bb';
+    var pSupp = pkgSupps[pVal] || 0;
+    var pLabel = pkgLabels[pVal] || 'Bed & Breakfast';
+    var guests = parseInt(fGuests.value) || 2;
+
+    var villaSubtotal = basePrice * nights;
+    var pkgSubtotal = (pSupp * guests) * nights;
+    var totalPreTax = villaSubtotal + pkgSubtotal;
+    var tax = totalPreTax * 0.10;
+    var grand = totalPreTax + tax;
 
     cName.textContent = name;
     cNights.textContent = nights + (nights === 1 ? ' Night' : ' Nights');
-    cSub.textContent = formatMoney(subtotal);
+    cSub.textContent = formatMoney(villaSubtotal);
+    if (cPkgName && cPkgSub) {
+      cPkgName.textContent = 'Package (' + pLabel + ')';
+      cPkgSub.textContent = pSupp > 0 ? '+' + formatMoney(pkgSubtotal) : 'Included';
+    }
     cTax.textContent = formatMoney(tax);
     cTotal.textContent = formatMoney(grand);
 
-    return { name: name, nights: nights, grandFormatted: formatMoney(grand) };
+    return { name: name, nights: nights, grandFormatted: formatMoney(grand), packageVal: pVal };
   }
 
   fIn.addEventListener('change', function() {
@@ -1594,6 +1632,7 @@
   fOut.addEventListener('change', updateCalculation);
   fType.addEventListener('change', updateCalculation);
   fGuests.addEventListener('change', updateCalculation);
+  if (fPackage) fPackage.addEventListener('change', updateCalculation);
 
   // Restore saved currency if any, defaulting to KES
   try {
@@ -1628,12 +1667,12 @@
   var modalOkBtn = document.getElementById('modalOkBtn');
 
   btnBookNow.addEventListener('click', function() {
-    var data = updateCalculation();
-    document.getElementById('vName').textContent = data.name;
-    document.getElementById('vDates').textContent = fIn.value + ' to ' + fOut.value + ' (' + data.nights + ' Nights)';
-    document.getElementById('vGuests').textContent = fGuests.options[fGuests.selectedIndex].textContent;
-    document.getElementById('vPrice').textContent = data.grandFormatted;
-    voucherModal.classList.add('open');
+    var pVal = fPackage ? fPackage.value : 'bb';
+    window.location.href = 'booking.html?villa=' + encodeURIComponent(fType.value) +
+      '&package=' + encodeURIComponent(pVal) +
+      '&checkin=' + encodeURIComponent(fIn.value) +
+      '&checkout=' + encodeURIComponent(fOut.value) +
+      '&guests=' + encodeURIComponent(fGuests.value);
   });
 
   modalClose.addEventListener('click', function() { voucherModal.classList.remove('open'); });
@@ -1644,5 +1683,6 @@
 
 })();
 </script>
+<script src="js/ai-concierge.js" defer></script>
 </body>
 </html>
