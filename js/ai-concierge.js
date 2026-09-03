@@ -476,117 +476,383 @@
     scrollBottom();
   }
 
-  // Knowledge base and intent engine
+  // Follow-up dynamic chips renderer
+  function renderFollowUpChips(chips) {
+    var oldFollowUps = document.querySelectorAll('.zevia-ai-followup-chips');
+    oldFollowUps.forEach(function(el) { el.remove(); });
+
+    if (!chips || chips.length === 0) return;
+
+    var container = document.createElement('div');
+    container.className = 'zevia-ai-chips zevia-ai-followup-chips';
+    chips.forEach(function(item) {
+      var chip = document.createElement('span');
+      chip.className = 'zevia-ai-chip';
+      chip.textContent = item.label;
+      chip.setAttribute('data-query', item.query);
+      chip.addEventListener('click', function() {
+        handleQuery(item.query);
+      });
+      container.appendChild(chip);
+    });
+    messagesContainer.insertBefore(container, typingIndicator);
+    scrollBottom();
+  }
+
+  // Check if query is unrelated to the resort
+  function isIrrelevantQuery(text) {
+    // Tech, programming, maths, crypto, finance
+    var techPatterns = /\b(python|javascript|typescript|html|css|java|c\+\+|coding|code|script|github|compile|debug|algorithm|database|sql|math|calculus|algebra|solve|equation|crypto|bitcoin|ethereum|btc|nft|forex|stock market|shares|chatgpt|openai)\b/i;
+    
+    // Politics, elections, world governments, international conflicts
+    var politicsPatterns = /\b(president|prime minister|election|parliament|congress|senate|democrat|republican|politics|political|government|war in|ukraine|russia|israel|military|putin|biden|trump|ruto)\b/i;
+    
+    // Academics, homework, generic world trivia
+    var homeworkPatterns = /\b(homework|essay on|write an essay|capital of france|capital of usa|who invented|quantum physics|biology exam|chemistry formula)\b/i;
+    
+    // Automotive, medical diagnostics, legal
+    var unrelatedServices = /\b(repair car|car engine|mechanic|diagnose illness|medical treatment|prescription drug|lawyer|lawsuit|sue someone)\b/i;
+
+    // Sports trivia (unrelated to resort beach sports)
+    var sportsTrivia = /\b(premier league|manchester united|arsenal|chelsea|liverpool|real madrid|barcelona|nba finals|champions league score)\b/i;
+
+    return techPatterns.test(text) || politicsPatterns.test(text) || homeworkPatterns.test(text) || unrelatedServices.test(text) || sportsTrivia.test(text);
+  }
+
+  // Dynamic Knowledge Base and Flexible Intent Engine
   function generateAIResponse(userText) {
-    var text = userText.toLowerCase().trim();
+    var rawText = userText.trim();
+    var text = rawText.toLowerCase();
 
-    // 1. Room packages (Half Board, Full Board, All-Inclusive, B&B)
+    // 1. Irrelevant / Out-of-Scope Query Filter
+    if (isIrrelevantQuery(text)) {
+      return {
+        html: `I specialize exclusively as your personal AI Island Concierge for <b>Zevia Sands Resort & Sanctuary</b>. 😊
+        <br><br>
+        While I would love to chat about everything under the sun, <b>I can only reply to queries regarding the resort</b>—such as our luxury villas, curated room packages (Half Board, Full Board, All-Inclusive), romantic honeymoon touches, coastal dining, beach adventures, and reservations. 🌴
+        <br><br>
+        How can I assist you with your holiday plans, villa rates, or bespoke experiences at Zevia Sands today?`,
+        chips: [
+          { label: '🌴 About the Resort', query: 'Tell me about Zevia Sands Resort' },
+          { label: '🍽️ Room Packages', query: 'What room packages do you offer?' },
+          { label: '💰 Villa Rates', query: 'What are your villa prices per night?' },
+          { label: '🌹 Honeymoon Petals', query: 'Can I request rose petals on the bed?' }
+        ]
+      };
+    }
+
+    // 2. Greetings & Pleasantries (Time-aware, warm Kenyan hospitality, tells about resort)
+    var greetingPatterns = /^(hi|hello|hey|jambo|habari|greetings|morning|afternoon|evening|sasa|niaje|mambo|yo|sup|hola|bonjour|good\s*(morning|afternoon|evening|day))\b/i;
+    var isJustGreeting = greetingPatterns.test(text) || text === 'hi' || text === 'hello' || text === 'hey' || text === 'jambo';
+
+    if (isJustGreeting && !text.includes('package') && !text.includes('price') && !text.includes('book') && !text.includes('rate')) {
+      var currentHour = new Date().getHours();
+      var timeGreeting = 'Jambo & Karibu! 🌴';
+      if (currentHour >= 5 && currentHour < 12) {
+        timeGreeting = 'Good morning & Jambo! 🌅';
+      } else if (currentHour >= 12 && currentHour < 18) {
+        timeGreeting = 'Good afternoon & Jambo! ☀️';
+      } else {
+        timeGreeting = 'Good evening & Jambo! 🌙';
+      }
+
+      return {
+        html: `${timeGreeting} A very warm welcome to <b>Zevia Sands Resort & Sanctuary</b> in Kalmara Bay, Diani Beach!
+        <br><br>
+        Nestled along two kilometers of private, powdery white sands on Kenya's South Coast, Zevia Sands is an ultra-luxury coastal sanctuary featuring private pool villas, overwater lagoon suites, our signature 40-meter cantilevered infinity pool, and barefoot seafood dining.
+        <br><br>
+        Whether you are planning a romantic honeymoon, an anniversary, or a restful beach holiday, I am here to assist you with:
+        <br>• 🍽️ <b>Curated Room Packages</b> (Bed & Breakfast, Half Board, Full Board, All-Inclusive)
+        <br>• 🌹 <b>Bespoke Romance</b> (Rose petals on bed, chilled champagne, floating villa pool breakfast)
+        <br>• 💰 <b>Villa Rates & Seasonal Offers</b>
+        <br>• 📅 <b>Effortless Online Reservations</b>
+        <br><br>
+        What would you love to explore today?`,
+        chips: [
+          { label: '🍽️ Room Packages', query: 'What room packages do you offer?' },
+          { label: '🌹 Honeymoon Touches', query: 'Can I request rose petals on the bed for our honeymoon?' },
+          { label: '💰 Villa Rates', query: 'What are your villa prices per night?' },
+          { label: '🌴 About the Resort', query: 'Tell me about Zevia Sands Resort' }
+        ]
+      };
+    }
+
+    // 3. "How are you" / Friendly Check-in
+    if (text.includes('how are you') || text.includes('how are u') || text.includes('how do you do') || text.includes('how r u') || text.includes('how is it going') || text.includes('how is your day')) {
+      return {
+        html: `I am doing wonderfully, thank you so much for asking! 😊 The sun is shining warm over Kalmara Bay, the turquoise ocean is tranquil, and the resort team is curating another magical day for our guests.
+        <br><br>
+        How are you doing today? Are you planning an upcoming getaway to the Kenyan coast, or would you like me to walk you through our luxury villas and packages?`,
+        chips: [
+          { label: '🌴 Tell Me About The Resort', query: 'Tell me about Zevia Sands Resort' },
+          { label: '💰 Villa Rates', query: 'What are your villa prices per night?' },
+          { label: '🍽️ Room Packages', query: 'What room packages do you offer?' },
+          { label: '📅 Book a Room', query: 'How do I book a room?' }
+        ]
+      };
+    }
+
+    // 4. Gratitude & Compliments
+    if (text.includes('thank') || text.includes('asante') || text.includes('appreciate') || text.includes('great') || text.includes('awesome') || text.includes('wonderful') || text.includes('perfect') || text.includes('cool') || text.includes('nice job')) {
+      return {
+        html: `Karibu sana! 😊 It is my absolute pleasure. Our entire team at Zevia Sands is dedicated to making your coastal journey unforgettable, whether you are relaxing by the pool or enjoying a private candlelit dinner on the beach.
+        <br><br>
+        Can I assist you with anything else regarding your upcoming stay or travel arrangements?`,
+        chips: [
+          { label: '📅 Book My Stay', query: 'How do I book a room?' },
+          { label: '🌹 Honeymoon Setup', query: 'Can I request rose petals on the bed?' },
+          { label: '📞 Talk to Human Manager', query: 'Can I speak with the human concierge desk?' }
+        ]
+      };
+    }
+
+    // 5. Resort Overview & "What is this place"
+    if (text.includes('about the resort') || text.includes('what is zevia sands') || text.includes('tell me about the resort') || text.includes('what is this place') || text.includes('tell me about zevia') || text.includes('describe the resort') || text.includes('who are you')) {
+      return {
+        html: `🌴 <b>Welcome to Zevia Sands Resort & Sanctuary</b>:
+        <br><br>
+        Set along the secluded, tranquil waters of Kalmara Bay in Diani Beach, Kenya, Zevia Sands is an ultra-exclusive haven crafted for private escapes, romantic milestones, and discerning travelers.
+        <br><br>
+        ✨ <b>What Awaits You:</b>
+        <br>• <b>2km Secluded Shoreline</b>: Pure white sands sheltered by a thriving offshore coral barrier reef.
+        <br>• <b>Architectural Pool Villas</b>: Ranging from tropical garden villas to private overwater lagoon villas with glass floor panels.
+        <br>• <b>40-Meter Lagoon Infinity Pool</b>: Temperature-regulated freshwater pool with submerged loungers and a swim-up cocktail bar.
+        <br>• <b>Coastal Gastronomy</b>: From our iconic Floating Villa Pool Breakfast to fresh seafood grilled over coconut charcoal at The Reef Lobster Grill.
+        <br>• <b>Tailored Packages</b>: Bed & Breakfast, Half Board, Full Board, and VIP All-Inclusive plans.
+        <br><br>
+        Would you like to explore our villas, view rates, or learn about our romantic packages?`,
+        chips: [
+          { label: '🏡 Explore Villas', query: 'Tell me about the villas and rooms' },
+          { label: '🍽️ Room Packages', query: 'What room packages do you offer?' },
+          { label: '💰 Villa Rates', query: 'What are your villa prices per night?' },
+          { label: '📅 Reserve a Stay', query: 'How do I book a room?' }
+        ]
+      };
+    }
+
+    // 6. Room Packages (Half Board, Full Board, All-Inclusive, B&B)
     if (text.includes('package') || text.includes('halfboard') || text.includes('half board') || text.includes('fullboard') || text.includes('full board') || text.includes('all inclusive') || text.includes('all-inclusive') || text.includes('meal plan')) {
-      return `We offer 4 curated <b>Room Packages & Meal Plans</b> for our guests:
-      <br><br>
-      ☕ <b>Bed & Breakfast (B&B)</b>: Included in standard villa rates. Includes daily gourmet artisan breakfast buffet and specialty Kenyan coffee.<br>
-      🍽️ <b>Half Board (HB)</b>: +$60 / KSh 7,800 per guest/nt. Includes daily breakfast + 3-course dinner at The Reef Lobster & Seafood Grill.<br>
-      🦞 <b>Full Board (FB)</b>: +$110 / KSh 14,300 per guest/nt. Includes breakfast, beachfront lunch, and dinner, plus poolside refreshments.<br>
-      👑 <b>All-Inclusive Luxury (AI)</b>: +$180 / KSh 23,400 per guest/nt. Includes all meals, unlimited signature swim-up cocktails and premium wines, afternoon tea, and 1 complimentary 60-min beach massage.<br><br>
-      You can select your preferred package directly on our <a href="booking.html">Booking & Checkout Page</a>!`;
+      return {
+        html: `We offer 4 curated <b>Room Packages & Gourmet Meal Plans</b> to suit your vacation style:
+        <br><br>
+        ☕ <b>Bed & Breakfast (B&B)</b>: Included in all base villa rates. Includes daily tropical breakfast buffet, barista single-origin Kenyan coffee, and fresh cold-pressed juices.<br>
+        🍽️ <b>Half Board (HB)</b>: <b>+$60 / KSh 7,800</b> per guest/night. Includes daily artisan breakfast + nightly 3-course beachfront dinner at <i>The Reef Lobster & Seafood Grill</i>.<br>
+        🦞 <b>Full Board (FB)</b>: <b>+$110 / KSh 14,300</b> per guest/night. Daily breakfast, 2-course beachfront lunch, and 3-course dinner, plus poolside mocktails.<br>
+        👑 <b>All-Inclusive Luxury (AI)</b>: <b>+$180 / KSh 23,400</b> per guest/night. All gourmet meals, unlimited cocktails & premium wines, afternoon high tea, and 1 complimentary 60-min beach massage per adult.<br><br>
+        You can select your preferred package directly on our <a href="booking.html">Booking & Checkout Page</a> with live price recalculation!`,
+        chips: [
+          { label: '🌹 Honeymoon Rose Petals', query: 'Can I request rose petals on the bed?' },
+          { label: '💰 Villa Rates', query: 'What are your villa prices per night?' },
+          { label: '📅 Book a Package', query: 'How do I book a room?' },
+          { label: '💬 WhatsApp Concierge', query: 'Can I speak with the human concierge desk?' }
+        ]
+      };
     }
 
-    // 2. Special Requests / Rose Petals / Honeymoon / Romantic
-    if (text.includes('rose petal') || text.includes('rose') || text.includes('honeymoon') || text.includes('special request') || text.includes('anniversary') || text.includes('romantic') || text.includes('proposal') || text.includes('bed')) {
-      return `🌹 <b>Yes, absolutely!</b> We love crafting unforgettable romantic touches for couples, honeymooners, and anniversaries.
-      <br><br>
-      When reserving through our <a href="booking.html">Booking Portal</a>, you can select:
-      <br>• <b>Honeymoon Rose Petals on Bed & Floral Bath Setup</b>: Fresh red rose and tropical hibiscus petals artfully arranged with aromatic candles.
-      <br>• <b>Chilled Moët Champagne or Prosecco</b> waiting on ice in your villa upon arrival.
-      <br>• <b>Signature Floating Pool Breakfast</b> delivered directly to your villa's private pool.
-      <br>• <b>Custom Anniversary Cake & Flower Bouquet</b>.
-      <br><br>
-      You can also enter your custom message or request in the <b>Special Requests box</b> during checkout, or tell our concierge via WhatsApp at <a href="https://wa.me/254702713853" target="_blank">+254 702 713 853</a>!`;
+    // 7. Special Requests / Rose Petals / Honeymoon / Romantic / Surprises
+    if (text.includes('rose petal') || text.includes('rose') || text.includes('roses') || text.includes('honeymoon') || text.includes('special request') || text.includes('anniversary') || text.includes('romantic') || text.includes('proposal') || text.includes('propose') || text.includes('bed') || text.includes('surprise') || text.includes('candlelight')) {
+      return {
+        html: `🌹 <b>Yes, absolutely! Romance and celebrations are our signature specialty.</b>
+        <br><br>
+        When reserving through our <a href="booking.html">Booking Portal</a> or contacting our concierge, you can choose from these bespoke touches:
+        <br>• <b>Honeymoon Rose Petals on Bed & Floral Bath Setup</b>: Artfully arranged fresh red rose & hibiscus petals on your bed with scented candles and plush robes (Complimentary for honeymooners & anniversaries!).
+        <br>• <b>Chilled Champagne on Arrival</b>: Moët & Chandon or Prosecco on ice awaiting you in your private villa.
+        <br>• <b>Signature Floating Villa Pool Breakfast</b>: Fresh tropical fruits, pastries, and smoothies served on a floating wooden tray in your private pool.
+        <br>• <b>Anniversary / Birthday Cake & Flower Bouquet</b>.
+        <br>• <b>Private Candlelit Beach Dinner</b>: Set right at the water's edge under the stars.
+        <br><br>
+        You can tick these requests on our <a href="booking.html">Booking Page</a>, or message our team directly on WhatsApp at <a href="https://wa.me/254702713853" target="_blank">+254 702 713 853</a>!`,
+        chips: [
+          { label: '🍽️ Room Packages', query: 'What room packages do you offer?' },
+          { label: '💰 Villa Rates', query: 'What are your villa prices per night?' },
+          { label: '📅 Book with Rose Petals', query: 'How do I book a room?' },
+          { label: '💬 WhatsApp Concierge', query: 'Can I speak with the human concierge desk?' }
+        ]
+      };
     }
 
-    // 3. Villa Rates / Prices / Cost
-    if (text.includes('price') || text.includes('rate') || text.includes('cost') || text.includes('how much') || text.includes('night') || text.includes('shilling') || text.includes('dollar')) {
-      return `Here are our direct starting rates per night (Bed & Breakfast included):
-      <br><br>
-      🌴 <b>Deluxe Garden Palm Room</b>: from <b>KSh 52,000</b> ($400 / €368)<br>
-      🏖️ <b>Beachfront Palm Villa</b>: from <b>KSh 63,700</b> ($490 / €450)<br>
-      🪸 <b>Executive Coral Suite</b>: from <b>KSh 75,400</b> ($580 / €534)<br>
-      🌊 <b>Overwater Lagoon Villa</b>: from <b>KSh 88,400</b> ($680 / €625)<br>
-      🌅 <b>Horizon Infinity Villa (Private Pool)</b>: from <b>KSh 149,500</b> ($1,150 / €1,058)<br><br>
-      All stays include 24/7 concierge, welcome fresh coconut, and clear kayak gear. <a href="booking.html">Check Availability & Instant Quote →</a>`;
+    // 8. Villa Rates / Prices / Cost
+    if (text.includes('price') || text.includes('rate') || text.includes('cost') || text.includes('how much') || text.includes('night') || text.includes('shilling') || text.includes('dollar') || text.includes('ksh') || text.includes('usd') || text.includes('euro')) {
+      return {
+        html: `Here are our starting rates per villa per night (Bed & Breakfast included, taxes itemized at checkout):
+        <br><br>
+        🌴 <b>Deluxe Garden Palm Room</b>: from <b>KSh 52,000</b> ($400 / €368)<br>
+        🏖️ <b>Beachfront Palm Villa</b>: from <b>KSh 63,700</b> ($490 / €450)<br>
+        🪸 <b>Executive Coral Suite</b>: from <b>KSh 75,400</b> ($580 / €534)<br>
+        🌊 <b>Overwater Lagoon Villa</b>: from <b>KSh 88,400</b> ($680 / €625)<br>
+        🌅 <b>Horizon Infinity Villa (Private Pool)</b>: from <b>KSh 149,500</b> ($1,150 / €1,058)<br><br>
+        ✨ <i>All stays include 24/7 butler concierge, fresh welcome coconut, Wi-Fi, and clear kayak gear. Zero prepayment required online!</i><br>
+        Get an instant quote on our <a href="booking.html">Booking Calculator & Checkout →</a>`,
+        chips: [
+          { label: '🍽️ Room Packages', query: 'What room packages do you offer?' },
+          { label: '🏡 Villa Details', query: 'Tell me about the villas and rooms' },
+          { label: '📅 Book Stay', query: 'How do I book a room?' }
+        ]
+      };
     }
 
-    // 4. Booking & How to book
-    if (text.includes('book') || text.includes('reserve') || text.includes('reservation') || text.includes('checkout') || text.includes('login')) {
-      return `Booking your stay at Zevia Sands is fast and effortless!
-      <br><br>
-      1. Visit our <a href="booking.html"><b>Guest Booking & Login Portal</b></a>.<br>
-      2. Choose your villa, travel dates, and room package (B&B, Half Board, Full Board, or All-Inclusive).<br>
-      3. Tick your <b>Special Requests</b> (e.g. Rose Petals on Bed, Champagne, Airport Transfer).<br>
-      4. Input your name, phone number, and email, then submit to receive an instant confirmed voucher that syncs with WhatsApp and email!`;
+    // 9. Booking & How to book
+    if (text.includes('book') || text.includes('reserve') || text.includes('reservation') || text.includes('checkout') || text.includes('login') || text.includes('availability') || text.includes('how to book')) {
+      return {
+        html: `Booking your sanctuary escape at Zevia Sands is effortless and instant:
+        <br><br>
+        1. Open our <a href="booking.html"><b>Guest Booking & Login Portal</b></a>.<br>
+        2. Select your villa category, check-in & check-out dates, and guest count.<br>
+        3. Pick your <b>Room Package</b> (Bed & Breakfast, Half Board, Full Board, or All-Inclusive).<br>
+        4. Select your <b>Special Requests</b> (such as Honeymoon Rose Petals, Champagne, or Floating Breakfast).<br>
+        5. Enter your name, phone, and email under <i>Quick Guest Checkout</i> and click <b>Confirm & Book</b>!<br><br>
+        You will receive an instant luxury boarding-pass voucher that you can send directly to WhatsApp (0702713853) or email. <b>No deposit required online—pay upon arrival!</b>`,
+        chips: [
+          { label: '📅 Go to Booking Portal', query: 'How do I book a room?' },
+          { label: '🍽️ Room Packages', query: 'What room packages do you offer?' },
+          { label: '🌹 Honeymoon Petals', query: 'Can I request rose petals on the bed?' }
+        ]
+      };
     }
 
-    // 5. Pool & Beach
-    if (text.includes('pool') || text.includes('swim') || text.includes('infinity') || text.includes('beach') || text.includes('lagoon')) {
-      return `🏊 <b>The 40m Lagoon Infinity Pool & 2km Coast</b>:
-      <br><br>
-      Our signature 40-meter freshwater infinity pool is temperature-controlled and cantilevered toward the Indian Ocean, featuring submerged stone loungers and the popular <b>Lagoon Swim-Up Cocktail Bar</b>.
-      <br><br>
-      Our resort also spans <b>two kilometers of secluded, powder-white sand beach</b> sheltered by an offshore coral barrier reef—ideal for calm, warm swimming all day long. Learn more on our <a href="beach-pool.html">Beach & Pool page</a>.`;
+    // 10. Villas & Accommodation Details
+    if (text.includes('villa') || text.includes('room') || text.includes('suite') || text.includes('overwater') || text.includes('beachfront') || text.includes('garden') || text.includes('accommodation')) {
+      return {
+        html: `🏡 <b>Our Sanctuary Accommodation Collection</b>:
+        <br><br>
+        • <b>Deluxe Garden Palm Room</b> (65 sqm): Nestled in aromatic tropical palms with a private sun garden and rainfall shower.<br>
+        • <b>Beachfront Palm Villa</b> (95 sqm): Direct barefoot access to Kalmara white sands, private plunge pool, and ocean sun deck.<br>
+        • <b>Executive Coral Suite</b> (130 sqm): Expansive living lounge, outdoor soaking tub, panoramic ocean views, and dedicated butler service.<br>
+        • <b>Overwater Lagoon Villa</b> (160 sqm): Perched on stilts above the turquoise lagoon with glass floor observation panels and direct sea ladder.<br>
+        • <b>Horizon Infinity Villa</b> (240 sqm): Our crown jewel. 2 master suites, 12m private cantilevered infinity pool, and personal chef on request.<br><br>
+        Explore full photo galleries on our <a href="accommodation.html">Accommodation Page</a>!`,
+        chips: [
+          { label: '💰 Villa Rates', query: 'What are your villa prices per night?' },
+          { label: '🍽️ Room Packages', query: 'What room packages do you offer?' },
+          { label: '📅 Book a Villa', query: 'How do I book a room?' }
+        ]
+      };
     }
 
-    // 6. Food & Dining
-    if (text.includes('food') || text.includes('dine') || text.includes('dining') || text.includes('restaurant') || text.includes('lobster') || text.includes('bar') || text.includes('eat') || text.includes('menu') || text.includes('breakfast')) {
-      return `🍽️ <b>Dining at Zevia Sands</b>:
-      <br><br>
-      • <b>Floating Villa Breakfast</b>: Tropical fruits, dragonfruit smoothie bowls, pastries, and French toast served on a floating wooden tray in your private pool.<br>
-      • <b>The Reef Lobster & Seafood Grill</b>: Barefoot dining on the sands. Coral spiny lobsters, garlic tiger prawns, and yellowfin tuna grilled over coconut charcoal.<br>
-      • <b>Lagoon Swim-Up Bar</b>: Cocktails, aged Kenyan rum, passionfruit caipirinhas, and chilled rosé served right in the pool.<br><br>
-      View our <a href="dining.html#full-menu">Full Day Coastal Menu</a> for all dishes and prices!`;
+    // 11. Food & Dining
+    if (text.includes('food') || text.includes('dine') || text.includes('dining') || text.includes('restaurant') || text.includes('lobster') || text.includes('bar') || text.includes('eat') || text.includes('menu') || text.includes('breakfast') || text.includes('lunch') || text.includes('dinner') || text.includes('halal') || text.includes('vegan')) {
+      return {
+        html: `🍽️ <b>Coastal Dining at Zevia Sands</b>:
+        <br><br>
+        • <b>Floating Villa Breakfast</b>: Tropical fruits, dragonfruit smoothie bowls, warm pastries, and French toast served on a floating wooden tray in your private villa pool.<br>
+        • <b>The Reef Lobster & Seafood Grill</b>: Barefoot beachfront dining. Coral spiny lobsters, garlic king prawns, and yellowfin tuna grilled fresh over coconut husks.<br>
+        • <b>Lagoon Swim-Up Cocktail Bar</b>: Passionfruit mojitos, vintage wines, fresh coconuts, and cold mocktails served right in the 40m infinity pool.<br>
+        • <b>Dietary Excellence</b>: 100% Halal certified, with dedicated plant-based vegan, gluten-free, and custom allergy menus upon request.<br><br>
+        Browse the complete menu and prices on our <a href="dining.html#full-menu">Food & Dining page</a>!`,
+        chips: [
+          { label: '🍽️ Room Packages', query: 'What room packages do you offer?' },
+          { label: '🥥 Floating Breakfast', query: 'Can I request rose petals on the bed?' },
+          { label: '📅 Book Dining / Villa', query: 'How do I book a room?' }
+        ]
+      };
     }
 
-    // 7. Adventures & Activities
-    if (text.includes('activity') || text.includes('activities') || text.includes('adventure') || text.includes('kayak') || text.includes('snorkel') || text.includes('catamaran') || text.includes('massage') || text.includes('spa')) {
-      return `✨ <b>Resort Experiences & Adventures</b>:
-      <br><br>
-      • 🚣 <b>100% Clear Glass Kayaking</b> over coral gardens.<br>
-      • 🐢 <b>Sea Turtle Reef Snorkel Safari</b> with resident marine guides.<br>
-      • ⛵ <b>Sunset Champagne Catamaran Cruise</b> along the Diani coastline.<br>
-      • 💆 <b>Beachside Palm Coconut Oil Massage</b> with soothing ocean waves.<br>
-      • 🌿 Mangrove botanical boardwalks and evening bonfire storytelling.<br><br>
-      Explore all details on our <a href="adventures.html">Adventures Page</a>.`;
+    // 12. Pool & Beach
+    if (text.includes('pool') || text.includes('swim') || text.includes('infinity') || text.includes('beach') || text.includes('lagoon') || text.includes('ocean')) {
+      return {
+        html: `🏊 <b>The 40m Lagoon Infinity Pool & 2km Coastline</b>:
+        <br><br>
+        Our iconic 40-meter freshwater infinity pool is temperature-regulated and cantilevered dramatically over the Indian Ocean, featuring sunken daybeds, submerged stone bar stools, and our vibrant <b>Lagoon Swim-Up Bar</b>.
+        <br><br>
+        Our resort spans <b>two kilometers of secluded, powder-white sand beach</b> sheltered by an offshore coral barrier reef—meaning calm, crystal-clear, warm swimming at all tides! See photos on our <a href="beach-pool.html">Beach & Pool page</a>.`,
+        chips: [
+          { label: '🚣 Ocean Adventures', query: 'What activities and adventures do you offer?' },
+          { label: '🏡 Beachfront Villas', query: 'Tell me about the villas and rooms' },
+          { label: '📅 Book Stay', query: 'How do I book a room?' }
+        ]
+      };
     }
 
-    // 8. Location & Airport Transfers
-    if (text.includes('location') || text.includes('where') || text.includes('airport') || text.includes('transfer') || text.includes('ukunda') || text.includes('mombasa') || text.includes('flight') || text.includes('direction') || text.includes('get here')) {
-      return `📍 <b>Location & Getting Here</b>:
-      <br><br>
-      Zevia Sands Resort is located on <b>Diani Beach Road, Kalmara Bay, South Coast, Kenya</b>.<br><br>
-      • <b>Ukunda Airstrip (UKA)</b>: 15 minutes by chauffeured luxury transfer.<br>
-      • <b>Moi International Airport Mombasa (MBA)</b>: 90 mins by expressway or 10 mins by chartered helicopter to our on-site landing pad.<br>
-      • <b>Mombasa SGR Express Train</b>: 60 minutes from the Mombasa terminus.<br><br>
-      Complimentary private transfers are provided on stays of 3 nights or more! See the map on our <a href="contact.html">Contact & Location page</a>.`;
+    // 13. Adventures & Activities
+    if (text.includes('activity') || text.includes('activities') || text.includes('adventure') || text.includes('kayak') || text.includes('snorkel') || text.includes('catamaran') || text.includes('massage') || text.includes('spa') || text.includes('excursion')) {
+      return {
+        html: `✨ <b>Resort Experiences & Ocean Adventures</b>:
+        <br><br>
+        • 🚣 <b>100% Clear Glass Kayaking</b>: Glide over colourful coral gardens and marine life.<br>
+        • 🐢 <b>Sea Turtle Reef Snorkel Safari</b>: Guided marine sanctuary excursion.<br>
+        • ⛵ <b>Sunset Champagne Catamaran Cruise</b>: Sailing into the gold and crimson Diani sunset.<br>
+        • 💆 <b>Beachside Palm Coconut Oil Massage</b>: Open-air ocean pavilion spa rituals.<br>
+        • 🌿 <b>Mangrove Boardwalk & Evening Beach Bonfires</b>.<br><br>
+        All activities can be arranged pre-arrival on our <a href="adventures.html">Adventures Page</a> or with our concierge!`,
+        chips: [
+          { label: '⛵ Sunset Catamaran', query: 'What activities and adventures do you offer?' },
+          { label: '💆 Beach Spa', query: 'What activities and adventures do you offer?' },
+          { label: '📅 Book Stay', query: 'How do I book a room?' }
+        ]
+      };
     }
 
-    // 9. Contact / Phone / Email / Human Concierge
-    if (text.includes('contact') || text.includes('phone') || text.includes('email') || text.includes('call') || text.includes('whatsapp') || text.includes('human') || text.includes('talk')) {
-      return `You can reach our human resort concierge 24 hours a day, 7 days a week:
-      <br><br>
-      📞 <b>Phone</b>: <a href="tel:+254702713853">0702713853</a> / <a href="tel:+254702713853">+254 702 713 853</a><br>
-      💬 <b>WhatsApp VIP</b>: <a href="https://wa.me/254702713853" target="_blank">+254 702 713 853 (Chat Now)</a><br>
-      ✉️ <b>Email</b>: <a href="mailto:vledoren500@gmail.com">vledoren500@gmail.com</a><br><br>
-      Our management desk is always delighted to assist you with tailored requests!`;
+    // 14. Weather & Best Time to Visit
+    if (text.includes('weather') || text.includes('climate') || text.includes('rain') || text.includes('season') || text.includes('best time') || text.includes('when to visit')) {
+      return {
+        html: `☀️ <b>Diani Beach Tropical Weather</b>:
+        <br><br>
+        Kalmara Bay enjoys warm tropical sunshine all year round, with daytime temperatures averaging <b>28°C to 32°C</b> and soothing evening coastal breezes.
+        <br><br>
+        • <b>October to April</b>: Superb dry season with glass-calm waters—perfect for swimming, diving with turtles, and sunset sailing.<br>
+        • <b>May to September</b>: Mild, refreshing coastal temperatures with lush tropical foliage.<br><br>
+        Every season offers something special! Check availability on our <a href="booking.html">Booking Portal</a>.`,
+        chips: [
+          { label: '💰 Villa Rates', query: 'What are your villa prices per night?' },
+          { label: '🍽️ Room Packages', query: 'What room packages do you offer?' },
+          { label: '📅 Book Stay', query: 'How do I book a room?' }
+        ]
+      };
     }
 
-    // 10. Default helpful answer
-    return `Thank you for your question! Zevia Sands is an ultra-luxury beach sanctuary in Kalmara Bay, Kenya featuring private pool villas, a 40m lagoon infinity pool, and pristine white sands.
-    <br><br>
-    I can provide quick details on:
-    <br>• <b>Room Packages</b>: Bed & Breakfast, Half Board, Full Board, All-Inclusive
-    <br>• <b>Honeymoon Touches</b>: Rose petals on bed, chilled champagne, romantic beach dinners
-    <br>• <b>Rates & Booking</b>: Instant quote on our <a href="booking.html">Booking Page</a>
-    <br>• <b>Direct Concierge Assistance</b>: WhatsApp <a href="https://wa.me/254702713853" target="_blank">+254 702 713 853</a> or email <a href="mailto:vledoren500@gmail.com">vledoren500@gmail.com</a>.
-    <br><br>What would you like to explore next?`;
+    // 15. Location & Airport Transfers
+    if (text.includes('location') || text.includes('where') || text.includes('airport') || text.includes('transfer') || text.includes('ukunda') || text.includes('mombasa') || text.includes('flight') || text.includes('direction') || text.includes('get here') || text.includes('taxi')) {
+      return {
+        html: `📍 <b>Location & Seamless Arrival</b>:
+        <br><br>
+        Zevia Sands Resort & Sanctuary is located on <b>Diani Beach Road, Kalmara Bay, South Coast, Kenya</b>.<br><br>
+        • <b>Ukunda Airstrip (UKA)</b>: Only 15 minutes by chauffeured luxury transfer.<br>
+        • <b>Moi International Airport Mombasa (MBA)</b>: 90 minutes via the Dongo Kundu bypass expressway or 10 minutes via private helicopter transfer to our resort helipad.<br>
+        • <b>Mombasa SGR Express Train Station</b>: 60 minutes.<br><br>
+        ✨ <i>Complimentary private luxury airport transfers are included on all stays of 3 nights or more!</i> See our map on the <a href="contact.html">Contact & Location page</a>.`,
+        chips: [
+          { label: '📅 Book with Transfer', query: 'How do I book a room?' },
+          { label: '📞 Contact Concierge', query: 'Can I speak with the human concierge desk?' },
+          { label: '🏡 Explore Villas', query: 'Tell me about the villas and rooms' }
+        ]
+      };
+    }
+
+    // 16. Contact / Phone / Email / Human Concierge
+    if (text.includes('contact') || text.includes('phone') || text.includes('email') || text.includes('call') || text.includes('whatsapp') || text.includes('human') || text.includes('talk to someone') || text.includes('manager')) {
+      return {
+        html: `You can reach our human resort management desk 24 hours a day, 7 days a week:
+        <br><br>
+        📞 <b>Direct Phone Hotline</b>: <a href="tel:+254702713853">0702713853</a> / <a href="tel:+254702713853">+254 702 713 853</a><br>
+        💬 <b>WhatsApp VIP Desk</b>: <a href="https://wa.me/254702713853" target="_blank">+254 702 713 853 (Chat Now)</a><br>
+        ✉️ <b>Management Email</b>: <a href="mailto:vledoren500@gmail.com">vledoren500@gmail.com</a><br><br>
+        Our team is always delighted to assist with bespoke itineraries, special honeymoon requests, or custom group bookings!`,
+        chips: [
+          { label: '💬 WhatsApp Us Now', query: 'Can I speak with the human concierge desk?' },
+          { label: '📅 Book Online', query: 'How do I book a room?' },
+          { label: '🍽️ Room Packages', query: 'What room packages do you offer?' }
+        ]
+      };
+    }
+
+    // 17. Default Contextual Resort Helper
+    return {
+      html: `Thank you for your question! Zevia Sands is Kenya's premier luxury coastal sanctuary in Kalmara Bay, Diani Beach, featuring private pool villas, a 40m lagoon infinity pool, and barefoot culinary excellence.
+      <br><br>
+      Here are the most popular topics I can assist you with right now:
+      <br>• 🍽️ <b>Curated Room Packages</b>: Bed & Breakfast, Half Board, Full Board, All-Inclusive
+      <br>• 🌹 <b>Bespoke Romance</b>: Rose petals on bed, chilled champagne, floating pool breakfast
+      <br>• 💰 <b>Villa Rates & Instant Quote</b>: Calculate pricing on our <a href="booking.html">Booking Portal</a>
+      <br>• 📞 <b>Direct Human Assistance</b>: WhatsApp <a href="https://wa.me/254702713853" target="_blank">+254 702 713 853</a> or email <a href="mailto:vledoren500@gmail.com">vledoren500@gmail.com</a>.
+      <br><br>
+      What would you like to explore next?`,
+      chips: [
+        { label: '🍽️ Room Packages', query: 'What room packages do you offer?' },
+        { label: '🌹 Honeymoon Rose Petals', query: 'Can I request rose petals on the bed?' },
+        { label: '💰 Villa Rates', query: 'What are your villa prices per night?' },
+        { label: '📅 Book a Room', query: 'How do I book a room?' }
+      ]
+    };
   }
 
   // Handle user query
@@ -595,18 +861,19 @@
     appendMessage('user', text, false);
     input.value = '';
 
-    // Hide chips after first query
+    // Hide old initial chips
     if (chipsContainer) chipsContainer.style.display = 'none';
 
     // Show typing indicator
     typingIndicator.classList.add('active');
     scrollBottom();
 
-    // Natural brief delay
+    // Natural brief delay for authentic response feel
     setTimeout(function() {
       typingIndicator.classList.remove('active');
-      var responseHtml = generateAIResponse(text);
-      appendMessage('bot', responseHtml, true);
+      var response = generateAIResponse(text);
+      appendMessage('bot', response.html, true);
+      renderFollowUpChips(response.chips);
     }, 450);
   }
 
