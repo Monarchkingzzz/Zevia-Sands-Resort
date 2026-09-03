@@ -515,21 +515,62 @@
     background: rgba(15, 32, 39, 0.88);
     backdrop-filter: blur(14px);
     display: none; align-items: center; justify-content: center;
-    padding: 20px;
+    padding: 16px;
   }
   .confirm-modal.open { display: flex; }
   .voucher-box {
     background: #FFF;
     border-radius: var(--radius-md);
-    max-width: 580px; width: 100%;
-    padding: 36px 32px;
+    max-width: 640px; width: 100%;
     position: relative;
-    box-shadow: 0 30px 70px rgba(0,0,0,0.35);
-    max-height: 90vh;
-    overflow-y: auto;
+    box-shadow: 0 35px 80px rgba(15,32,39,0.5);
+    border: 1px solid rgba(229,169,60,0.35);
+    max-height: min(92vh, 780px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .voucher-header {
+    background: linear-gradient(135deg, #0F2027 0%, #1A3644 100%);
+    color: #FFF;
+    padding: 18px 24px;
+    position: relative;
+    border-bottom: 2px solid var(--sun-gold);
+    flex-shrink: 0;
   }
   .voucher-close {
-    position: absolute; top: 16px; right: 20px; font-size: 28px; cursor: pointer; color: var(--navy-soft);
+    position: absolute; top: 14px; right: 18px;
+    font-size: 26px; cursor: pointer; color: #FFF;
+    opacity: 0.85; line-height: 1; transition: opacity var(--speed);
+  }
+  .voucher-close:hover { opacity: 1; }
+  .voucher-body {
+    padding: 18px 24px;
+    background: #FAF8F5;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .voucher-footer {
+    background: #FFF;
+    padding: 14px 24px;
+    border-top: 1px solid var(--line);
+    flex-shrink: 0;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
+  }
+  .voucher-actions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  @media (max-width: 540px) {
+    .confirm-modal { padding: 10px; }
+    .voucher-box { max-height: 96vh; }
+    .voucher-header { padding: 14px 16px; }
+    .voucher-body { padding: 14px 16px; }
+    .voucher-footer { padding: 12px 16px; }
+    .voucher-actions-grid { grid-template-columns: 1fr; gap: 8px; }
   }
 
   /* Footer */
@@ -955,33 +996,33 @@
 
 <!-- CONFIRMATION & VOUCHER MODAL -->
 <div class="confirm-modal" id="confirmModal">
-  <div class="voucher-box" style="max-width:640px; padding:0; overflow:hidden; border-radius:var(--radius-md); border:1px solid rgba(229,169,60,0.35); box-shadow:0 35px 80px rgba(15,32,39,0.45);">
+  <div class="voucher-box">
     
-    <!-- Prestige Header -->
-    <div style="background:linear-gradient(135deg, #0F2027 0%, #1A3644 100%); color:#FFF; padding:24px 28px; position:relative; border-bottom:2px solid var(--sun-gold);">
-      <span class="voucher-close" id="modalCloseBtn" style="color:#FFF; opacity:0.85; top:16px; right:20px;">&times;</span>
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
+    <!-- Prestige Header (Fixed at top) -->
+    <div class="voucher-header">
+      <span class="voucher-close" id="modalCloseBtn">&times;</span>
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;">
         <div>
-          <span style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--sun-gold); font-weight:700;">Zevia Sands Resort & Sanctuary</span>
-          <h2 style="color:#FFF; font-size:26px; margin-top:4px; font-weight:500;">Sanctuary Stay Confirmation</h2>
-          <div style="font-size:12.5px; color:rgba(255,255,255,0.75); margin-top:2px;">Kalmara Bay, Diani Beach · South Coast, Kenya</div>
+          <span style="font-size:10.5px; letter-spacing:0.2em; text-transform:uppercase; color:var(--sun-gold); font-weight:700;">Zevia Sands Resort & Sanctuary</span>
+          <h2 style="color:#FFF; font-size:23px; margin-top:3px; font-weight:500;">Sanctuary Stay Confirmation</h2>
+          <div style="font-size:12px; color:rgba(255,255,255,0.75); margin-top:2px;">Kalmara Bay, Diani Beach · South Coast, Kenya</div>
         </div>
         <div style="text-align:right;">
-          <div style="background:rgba(229,169,60,0.18); border:1px solid var(--sun-gold); padding:5px 12px; border-radius:var(--radius-full); display:inline-block;">
-            <span style="font-size:11px; color:var(--sun-gold); font-weight:700; letter-spacing:0.06em;">Ref: <span id="vRefCode" style="font-family:monospace; font-size:13px; color:#FFF;">ZS-2026-8942</span></span>
+          <div style="background:rgba(229,169,60,0.18); border:1px solid var(--sun-gold); padding:4px 10px; border-radius:var(--radius-full); display:inline-block;">
+            <span style="font-size:10.5px; color:var(--sun-gold); font-weight:700; letter-spacing:0.06em;">Ref: <span id="vRefCode" style="font-family:monospace; font-size:12.5px; color:#FFF;">ZS-2026-8942</span></span>
           </div>
-          <div style="font-size:11px; color:#2ECC71; font-weight:600; margin-top:4px;">● Instant Web Confirmation</div>
+          <div style="font-size:10.5px; color:#2ECC71; font-weight:600; margin-top:3px;">● Instant Web Confirmation</div>
         </div>
       </div>
     </div>
 
-    <!-- Voucher Content -->
-    <div style="padding:22px 28px; background:#FAF8F5; max-height:calc(90vh - 220px); overflow-y:auto;">
+    <!-- Voucher Content (Scrollable Middle) -->
+    <div class="voucher-body">
       
       <!-- Guest & Stay Schedule 2-Column Grid -->
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
-        <div style="background:#FFF; padding:14px 16px; border-radius:var(--radius-sm); border:1px solid var(--line); font-size:12.5px; line-height:1.65;">
-          <div style="font-weight:700; color:var(--navy); font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:5px; margin-bottom:7px; display:flex; align-items:center; gap:5px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+        <div style="background:#FFF; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--line); font-size:12px; line-height:1.6;">
+          <div style="font-weight:700; color:var(--navy); font-size:11px; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:4px; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
             <span>👤</span> Guest Profile
           </div>
           <div><span style="color:var(--text-muted);">Name:</span> <b id="vGuestName" style="color:var(--navy);">Elena Vance</b></div>
@@ -991,8 +1032,8 @@
           <div><span style="color:var(--text-muted);">Arrival:</span> <span id="vGuestArrival">Standard Check-In (14:00)</span></div>
         </div>
 
-        <div style="background:#FFF; padding:14px 16px; border-radius:var(--radius-sm); border:1px solid var(--line); font-size:12.5px; line-height:1.65;">
-          <div style="font-weight:700; color:var(--navy); font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:5px; margin-bottom:7px; display:flex; align-items:center; gap:5px;">
+        <div style="background:#FFF; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--line); font-size:12px; line-height:1.6;">
+          <div style="font-weight:700; color:var(--navy); font-size:11px; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:4px; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
             <span>🏡</span> Stay Schedule
           </div>
           <div><span style="color:var(--text-muted);">Villa:</span> <b id="vVilla" style="color:var(--ocean-blue);">Beachfront Palm Villa</b></div>
@@ -1004,71 +1045,73 @@
       </div>
 
       <!-- Meal Package Banner -->
-      <div style="background:#FFF; padding:14px 16px; border-radius:var(--radius-sm); border:1px solid var(--line); margin-bottom:14px; font-size:12.5px;">
-        <div style="font-weight:700; color:var(--navy); font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:5px; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
+      <div style="background:#FFF; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--line); margin-bottom:12px; font-size:12px;">
+        <div style="font-weight:700; color:var(--navy); font-size:11px; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:4px; margin-bottom:5px; display:flex; align-items:center; gap:5px;">
           <span>🍽️</span> Curated Room Package
         </div>
         <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;">
-          <b id="vPackage" style="font-size:14px; color:var(--navy);">Half Board (HB)</b>
-          <span id="vPackagePriceTag" style="font-size:12px; font-weight:700; color:var(--ocean-blue);">Included</span>
+          <b id="vPackage" style="font-size:13.5px; color:var(--navy);">Half Board (HB)</b>
+          <span id="vPackagePriceTag" style="font-size:11.5px; font-weight:700; color:var(--ocean-blue);">Included</span>
         </div>
-        <p id="vPackageInclusions" style="font-size:12px; color:var(--text-muted); margin-top:3px; line-height:1.45;">Daily artisan tropical breakfast buffet + 3-course beachfront dinner nightly at The Reef Lobster & Seafood Grill.</p>
+        <p id="vPackageInclusions" style="font-size:11.5px; color:var(--text-muted); margin-top:2px; line-height:1.4;">Daily artisan tropical breakfast buffet + 3-course beachfront dinner nightly at The Reef Lobster & Seafood Grill.</p>
       </div>
 
       <!-- Special Requests Card (Highlighted in Rose/Gold) -->
-      <div style="background:linear-gradient(180deg, #FFFDF9 0%, #FAF5EE 100%); padding:14px 16px; border-radius:var(--radius-sm); border:1px solid rgba(229,169,60,0.35); margin-bottom:16px; font-size:12.5px;">
-        <div style="font-weight:700; color:#B45309; font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid rgba(229,169,60,0.2); padding-bottom:5px; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
+      <div style="background:linear-gradient(180deg, #FFFDF9 0%, #FAF5EE 100%); padding:12px 14px; border-radius:var(--radius-sm); border:1px solid rgba(229,169,60,0.35); margin-bottom:12px; font-size:12px;">
+        <div style="font-weight:700; color:#B45309; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid rgba(229,169,60,0.2); padding-bottom:4px; margin-bottom:5px; display:flex; align-items:center; gap:5px;">
           <span>🌹</span> Bespoke Special Requests & Touches
         </div>
-        <div id="vSpecialReqList" style="font-size:12.5px; color:var(--navy); line-height:1.65;">
+        <div id="vSpecialReqList" style="font-size:12px; color:var(--navy); line-height:1.55;">
           • 🌹 Honeymoon Rose Petals on Bed & Floral Bath Setup
         </div>
-        <div id="vCustomNotesContainer" style="margin-top:6px; padding-top:6px; border-top:1px dashed rgba(229,169,60,0.25); font-size:12px; color:var(--text-muted); font-style:italic;">
+        <div id="vCustomNotesContainer" style="margin-top:5px; padding-top:5px; border-top:1px dashed rgba(229,169,60,0.25); font-size:11.5px; color:var(--text-muted); font-style:italic;">
           Note: "<span id="vCustomNotes">Surprise wedding anniversary celebration</span>"
         </div>
       </div>
 
       <!-- Financial Total Breakdown -->
-      <div style="background:#FFF; padding:14px 16px; border-radius:var(--radius-sm); border:1px solid var(--line); font-size:12.5px;">
-        <div style="display:flex; justify-content:space-between; margin-bottom:4px; color:var(--text-muted);">
+      <div style="background:#FFF; padding:12px 14px; border-radius:var(--radius-sm); border:1px solid var(--line); font-size:12px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:3px; color:var(--text-muted);">
           <span>Villa Nightly Subtotal:</span>
           <span id="vBillVilla">KSh 0</span>
         </div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:4px; color:var(--text-muted);">
+        <div style="display:flex; justify-content:space-between; margin-bottom:3px; color:var(--text-muted);">
           <span>Meal Package Supplement:</span>
           <span id="vBillPkg">Included</span>
         </div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:4px; color:var(--text-muted);">
+        <div style="display:flex; justify-content:space-between; margin-bottom:3px; color:var(--text-muted);">
           <span>Special Requests Fee:</span>
           <span id="vBillReq">KSh 0 (Free)</span>
         </div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:6px; color:var(--text-muted);">
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px; color:var(--text-muted);">
           <span>Service Charge & Taxes (10%):</span>
           <span id="vBillTax">KSh 0</span>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:2px solid var(--line); padding-top:8px; font-weight:700; font-size:15px; color:var(--navy);">
+        <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:2px solid var(--line); padding-top:6px; font-weight:700; font-size:14.5px; color:var(--navy);">
           <span>Total Payable at Check-In:</span>
-          <span id="vTotalAmt" style="font-size:22px; font-family:var(--font-serif); color:var(--sun-gold);">KSh 0</span>
+          <span id="vTotalAmt" style="font-size:20px; font-family:var(--font-serif); color:var(--sun-gold);">KSh 0</span>
         </div>
       </div>
 
     </div>
 
-    <!-- Action Buttons -->
-    <div style="background:#FFF; padding:18px 28px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:10px;">
-      <a id="btnVoucherWhatsapp" href="https://wa.me/254702713853" target="_blank" class="btn btn-gold" style="justify-content:center; padding:14px; font-size:14px; box-shadow:0 8px 24px rgba(229,169,60,0.3);">
-        💬 Send Reservation via WhatsApp (0702713853)
-      </a>
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-        <a id="btnVoucherEmail" href="mailto:vledoren500@gmail.com" class="btn btn-primary btn-small" style="justify-content:center; padding:11px;">
-          ✉️ Send via Email
+    <!-- Action Buttons Footer (Pinned at bottom, 100% visible) -->
+    <div class="voucher-footer">
+      <div class="voucher-actions-grid">
+        <a id="btnVoucherWhatsapp" href="https://wa.me/254702713853" target="_blank" class="btn btn-gold" style="justify-content:center; padding:11px 12px; font-size:13px; font-weight:700; text-align:center;">
+          💬 Send via WhatsApp (0702713853)
         </a>
-        <button type="button" class="btn btn-small" id="btnPrintVoucher" style="color:var(--navy); border:1px solid var(--line); background:var(--sand-bg); justify-content:center; padding:11px;">
+        <a id="btnVoucherEmail" href="mailto:vledoren500@gmail.com" class="btn btn-primary" style="justify-content:center; padding:11px 12px; font-size:13px; font-weight:700; text-align:center;">
+          ✉️ Send via Email (Concierge)
+        </a>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+        <button type="button" class="btn btn-small" id="btnPrintVoucher" style="color:var(--navy); border:1px solid var(--line); background:var(--sand-bg); padding:6px 14px; font-size:11.5px;">
           🖨️ Print / Save Voucher
         </button>
-      </div>
-      <div style="font-size:11px; color:var(--text-muted); text-align:center; margin-top:2px;">
-        Resort Helpline: <a href="tel:+254702713853" style="color:var(--ocean-blue); font-weight:600;">+254 702 713 853</a> · Email: <a href="mailto:vledoren500@gmail.com" style="color:var(--ocean-blue); font-weight:600;">vledoren500@gmail.com</a>
+        <div style="font-size:11px; color:var(--text-muted);">
+          Resort Helpline: <a href="tel:+254702713853" style="color:var(--ocean-blue); font-weight:600;">+254 702 713 853</a>
+        </div>
       </div>
     </div>
 
