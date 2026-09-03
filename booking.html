@@ -932,11 +932,11 @@
           </div>
         </div>
 
-        <!-- STEP 4: GUEST INFORMATION & LOGIN -->
+        <!-- STEP 4: GUEST INFORMATION & QUICK CHECKOUT -->
         <div class="form-card" id="step4Card">
           <h3 class="form-card-title">
             <span class="step-badge">4</span>
-            <span>Guest Information & Login</span>
+            <span>Guest Information & Quick Checkout</span>
           </h3>
 
           <div class="form-alert-banner" id="formAlertBanner">
@@ -944,10 +944,9 @@
             <span id="formAlertText">Please fill in the required guest details below to complete your reservation.</span>
           </div>
 
-          <div class="auth-tabs">
-            <button type="button" class="auth-tab active" id="tabGuest">Quick Guest Checkout</button>
-            <button type="button" class="auth-tab" id="tabLogin">Member Sign-In</button>
-          </div>
+          <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:18px;">
+            Instant guest reservation. No account or password required—we will prepare your sanctuary voucher immediately upon confirmation.
+          </p>
 
           <!-- GUEST FORM -->
           <div id="guestFormSection">
@@ -984,28 +983,6 @@
                 <option>Evening Arrival (18:00 - 21:00)</option>
                 <option>Late Night Flight (After 21:00)</option>
               </select>
-            </div>
-          </div>
-
-          <!-- LOGIN FORM -->
-          <div id="loginFormSection" style="display:none;">
-            <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:14px;">Welcome back to Zevia Sands Club. Sign in to retrieve your profile and member benefits.</p>
-            <div class="field-error-msg" id="errLogin" style="display:none; background:#FFF3F0; border:1px solid #E76F51; padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:14px;">
-              ⚠️ Incorrect member credentials. Please check your password or use "Quick Guest Checkout" to book instantly.
-            </div>
-            <div class="form-row">
-              <div class="form-group">
-                <label for="loginEmail">Email / Phone</label>
-                <input type="text" class="form-control" id="loginEmail" placeholder="Phone or Email">
-              </div>
-              <div class="form-group">
-                <label for="loginPass">Password / Security PIN</label>
-                <input type="password" class="form-control" id="loginPass" placeholder="••••••••">
-              </div>
-            </div>
-            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
-              <button type="button" class="btn btn-primary btn-small" id="btnLoginDemo">Sign In & Auto-fill Profile</button>
-              <button type="button" class="btn btn-small" id="btnSwitchToGuest" style="border:1px solid var(--line); color:var(--navy-soft);">Switch to Guest Checkout</button>
             </div>
           </div>
 
@@ -1478,46 +1455,7 @@
     });
   }
 
-  // Auth Tabs (Guest vs Login)
-  var tabGuest = document.getElementById('tabGuest');
-  var tabLogin = document.getElementById('tabLogin');
-  var guestSection = document.getElementById('guestFormSection');
-  var loginSection = document.getElementById('loginFormSection');
-  var btnSwitchToGuest = document.getElementById('btnSwitchToGuest');
-  var isMemberLoginActive = false;
-
-  function switchToGuest() {
-    tabGuest.classList.add('active');
-    tabLogin.classList.remove('active');
-    guestSection.style.display = 'block';
-    loginSection.style.display = 'none';
-    isMemberLoginActive = false;
-    clearErrors();
-  }
-
-  function switchToLogin() {
-    tabLogin.classList.add('active');
-    tabGuest.classList.remove('active');
-    guestSection.style.display = 'none';
-    loginSection.style.display = 'block';
-    isMemberLoginActive = true;
-    clearErrors();
-  }
-
-  tabGuest.addEventListener('click', switchToGuest);
-  tabLogin.addEventListener('click', switchToLogin);
-  if (btnSwitchToGuest) btnSwitchToGuest.addEventListener('click', switchToGuest);
-
-  document.getElementById('btnLoginDemo').addEventListener('click', function() {
-    document.getElementById('gName').value = 'Elena Vance';
-    document.getElementById('gPhone').value = '0702713853';
-    document.getElementById('gEmail').value = 'vledoren500@gmail.com';
-    document.getElementById('gCountry').value = 'Kenya';
-    switchToGuest();
-    showNotification('Member credentials recognized! Profile auto-filled.', '#2ECC71', '#D4EDDA');
-  });
-
-  // Validation helpers
+  // Validation helpers for Quick Guest Checkout
   var gName = document.getElementById('gName');
   var gPhone = document.getElementById('gPhone');
   var gEmail = document.getElementById('gEmail');
@@ -1527,7 +1465,6 @@
   var errName = document.getElementById('errName');
   var errPhone = document.getElementById('errPhone');
   var errEmail = document.getElementById('errEmail');
-  var errLogin = document.getElementById('errLogin');
   var formAlertBanner = document.getElementById('formAlertBanner');
   var formAlertText = document.getElementById('formAlertText');
   var sidebarErrorMsg = document.getElementById('sidebarErrorMsg');
@@ -1536,7 +1473,7 @@
     [gName, gPhone, gEmail].forEach(function(el) {
       if (el) el.classList.remove('is-invalid');
     });
-    [errName, errPhone, errEmail, errLogin].forEach(function(el) {
+    [errName, errPhone, errEmail].forEach(function(el) {
       if (el) el.style.display = 'none';
     });
     if (formAlertBanner) formAlertBanner.style.display = 'none';
@@ -1590,26 +1527,7 @@
   btnSubmitBooking.addEventListener('click', function() {
     clearErrors();
 
-    // 1. If in Member Login tab, validate login
-    if (isMemberLoginActive) {
-      var loginEmail = document.getElementById('loginEmail').value.trim();
-      var loginPass = document.getElementById('loginPass').value.trim();
-      if (!loginEmail || !loginPass) {
-        if (errLogin) {
-          errLogin.style.display = 'block';
-          errLogin.textContent = '⚠️ Incorrect member credentials. Please enter your email/phone and password, or click "Sign In & Auto-fill Profile" or switch to "Quick Guest Checkout".';
-        }
-        document.getElementById('step4Card').scrollIntoView({ behavior: 'smooth', block: 'center' });
-        return;
-      } else {
-        // Auto-fill and proceed
-        gName.value = 'Elena Vance';
-        gPhone.value = loginEmail.includes('@') ? '0702713853' : loginEmail;
-        gEmail.value = loginEmail.includes('@') ? loginEmail : 'vledoren500@gmail.com';
-      }
-    }
-
-    // 2. Validate Guest Details
+    // Validate Guest Details
     var name = gName.value.trim();
     var phone = gPhone.value.trim();
     var email = gEmail.value.trim();
