@@ -432,6 +432,39 @@
     border-color: var(--navy);
   }
 
+
+  /* Form Validation & Error States */
+  .form-control.is-invalid {
+    border-color: #E76F51 !important;
+    background: #FFF8F6 !important;
+    box-shadow: 0 0 0 3px rgba(231, 111, 81, 0.15) !important;
+  }
+  .field-error-msg {
+    color: #C0392B;
+    font-size: 11.5px;
+    font-weight: 600;
+    margin-top: 4px;
+    display: none;
+  }
+  .form-alert-banner {
+    background: #FFF3F0;
+    border: 1px solid #E76F51;
+    color: #C0392B;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    animation: fadeInAlert 0.3s ease;
+  }
+  @keyframes fadeInAlert {
+    from { opacity: 0; transform: translateY(-6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   /* Live Summary Sidebar */
   .summary-card {
     background: #FFF;
@@ -769,11 +802,16 @@
         </div>
 
         <!-- STEP 4: GUEST INFORMATION & LOGIN -->
-        <div class="form-card">
+        <div class="form-card" id="step4Card">
           <h3 class="form-card-title">
             <span class="step-badge">4</span>
             <span>Guest Information & Login</span>
           </h3>
+
+          <div class="form-alert-banner" id="formAlertBanner">
+            <span>⚠️</span>
+            <span id="formAlertText">Please fill in the required guest details below to complete your reservation.</span>
+          </div>
 
           <div class="auth-tabs">
             <button type="button" class="auth-tab active" id="tabGuest">Quick Guest Checkout</button>
@@ -786,10 +824,12 @@
               <div class="form-group">
                 <label for="gName">Full Name *</label>
                 <input type="text" class="form-control" id="gName" placeholder="e.g. Elena Vance" required>
+                <span class="field-error-msg" id="errName">⚠️ Please enter your full name (at least 3 characters).</span>
               </div>
               <div class="form-group">
                 <label for="gPhone">Phone Number / WhatsApp *</label>
                 <input type="tel" class="form-control" id="gPhone" placeholder="0702713853 or +254..." required>
+                <span class="field-error-msg" id="errPhone">⚠️ Please enter a valid phone or WhatsApp number (e.g. 0702713853 or +254...).</span>
               </div>
             </div>
 
@@ -797,6 +837,7 @@
               <div class="form-group">
                 <label for="gEmail">Email Address *</label>
                 <input type="email" class="form-control" id="gEmail" placeholder="vledoren500@gmail.com" required>
+                <span class="field-error-msg" id="errEmail">⚠️ Please enter a valid email address (e.g. name@domain.com).</span>
               </div>
               <div class="form-group">
                 <label for="gCountry">Country / City of Origin</label>
@@ -818,6 +859,9 @@
           <!-- LOGIN FORM -->
           <div id="loginFormSection" style="display:none;">
             <p style="font-size:13.5px; color:var(--text-muted); margin-bottom:14px;">Welcome back to Zevia Sands Club. Sign in to retrieve your profile and member benefits.</p>
+            <div class="field-error-msg" id="errLogin" style="display:none; background:#FFF3F0; border:1px solid #E76F51; padding:10px 14px; border-radius:var(--radius-sm); margin-bottom:14px;">
+              ⚠️ Incorrect member credentials. Please check your password or use "Quick Guest Checkout" to book instantly.
+            </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="loginEmail">Email / Phone</label>
@@ -828,7 +872,10 @@
                 <input type="password" class="form-control" id="loginPass" placeholder="••••••••">
               </div>
             </div>
-            <button type="button" class="btn btn-primary btn-small" id="btnLoginDemo" style="margin-bottom:10px;">Sign In & Auto-fill Profile</button>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:10px;">
+              <button type="button" class="btn btn-primary btn-small" id="btnLoginDemo">Sign In & Auto-fill Profile</button>
+              <button type="button" class="btn btn-small" id="btnSwitchToGuest" style="border:1px solid var(--line); color:var(--navy-soft);">Switch to Guest Checkout</button>
+            </div>
           </div>
 
         </div>
@@ -891,6 +938,9 @@
           <button type="button" class="btn btn-gold" id="btnSubmitBooking" style="width:100%; margin-top:20px; padding:15px; font-size:15px;">
             Confirm & Book Sanctuary Stay
           </button>
+          <div id="sidebarErrorMsg" style="display:none; color:#C0392B; font-size:12px; font-weight:600; text-align:center; margin-top:10px; line-height:1.4;">
+            ⚠️ Please fill in your guest details in Step 4 below.
+          </div>
 
           <p style="font-size:12px; color:var(--text-muted); text-align:center; margin-top:12px; line-height:1.5;">
             🔒 Zero deposit required for instant confirmation. Free cancellation up to 14 days before arrival.
@@ -1278,29 +1328,104 @@
   var tabLogin = document.getElementById('tabLogin');
   var guestSection = document.getElementById('guestFormSection');
   var loginSection = document.getElementById('loginFormSection');
+  var btnSwitchToGuest = document.getElementById('btnSwitchToGuest');
+  var isMemberLoginActive = false;
 
-  tabGuest.addEventListener('click', function() {
+  function switchToGuest() {
     tabGuest.classList.add('active');
     tabLogin.classList.remove('active');
     guestSection.style.display = 'block';
     loginSection.style.display = 'none';
-  });
+    isMemberLoginActive = false;
+    clearErrors();
+  }
 
-  tabLogin.addEventListener('click', function() {
+  function switchToLogin() {
     tabLogin.classList.add('active');
     tabGuest.classList.remove('active');
     guestSection.style.display = 'none';
     loginSection.style.display = 'block';
-  });
+    isMemberLoginActive = true;
+    clearErrors();
+  }
+
+  tabGuest.addEventListener('click', switchToGuest);
+  tabLogin.addEventListener('click', switchToLogin);
+  if (btnSwitchToGuest) btnSwitchToGuest.addEventListener('click', switchToGuest);
 
   document.getElementById('btnLoginDemo').addEventListener('click', function() {
     document.getElementById('gName').value = 'Elena Vance';
     document.getElementById('gPhone').value = '0702713853';
     document.getElementById('gEmail').value = 'vledoren500@gmail.com';
     document.getElementById('gCountry').value = 'Kenya';
-    tabGuest.click();
-    alert('Member credentials recognized! Profile auto-filled.');
+    switchToGuest();
+    showNotification('Member credentials recognized! Profile auto-filled.', '#2ECC71', '#D4EDDA');
   });
+
+  // Validation helpers
+  var gName = document.getElementById('gName');
+  var gPhone = document.getElementById('gPhone');
+  var gEmail = document.getElementById('gEmail');
+  var gCountry = document.getElementById('gCountry');
+  var gArrival = document.getElementById('gArrival');
+
+  var errName = document.getElementById('errName');
+  var errPhone = document.getElementById('errPhone');
+  var errEmail = document.getElementById('errEmail');
+  var errLogin = document.getElementById('errLogin');
+  var formAlertBanner = document.getElementById('formAlertBanner');
+  var formAlertText = document.getElementById('formAlertText');
+  var sidebarErrorMsg = document.getElementById('sidebarErrorMsg');
+
+  function clearErrors() {
+    [gName, gPhone, gEmail].forEach(function(el) {
+      if (el) el.classList.remove('is-invalid');
+    });
+    [errName, errPhone, errEmail, errLogin].forEach(function(el) {
+      if (el) el.style.display = 'none';
+    });
+    if (formAlertBanner) formAlertBanner.style.display = 'none';
+    if (sidebarErrorMsg) sidebarErrorMsg.style.display = 'none';
+  }
+
+  // Clear individual field errors on input
+  [gName, gPhone, gEmail].forEach(function(inputEl) {
+    if (inputEl) {
+      inputEl.addEventListener('input', function() {
+        this.classList.remove('is-invalid');
+        if (this === gName && errName) errName.style.display = 'none';
+        if (this === gPhone && errPhone) errPhone.style.display = 'none';
+        if (this === gEmail && errEmail) errEmail.style.display = 'none';
+        if (sidebarErrorMsg) sidebarErrorMsg.style.display = 'none';
+      });
+    }
+  });
+
+  function showNotification(msg, color, bg) {
+    if (!formAlertBanner) return;
+    formAlertBanner.style.display = 'flex';
+    formAlertBanner.style.color = color || '#C0392B';
+    formAlertBanner.style.background = bg || '#FFF3F0';
+    formAlertBanner.style.borderColor = color || '#E76F51';
+    formAlertText.textContent = msg;
+  }
+
+  function formatDisplayDate(dateStr) {
+    if (!dateStr) return '';
+    var p = dateStr.split('-');
+    if (p.length === 3) {
+      var d = new Date(parseInt(p[0]), parseInt(p[1]) - 1, parseInt(p[2]));
+      return d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+    }
+    return dateStr;
+  }
+
+  var pkgDescriptions = {
+    'bb': 'Daily artisan tropical breakfast buffet, barista single-origin Kenyan coffee, and fresh cold-pressed juices.',
+    'hb': 'Daily artisan breakfast + 3-course beachfront dinner nightly at The Reef Lobster & Seafood Grill.',
+    'fb': 'Daily artisan breakfast, 2-course beachfront lunch, and 3-course dinner + poolside mocktails.',
+    'ai': 'All gourmet meals, unlimited cocktails & premium wines, afternoon high tea + 1 complimentary 60-min beachside massage.'
+  };
 
   // Modal and Confirmation
   var confirmModal = document.getElementById('confirmModal');
@@ -1308,62 +1433,280 @@
   var btnSubmitBooking = document.getElementById('btnSubmitBooking');
 
   btnSubmitBooking.addEventListener('click', function() {
-    var name = document.getElementById('gName').value.trim();
-    var phone = document.getElementById('gPhone').value.trim();
-    var email = document.getElementById('gEmail').value.trim();
+    clearErrors();
 
-    if (!name || !phone || !email) {
-      alert('Please fill in your name, phone number, and email address to proceed.');
-      document.getElementById('gName').focus();
+    // 1. If in Member Login tab, validate login
+    if (isMemberLoginActive) {
+      var loginEmail = document.getElementById('loginEmail').value.trim();
+      var loginPass = document.getElementById('loginPass').value.trim();
+      if (!loginEmail || !loginPass) {
+        if (errLogin) {
+          errLogin.style.display = 'block';
+          errLogin.textContent = '⚠️ Incorrect member credentials. Please enter your email/phone and password, or click "Sign In & Auto-fill Profile" or switch to "Quick Guest Checkout".';
+        }
+        document.getElementById('step4Card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      } else {
+        // Auto-fill and proceed
+        gName.value = 'Elena Vance';
+        gPhone.value = loginEmail.includes('@') ? '0702713853' : loginEmail;
+        gEmail.value = loginEmail.includes('@') ? loginEmail : 'vledoren500@gmail.com';
+      }
+    }
+
+    // 2. Validate Guest Details
+    var name = gName.value.trim();
+    var phone = gPhone.value.trim();
+    var email = gEmail.value.trim();
+    var country = gCountry.value.trim() || 'Kenya';
+    var arrival = gArrival.value;
+    var customNotes = document.getElementById('customNotes').value.trim();
+
+    var hasError = false;
+    var firstInvalidInput = null;
+
+    // Validate Name (minimum 3 chars)
+    if (!name || name.length < 3) {
+      gName.classList.add('is-invalid');
+      if (errName) errName.style.display = 'block';
+      hasError = true;
+      if (!firstInvalidInput) firstInvalidInput = gName;
+    }
+
+    // Validate Phone (at least 9 digits, digits/plus allowed)
+    var cleanedPhone = phone.replace(/[\s\-\(\)]/g, '');
+    var phoneRegex = /^(\+?[0-9]{9,15})$/;
+    if (!cleanedPhone || !phoneRegex.test(cleanedPhone)) {
+      gPhone.classList.add('is-invalid');
+      if (errPhone) errPhone.style.display = 'block';
+      hasError = true;
+      if (!firstInvalidInput) firstInvalidInput = gPhone;
+    }
+
+    // Validate Email
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+    if (!email || !emailRegex.test(email)) {
+      gEmail.classList.add('is-invalid');
+      if (errEmail) errEmail.style.display = 'block';
+      hasError = true;
+      if (!firstInvalidInput) firstInvalidInput = gEmail;
+    }
+
+    if (hasError) {
+      showNotification('⚠️ Please correct the highlighted information in Step 4 to confirm your stay.');
+      if (sidebarErrorMsg) {
+        sidebarErrorMsg.style.display = 'block';
+        sidebarErrorMsg.textContent = '⚠️ Please enter your Name, Phone Number, and Email Address in Step 4.';
+      }
+      if (firstInvalidInput) {
+        document.getElementById('step4Card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(function() { firstInvalidInput.focus(); }, 400);
+      }
       return;
     }
 
+    // All validation passed! Calculate and display voucher
     var data = recalculate();
     var refCode = 'ZS-2026-' + Math.floor(1000 + Math.random() * 9000);
+    var issuedDate = new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 
-    document.getElementById('vRefCode').textContent = refCode;
-    document.getElementById('vGuestName').textContent = name;
-    document.getElementById('vVilla').textContent = data.villaName;
-    document.getElementById('vPackage').textContent = data.pkgName;
-    document.getElementById('vDates').textContent = data.dates + ' (' + data.nights + ' Nights)';
-    document.getElementById('vGuestsCount').textContent = data.adults + ' Adults';
+    var inFormatted = formatDisplayDate(data.checkIn);
+    var outFormatted = formatDisplayDate(data.checkOut);
+    var pkgInclusions = pkgDescriptions[data.pkgKey] || pkgDescriptions['bb'];
+
+    // Update modal elements safely
+    var elRef = document.getElementById('vRefCode'); if (elRef) elRef.textContent = refCode;
+    var elGName = document.getElementById('vGuestName'); if (elGName) elGName.textContent = name;
+    var elGPhone = document.getElementById('vGuestPhone'); if (elGPhone) elGPhone.textContent = phone;
+    var elGEmail = document.getElementById('vGuestEmail'); if (elGEmail) elGEmail.textContent = email;
+    var elGCountry = document.getElementById('vGuestCountry'); if (elGCountry) elGCountry.textContent = country;
+    var elGArrival = document.getElementById('vGuestArrival'); if (elGArrival) elGArrival.textContent = arrival;
+
+    var elVilla = document.getElementById('vVilla'); if (elVilla) elVilla.textContent = data.villaName;
+    var elDates = document.getElementById('vDates'); if (elDates) elDates.textContent = inFormatted + ' – ' + outFormatted;
+    var elNights = document.getElementById('vNights'); if (elNights) elNights.textContent = data.nights + (data.nights === 1 ? ' Night' : ' Nights');
+    var elGuests = document.getElementById('vGuestsCount'); if (elGuests) elGuests.textContent = data.adults + ' Adults' + (data.children > 0 ? ', ' + data.children + ' Children' : '');
+
+    var elPkg = document.getElementById('vPackage'); if (elPkg) elPkg.textContent = data.pkgName;
+    var elPkgPrice = document.getElementById('vPackagePriceTag'); if (elPkgPrice) elPkgPrice.textContent = data.packageTotalUSD > 0 ? '+' + data.packageTotalFormatted + ' Total' : 'Included in Base Rate';
+    var elPkgInc = document.getElementById('vPackageInclusions'); if (elPkgInc) elPkgInc.textContent = pkgInclusions;
+
+    // Special requests list in modal
+    var reqContainer = document.getElementById('vSpecialReqList');
+    if (reqContainer) {
+      if (data.selectedRequests.length > 0) {
+        reqContainer.innerHTML = data.selectedRequests.map(function(r) {
+          return '<div style="margin-bottom:3px;">• ' + r + '</div>';
+        }).join('');
+      } else {
+        reqContainer.innerHTML = '<div>• Standard luxury sanctuary setup (No additional custom requests)</div>';
+      }
+    }
+
+    var notesContainer = document.getElementById('vCustomNotesContainer');
+    var notesSpan = document.getElementById('vCustomNotes');
+    if (notesContainer && notesSpan) {
+      if (customNotes) {
+        notesContainer.style.display = 'block';
+        notesSpan.textContent = customNotes;
+      } else {
+        notesContainer.style.display = 'none';
+      }
+    }
+
+    // Bill elements in modal
+    var elBillVilla = document.getElementById('vBillVilla'); if (elBillVilla) elBillVilla.textContent = data.villaTotalFormatted;
+    var elBillPkg = document.getElementById('vBillPkg'); if (elBillPkg) elBillPkg.textContent = data.packageTotalUSD > 0 ? data.packageTotalFormatted : 'Included in Base Rate';
+    var elBillReq = document.getElementById('vBillReq'); if (elBillReq) elBillReq.textContent = data.reqFeeUSD > 0 ? data.reqFeeFormatted : 'KSh 0 (Free)';
+    var elBillTax = document.getElementById('vBillTax'); if (elBillTax) elBillTax.textContent = data.taxFormatted;
+    var elTotal = document.getElementById('vTotalAmt'); if (elTotal) elTotal.textContent = data.grandTotalFormatted;
+
+    // 1. Build ultra-prestigious WhatsApp message
+    var reqWaList = data.selectedRequests.length > 0 
+      ? data.selectedRequests.map(function(r) { return '  • ' + r; }).join('\n')
+      : '  • Standard luxury sanctuary arrangement';
     
-    var reqText = data.selectedRequests.length > 0 ? data.selectedRequests.join(', ') : 'None specified';
-    var customNotes = document.getElementById('customNotes').value.trim();
-    if (customNotes) reqText += ' | Note: ' + customNotes;
-    document.getElementById('vSpecialReq').textContent = reqText;
-    document.getElementById('vTotalAmt').textContent = data.grandTotalFormatted;
+    if (customNotes) {
+      reqWaList += '\n  • ✍️ *Bespoke Client Wishes:* "' + customNotes + '"';
+    }
 
-    // Compose WhatsApp message to 0702713853
-    var waMsg = `Hello Zevia Sands Resort! I have booked a stay via the website:%0A%0A` +
-      `📌 *Ref:* ${refCode}%0A` +
-      `👤 *Guest:* ${name}%0A` +
-      `📞 *Phone:* ${phone}%0A` +
-      `✉️ *Email:* ${email}%0A` +
-      `🏡 *Villa:* ${data.villaName}%0A` +
-      `🍽️ *Package:* ${data.pkgName}%0A` +
-      `📅 *Dates:* ${data.dates} (${data.nights} Nights)%0A` +
-      `🌹 *Special Requests:* ${encodeURIComponent(reqText)}%0A` +
-      `💰 *Total:* ${data.grandTotalFormatted}`;
+    var waLines = [
+      '🌴 *ZEVIA SANDS RESORT & SANCTUARY*',
+      '_Kalmara Bay · South Coast, Kenya_',
+      '━━━━━━━━━━━━━━━━━━━━━━━━',
+      '✨ *OFFICIAL SANCTUARY RESERVATION*',
+      '🔖 *Booking Reference:* `' + refCode + '`',
+      '📅 *Booking Date:* ' + issuedDate,
+      '━━━━━━━━━━━━━━━━━━━━━━━━',
+      '',
+      '👤 *GUEST PROFILE*',
+      '• *Primary Guest:* ' + name,
+      '• *Mobile / WhatsApp:* ' + phone,
+      '• *Email Address:* ' + email,
+      '• *Country of Origin:* ' + country,
+      '• *Estimated Arrival:* ' + arrival,
+      '',
+      '🏡 *ACCOMMODATION & STAY DETAILS*',
+      '• *Reserved Villa:* ' + data.villaName,
+      '• *Check-In:* ' + inFormatted + ' (from 14:00)',
+      '• *Check-Out:* ' + outFormatted + ' (by 11:00)',
+      '• *Total Duration:* ' + data.nights + (data.nights === 1 ? ' Night' : ' Nights'),
+      '• *Total Occupancy:* ' + data.adults + ' Adults' + (data.children > 0 ? ', ' + data.children + ' Children' : ''),
+      '',
+      '🍽️ *CURATED ROOM PACKAGE*',
+      '• *Selected Plan:* ' + data.pkgName,
+      '• *Plan Inclusions:* ' + pkgInclusions,
+      '',
+      '🌹 *BESPOKE SPECIAL REQUESTS & TOUCHES*',
+      reqWaList,
+      '',
+      '━━━━━━━━━━━━━━━━━━━━━━━━',
+      '💳 *ITEMIZED FINANCIAL SUMMARY*',
+      '• *Villa Nightly Subtotal:* ' + data.villaTotalFormatted,
+      '• *Meal Package Supplement:* ' + (data.packageTotalUSD > 0 ? data.packageTotalFormatted : 'Included in Base Rate'),
+      '• *Special Requests & Add-ons:* ' + (data.reqFeeUSD > 0 ? data.reqFeeFormatted : 'KSh 0 / Free'),
+      '• *Tourism Levy & Taxes (10%):* ' + data.taxFormatted,
+      '• *TOTAL DUE AT CHECK-IN:* `' + data.grandTotalFormatted + '`',
+      '_Zero deposit charged online · Payment payable at check-in_',
+      '━━━━━━━━━━━━━━━━━━━━━━━━',
+      '',
+      '📍 *RESORT CONCIERGE DESK*',
+      '• *Address:* Diani Beach Road, Kalmara Bay, South Coast, Kenya',
+      '• *Concierge Hotline:* +254 702 713 853',
+      '• *Concierge Email:* vledoren500@gmail.com',
+      '',
+      '_Thank you for choosing Zevia Sands. We look forward to curating an extraordinary coastal escape for you!_'
+    ];
 
-    document.getElementById('btnVoucherWhatsapp').href = `https://wa.me/254702713853?text=${waMsg}`;
-    
-    // Compose Email to vledoren500@gmail.com
-    var mailSubject = encodeURIComponent(`Booking Reservation ${refCode} - ${name}`);
-    var mailBody = decodeURIComponent(waMsg).replace(/%0A/g, '\n');
-    document.getElementById('btnVoucherEmail').href = `mailto:vledoren500@gmail.com?subject=${mailSubject}&body=${encodeURIComponent(mailBody)}`;
+    var waEncoded = encodeURIComponent(waLines.join('\n'));
+    var btnWa = document.getElementById('btnVoucherWhatsapp');
+    if (btnWa) btnWa.href = 'https://wa.me/254702713853?text=' + waEncoded;
 
-    confirmModal.classList.add('open');
+    // 2. Build ultra-prestigious Email message
+    var reqEmailList = data.selectedRequests.length > 0 
+      ? data.selectedRequests.map(function(r) { return '  • ' + r; }).join('\n')
+      : '  • Standard luxury sanctuary arrangement';
+    if (customNotes) {
+      reqEmailList += '\n  • Client Bespoke Wishes: "' + customNotes + '"';
+    }
+
+    var mailSubject = encodeURIComponent('🌴 Luxury Reservation Confirmation [' + refCode + '] — ' + name + ' | ' + data.villaName);
+    var mailBodyLines = [
+      'ZEVIA SANDS RESORT & SANCTUARY',
+      'Kalmara Bay · South Coast, Kenya',
+      '======================================================',
+      'OFFICIAL SANCTUARY RESERVATION CONFIRMATION',
+      'Booking Reference: ' + refCode,
+      'Date of Booking: ' + issuedDate,
+      'Status: Confirmed · Awaiting Arrival',
+      '======================================================',
+      '',
+      '1. GUEST PROFILE',
+      '------------------------------------------------------',
+      '• Primary Guest: ' + name,
+      '• Mobile / WhatsApp: ' + phone,
+      '• Email Address: ' + email,
+      '• Country of Origin: ' + country,
+      '• Estimated Arrival Time: ' + arrival,
+      '',
+      '2. ACCOMMODATION & STAY DETAILS',
+      '------------------------------------------------------',
+      '• Reserved Villa: ' + data.villaName,
+      '• Check-In: ' + inFormatted + ' (from 14:00)',
+      '• Check-Out: ' + outFormatted + ' (by 11:00)',
+      '• Total Duration: ' + data.nights + ' Night(s)',
+      '• Occupancy: ' + data.adults + ' Adults' + (data.children > 0 ? ', ' + data.children + ' Children' : ''),
+      '',
+      '3. CURATED ROOM PACKAGE & DINING PLAN',
+      '------------------------------------------------------',
+      '• Selected Plan: ' + data.pkgName,
+      '• Plan Inclusions: ' + pkgInclusions,
+      '',
+      '4. BESPOKE SPECIAL REQUESTS & ARRIVAL TOUCHES',
+      '------------------------------------------------------',
+      reqEmailList,
+      '',
+      '5. ITEMIZED FINANCIAL SUMMARY',
+      '------------------------------------------------------',
+      '• Villa Nightly Subtotal: ' + data.villaTotalFormatted,
+      '• Meal Plan Supplement: ' + (data.packageTotalUSD > 0 ? data.packageTotalFormatted : 'Included in Base Rate'),
+      '• Special Requests Fee: ' + (data.reqFeeUSD > 0 ? data.reqFeeFormatted : 'Free / Included'),
+      '• Tourism Levy & Taxes (10%): ' + data.taxFormatted,
+      '------------------------------------------------------',
+      'TOTAL AMOUNT PAYABLE AT CHECK-IN: ' + data.grandTotalFormatted,
+      '(Zero deposit charged online · Payment settled upon arrival at the resort)',
+      '======================================================',
+      '',
+      'RESORT CONCIERGE & CONTACTS',
+      '• Address: Diani Beach Road, Kalmara Bay, South Coast, Kenya',
+      '• Concierge Hotline: +254 702 713 853',
+      '• WhatsApp Desk: 0702713853 (https://wa.me/254702713853)',
+      '• Concierge Email: vledoren500@gmail.com',
+      '• Website: https://zeviasands.com',
+      '',
+      'Karibu Kalmara Bay! Our management desk is at your service for any pre-arrival arrangements.'
+    ];
+
+    var mailBodyEncoded = encodeURIComponent(mailBodyLines.join('\n'));
+    var btnMail = document.getElementById('btnVoucherEmail');
+    if (btnMail) btnMail.href = 'mailto:vledoren500@gmail.com?subject=' + mailSubject + '&body=' + mailBodyEncoded;
+
+    if (confirmModal) confirmModal.classList.add('open');
   });
 
-  modalCloseBtn.addEventListener('click', function() { confirmModal.classList.remove('open'); });
-  confirmModal.addEventListener('click', function(e) {
-    if (e.target === confirmModal) confirmModal.classList.remove('open');
-  });
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener('click', function() { if (confirmModal) confirmModal.classList.remove('open'); });
+  }
+  if (confirmModal) {
+    confirmModal.addEventListener('click', function(e) {
+      if (e.target === confirmModal) confirmModal.classList.remove('open');
+    });
+  }
 
-  document.getElementById('btnPrintVoucher').addEventListener('click', function() {
-    window.print();
-  });
+  var btnPrint = document.getElementById('btnPrintVoucher');
+  if (btnPrint) {
+    btnPrint.addEventListener('click', function() { window.print(); });
+  }
 
   // Mobile menu toggle
   var menuToggle = document.getElementById('menuToggle');
