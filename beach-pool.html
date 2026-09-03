@@ -49,7 +49,14 @@
   body {
     font-family: var(--font-sans);
     color: var(--navy);
-    background: var(--sand-bg);
+        background-color: var(--sand-bg);
+    background-image:
+      linear-gradient(rgba(250, 248, 245, 0.94), rgba(250, 248, 245, 0.96)),
+      url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=70');
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     line-height: 1.65;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -274,20 +281,38 @@
   .ms-price { font-size: 13px; font-weight: 700; color: var(--ocean-blue); white-space: nowrap; }
   .mobile-sticky-bar .btn { flex-shrink: 0; padding: 9px 16px; font-size: 12.5px; white-space: nowrap; }
 
-  /* Page Header */
+    /* Page Header with Soothing Resort Vibe */
   .page-hero {
-    padding: 140px 0 60px;
-    background: linear-gradient(180deg, #E8F7F9 0%, var(--sand-bg) 100%);
+    position: relative;
+    padding: 160px 0 75px;
+    background:
+      linear-gradient(180deg, rgba(15, 32, 39, 0.72) 0%, rgba(15, 32, 39, 0.48) 60%, var(--sand-bg) 100%),
+      url('https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?auto=format&fit=crop&w=1920&q=85') center / cover no-repeat;
     text-align: center;
     width: 100%;
     box-sizing: border-box;
   }
   @media (max-width: 768px) {
-    .page-hero { padding: 100px 0 45px; }
+    .page-hero { padding: 115px 0 45px; }
+  }
+  .page-hero .tag {
+    background: rgba(229, 169, 60, 0.25);
+    color: #FFF;
+    border: 1px solid rgba(229, 169, 60, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 4px 14px;
+    border-radius: var(--radius-full);
   }
   .page-hero h1 {
     font-size: clamp(32px, 6vw, 62px);
     margin-bottom: 14px;
+    color: #FFF;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+  }
+  .page-hero p, .page-hero .lede {
+    color: rgba(255, 255, 255, 0.94);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
   }
 
   /* Showcase split */
