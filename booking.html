@@ -905,41 +905,123 @@
 
 <!-- CONFIRMATION & VOUCHER MODAL -->
 <div class="confirm-modal" id="confirmModal">
-  <div class="voucher-box">
-    <span class="voucher-close" id="modalCloseBtn">&times;</span>
-    <div style="text-align:center; margin-bottom:20px;">
-      <span style="font-size:42px;">🌴</span>
-      <h2 style="font-size:30px; margin-top:8px;">Booking Confirmed!</h2>
-      <p style="color:var(--text-muted); font-size:14px;">Your sanctuary reservation has been generated successfully.</p>
-    </div>
-
-    <div style="background:var(--sand-bg); border:1px solid var(--line); border-radius:var(--radius-sm); padding:18px; font-size:13.5px; line-height:1.75; margin-bottom:20px;">
-      <div style="display:flex; justify-content:space-between; border-bottom:1px solid var(--line); padding-bottom:8px; margin-bottom:8px;">
-        <span style="font-weight:700; color:var(--ocean-blue);">Booking Reference:</span>
-        <b id="vRefCode" style="font-family:monospace; font-size:16px;">ZS-2026-8942</b>
-      </div>
-      <div><b>Guest Name:</b> <span id="vGuestName">Elena Vance</span></div>
-      <div><b>Villa:</b> <span id="vVilla">Beachfront Palm Villa</span></div>
-      <div><b>Package:</b> <span id="vPackage">Half Board (HB)</span></div>
-      <div><b>Dates:</b> <span id="vDates">Dec 10 - Dec 13 (3 Nights)</span></div>
-      <div><b>Guests:</b> <span id="vGuestsCount">2 Adults</span></div>
-      <div style="margin-top:6px; color:#A0522D;"><b>Special Requests:</b> <span id="vSpecialReq">🌹 Honeymoon Rose Petals on Bed</span></div>
-      <div style="margin-top:6px; font-weight:700; font-size:15px; color:var(--navy);">
-        Total: <span id="vTotalAmt" style="color:var(--sun-gold);">KSh 228,000</span>
+  <div class="voucher-box" style="max-width:640px; padding:0; overflow:hidden; border-radius:var(--radius-md); border:1px solid rgba(229,169,60,0.35); box-shadow:0 35px 80px rgba(15,32,39,0.45);">
+    
+    <!-- Prestige Header -->
+    <div style="background:linear-gradient(135deg, #0F2027 0%, #1A3644 100%); color:#FFF; padding:24px 28px; position:relative; border-bottom:2px solid var(--sun-gold);">
+      <span class="voucher-close" id="modalCloseBtn" style="color:#FFF; opacity:0.85; top:16px; right:20px;">&times;</span>
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
+        <div>
+          <span style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--sun-gold); font-weight:700;">Zevia Sands Resort & Sanctuary</span>
+          <h2 style="color:#FFF; font-size:26px; margin-top:4px; font-weight:500;">Sanctuary Stay Confirmation</h2>
+          <div style="font-size:12.5px; color:rgba(255,255,255,0.75); margin-top:2px;">Kalmara Bay, Diani Beach · South Coast, Kenya</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="background:rgba(229,169,60,0.18); border:1px solid var(--sun-gold); padding:5px 12px; border-radius:var(--radius-full); display:inline-block;">
+            <span style="font-size:11px; color:var(--sun-gold); font-weight:700; letter-spacing:0.06em;">Ref: <span id="vRefCode" style="font-family:monospace; font-size:13px; color:#FFF;">ZS-2026-8942</span></span>
+          </div>
+          <div style="font-size:11px; color:#2ECC71; font-weight:600; margin-top:4px;">● Instant Web Confirmation</div>
+        </div>
       </div>
     </div>
 
-    <div style="display:flex; flex-direction:column; gap:10px;">
-      <a id="btnVoucherWhatsapp" href="https://wa.me/254702713853" target="_blank" class="btn btn-gold" style="justify-content:center;">
-        💬 Send Reservation to WhatsApp (0702713853)
-      </a>
-      <a id="btnVoucherEmail" href="mailto:vledoren500@gmail.com" class="btn btn-primary" style="justify-content:center;">
-        ✉️ Email Reservation to Concierge
-      </a>
-      <button type="button" class="btn btn-small" id="btnPrintVoucher" style="color:var(--text-muted); border:1px solid var(--line); margin-top:4px;">
-        🖨️ Print / Save Booking Voucher
-      </button>
+    <!-- Voucher Content -->
+    <div style="padding:22px 28px; background:#FAF8F5; max-height:calc(90vh - 220px); overflow-y:auto;">
+      
+      <!-- Guest & Stay Schedule 2-Column Grid -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px;">
+        <div style="background:#FFF; padding:14px 16px; border-radius:var(--radius-sm); border:1px solid var(--line); font-size:12.5px; line-height:1.65;">
+          <div style="font-weight:700; color:var(--navy); font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:5px; margin-bottom:7px; display:flex; align-items:center; gap:5px;">
+            <span>👤</span> Guest Profile
+          </div>
+          <div><span style="color:var(--text-muted);">Name:</span> <b id="vGuestName" style="color:var(--navy);">Elena Vance</b></div>
+          <div><span style="color:var(--text-muted);">Phone:</span> <b id="vGuestPhone">0702713853</b></div>
+          <div><span style="color:var(--text-muted);">Email:</span> <span id="vGuestEmail" style="word-break:break-all;">guest@example.com</span></div>
+          <div><span style="color:var(--text-muted);">Origin:</span> <span id="vGuestCountry">Kenya</span></div>
+          <div><span style="color:var(--text-muted);">Arrival:</span> <span id="vGuestArrival">Standard Check-In (14:00)</span></div>
+        </div>
+
+        <div style="background:#FFF; padding:14px 16px; border-radius:var(--radius-sm); border:1px solid var(--line); font-size:12.5px; line-height:1.65;">
+          <div style="font-weight:700; color:var(--navy); font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:5px; margin-bottom:7px; display:flex; align-items:center; gap:5px;">
+            <span>🏡</span> Stay Schedule
+          </div>
+          <div><span style="color:var(--text-muted);">Villa:</span> <b id="vVilla" style="color:var(--ocean-blue);">Beachfront Palm Villa</b></div>
+          <div><span style="color:var(--text-muted);">Dates:</span> <b id="vDates">04 Sep – 07 Sep 2026</b></div>
+          <div><span style="color:var(--text-muted);">Duration:</span> <b id="vNights">3 Nights</b></div>
+          <div><span style="color:var(--text-muted);">Guests:</span> <span id="vGuestsCount">2 Adults</span></div>
+          <div><span style="color:var(--text-muted);">Policy:</span> <span>Check-in 14:00 · Check-out 11:00</span></div>
+        </div>
+      </div>
+
+      <!-- Meal Package Banner -->
+      <div style="background:#FFF; padding:14px 16px; border-radius:var(--radius-sm); border:1px solid var(--line); margin-bottom:14px; font-size:12.5px;">
+        <div style="font-weight:700; color:var(--navy); font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid var(--line); padding-bottom:5px; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
+          <span>🍽️</span> Curated Room Package
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px;">
+          <b id="vPackage" style="font-size:14px; color:var(--navy);">Half Board (HB)</b>
+          <span id="vPackagePriceTag" style="font-size:12px; font-weight:700; color:var(--ocean-blue);">Included</span>
+        </div>
+        <p id="vPackageInclusions" style="font-size:12px; color:var(--text-muted); margin-top:3px; line-height:1.45;">Daily artisan tropical breakfast buffet + 3-course beachfront dinner nightly at The Reef Lobster & Seafood Grill.</p>
+      </div>
+
+      <!-- Special Requests Card (Highlighted in Rose/Gold) -->
+      <div style="background:linear-gradient(180deg, #FFFDF9 0%, #FAF5EE 100%); padding:14px 16px; border-radius:var(--radius-sm); border:1px solid rgba(229,169,60,0.35); margin-bottom:16px; font-size:12.5px;">
+        <div style="font-weight:700; color:#B45309; font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; border-bottom:1px solid rgba(229,169,60,0.2); padding-bottom:5px; margin-bottom:6px; display:flex; align-items:center; gap:5px;">
+          <span>🌹</span> Bespoke Special Requests & Touches
+        </div>
+        <div id="vSpecialReqList" style="font-size:12.5px; color:var(--navy); line-height:1.65;">
+          • 🌹 Honeymoon Rose Petals on Bed & Floral Bath Setup
+        </div>
+        <div id="vCustomNotesContainer" style="margin-top:6px; padding-top:6px; border-top:1px dashed rgba(229,169,60,0.25); font-size:12px; color:var(--text-muted); font-style:italic;">
+          Note: "<span id="vCustomNotes">Surprise wedding anniversary celebration</span>"
+        </div>
+      </div>
+
+      <!-- Financial Total Breakdown -->
+      <div style="background:#FFF; padding:14px 16px; border-radius:var(--radius-sm); border:1px solid var(--line); font-size:12.5px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px; color:var(--text-muted);">
+          <span>Villa Nightly Subtotal:</span>
+          <span id="vBillVilla">KSh 0</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px; color:var(--text-muted);">
+          <span>Meal Package Supplement:</span>
+          <span id="vBillPkg">Included</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px; color:var(--text-muted);">
+          <span>Special Requests Fee:</span>
+          <span id="vBillReq">KSh 0 (Free)</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px; color:var(--text-muted);">
+          <span>Service Charge & Taxes (10%):</span>
+          <span id="vBillTax">KSh 0</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:baseline; border-top:2px solid var(--line); padding-top:8px; font-weight:700; font-size:15px; color:var(--navy);">
+          <span>Total Payable at Check-In:</span>
+          <span id="vTotalAmt" style="font-size:22px; font-family:var(--font-serif); color:var(--sun-gold);">KSh 0</span>
+        </div>
+      </div>
+
     </div>
+
+    <!-- Action Buttons -->
+    <div style="background:#FFF; padding:18px 28px; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:10px;">
+      <a id="btnVoucherWhatsapp" href="https://wa.me/254702713853" target="_blank" class="btn btn-gold" style="justify-content:center; padding:14px; font-size:14px; box-shadow:0 8px 24px rgba(229,169,60,0.3);">
+        💬 Send Reservation via WhatsApp (0702713853)
+      </a>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+        <a id="btnVoucherEmail" href="mailto:vledoren500@gmail.com" class="btn btn-primary btn-small" style="justify-content:center; padding:11px;">
+          ✉️ Send via Email
+        </a>
+        <button type="button" class="btn btn-small" id="btnPrintVoucher" style="color:var(--navy); border:1px solid var(--line); background:var(--sand-bg); justify-content:center; padding:11px;">
+          🖨️ Print / Save Voucher
+        </button>
+      </div>
+      <div style="font-size:11px; color:var(--text-muted); text-align:center; margin-top:2px;">
+        Resort Helpline: <a href="tel:+254702713853" style="color:var(--ocean-blue); font-weight:600;">+254 702 713 853</a> · Email: <a href="mailto:vledoren500@gmail.com" style="color:var(--ocean-blue); font-weight:600;">vledoren500@gmail.com</a>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -1121,10 +1203,24 @@
     return {
       villaName: villaName,
       nights: nights,
+      checkIn: fIn.value,
+      checkOut: fOut.value,
       dates: fIn.value + ' to ' + fOut.value,
       adults: adults,
+      children: parseInt(fChildren.value) || 0,
+      pkgKey: currentPackage,
       pkgName: pkgName,
+      pkgSuppUSD: pkgSuppUSD,
       selectedRequests: selectedRequests,
+      villaTotalUSD: villaTotalUSD,
+      packageTotalUSD: packageTotalUSD,
+      reqFeeUSD: reqFeeUSD,
+      taxUSD: taxUSD,
+      grandTotalUSD: grandTotalUSD,
+      villaTotalFormatted: formatMoney(villaTotalUSD),
+      packageTotalFormatted: formatMoney(packageTotalUSD),
+      reqFeeFormatted: formatMoney(reqFeeUSD),
+      taxFormatted: formatMoney(taxUSD),
       grandTotalFormatted: formatMoney(grandTotalUSD)
     };
   }
